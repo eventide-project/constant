@@ -57,6 +57,18 @@ SomeReceiver.const_defined?(SomeClass)
 SomeReceiver::SomeClass.new
 # => #<SomeReceiver::SomeClass:0x...>
 
+### Importing a Constant
+
+...
+
+#### Macro
+
+...
+
+#### API
+
+...
+
 ## Log Tags
 
 The following tags are applied to log messages recorded by the `Constant` operations:
