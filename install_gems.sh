@@ -11,7 +11,7 @@ echo
 echo "Installing gems to ./gems"
 echo '= = ='
 
-cmd="bundle install --standalone --path=./gems"
+cmd="bundle install --standalone"
 
 echo $cmd
 ($cmd)
