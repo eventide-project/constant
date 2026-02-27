@@ -6,13 +6,13 @@ Avoid the unintended effects of including constants by aliasing their inner cons
 
 ## Constant::Import
 
-Ruby's `include` statement is often used as an `import` statement common to other languages. An `import` is used to provide a shortcut for access constants without having to fully qualify the namespace.
+Ruby's `include` statement is often used as an `import` statement common to other languages. An `import` is used to provide a shortcut for accessing constants without having to fully qualify the namespace.
 
 However, `include` not only provides the shortcut access to inner constants, it also modifies the ancestry of the root `Object` class, and causes included constants to be accessible from namespaces other than the one that the module is included into.
 
-See the [proof](https://github.com/eventide-project/constant/blob/master/proof.rb) in this project for a demonstration.
+See the proof for a demonstration: [https://github.com/eventide-project/constant/blob/master/proof.rb](https://github.com/eventide-project/constant/blob/master/proof.rb).
 
-The `Constant::Import` utility effects the exact outcome sought by using `include` as an import: it allows inner constants to be accessible without having to fully-qualify the inner constant names, and it does not cause `Object`'s ancestry to be inadvertently modified.
+The `Constant::Import` utility effects the exact outcome sought by using `include` as an import: it allows inner constants to be accessible without having to fully-qualify the constant names with the outer constant names, and it does not cause `Object`'s ancestry to be inadvertently modified.
 
 ### Example
 
