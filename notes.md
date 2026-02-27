@@ -1,5 +1,7 @@
 # Notes
 
+- Make Ruby 4 the minimum
+
 - Document the macro syntax
 - Document the API
 
