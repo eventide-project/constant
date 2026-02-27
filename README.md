@@ -56,6 +56,7 @@ SomeReceiver.const_defined?(SomeClass)
 
 SomeReceiver::SomeClass.new
 # => #<SomeReceiver::SomeClass:0x...>
+```
 
 ### Importing a Constant
 
