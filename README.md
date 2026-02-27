@@ -19,14 +19,16 @@ The `Constant::Import` utility effects the exact outcome sought by using `includ
 ```ruby
 module SomeModule
   module SomeInnerModule
+    class SomeNestedClass
+    end
   end
 end
 
 module SomeReceiver
   include Constant::Import
 
-  import_constant SomeModule
-  import_constant SomeModule::SomeInnerModule, as: :Something
+  import SomeModule
+  import SomeModule::SomeInnerModule, alias: :Something
 end
 
 SomeReceiver.const_defined?(SomeModule)
@@ -35,11 +37,17 @@ SomeReceiver.const_defined?(SomeModule)
 SomeReceiver.const_defined?(Something)
 # => true
 
+SomeReceiver::Something
+# => SomeModule::SomeInnerModule
+
+SomeReceiver::Something::SomeNestedClass
+# => SomeModule::SomeInnerModule::SomeNestedClass
+
 SomeReceiver.const_defined?(SomeInnerModule)
 # => false
 ```
 
-Because classes are also constants, the `import_constant` macro can be used with a class, as well, which will also the class to be accessed without fully-qualifying its namespace, or by giving it an aliased name using the `as` argument.
+Because classes are also constants, the `import` macro can be used with a class, as well, which will also the class to be accessed without fully-qualifying its namespace, or by giving it an aliased name using the `as` argument.
 
 ```ruby
 module SomeModule
@@ -50,7 +58,7 @@ end
 module SomeReceiver
   include Constant::Import
 
-  import_constant SomeModule::SomeInnerClass, as: :SomeClass
+  import SomeModule::SomeInnerClass, alias: :SomeClass
 end
 
 SomeReceiver.const_defined?(SomeClass)
@@ -62,11 +70,40 @@ SomeReceiver::SomeClass.new
 
 ### Importing a Constant
 
-...
+```
+self.call(source_constant, receiver_constant, alias: nil)
+```
+
+```
+Constant::Import.(SomeModule::SomeInnerClass, self)
+
+# With aliasing
+Constant::Import.(SomeModule::SomeInnerClass, self, alias: :SomeClass)
+```
+
+The nested constants in the source constant will be accessible to the receiver constant without the receiver constant having to use the source constant's namespace.
+
+If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
+
+**Returns**
+
+The list of constants nested in the source constant that have been made available to the receiver constant's namespace.
+
+**Parameters**
+
+| Name | Description | Type |
+| --- | --- | --- |
+| source_constant | The constant whose inner constants will be made accessible without having to specify the source constant's name | Module or Class |
+| receiver_constant | The constant whose namespace will be able to access the imported source constant's namespace without fully qualifying it | Module or Class |
+| alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
 
 #### Macro
 
 ...
+
+#### Aliases
+
+The `import` macro is a convenience alias for `__import`. The `__import` method is the concrete implementation. This mechanism helps protect against a naming conflict with another library that implements a method name as common as "import".
 
 #### API
 
