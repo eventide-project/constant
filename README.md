@@ -70,6 +70,8 @@ SomeReceiver::SomeClass.new
 
 ### Importing a Constant
 
+#### API
+
 ```
 self.call(source_constant, receiver_constant, alias: nil)
 ```
@@ -101,13 +103,9 @@ The list of constants nested in the source constant that have been made availabl
 
 ...
 
-#### Aliases
+##### Aliases
 
 The `import` macro is a convenience alias for `__import`. The `__import` method is the concrete implementation. This mechanism helps protect against a naming conflict with another library that implements a method name as common as "import".
-
-#### API
-
-...
 
 ## Log Tags
 
