@@ -1,9 +1,9 @@
 # Notes
 
-√- Document the API
-√- Document the macro syntax
+- [x] Document the API
+- [x] Document the macro syntax
 
-- Make Ruby 4 the minimum
+- [x] Make Ruby 4 the minimum
 
 - Set a new constant
 - Always use an alias. Coerce the new constant name to the alias. Use "constant_name" in the implementation, but "alias" in the parameters list
@@ -15,7 +15,7 @@
 ## Work
 
 - Constant::Import
-√- Constant::Define
+- [x] Constant::Define
 
 - Macro (do this after the API)
 - API
