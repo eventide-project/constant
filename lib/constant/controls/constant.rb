@@ -1,16 +1,27 @@
 module Constant
   module Controls
     module Constant
-      module Random
-        def self.call()
-          constant_name = Name::Random.()
+      def self.example(&block)
+        mod = Module.new
 
-          receiver_constant = self
+        owner = eval('Module.nesting.first || Object', block.send(:binding))
 
-          mod = Module.new
+        prior_constant_names = owner.constants(false)
 
-          receiver_constant.const_set(constant_name, mod)
+        if not block.nil?
+          block.call
         end
+
+        current_constant_names = owner.constants(false)
+        new_constant_names = current_constant_names - prior_constant_names
+
+        new_constant_names.each do |new_constant_name|
+          new_constant = owner.const_get(new_constant_name, false)
+          owner.send(:remove_const, new_constant_name)
+          mod.const_set(new_constant_name, new_constant)
+        end
+
+        mod
       end
     end
   end
