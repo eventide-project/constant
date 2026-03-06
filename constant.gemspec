@@ -13,8 +13,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.files = Dir.glob("{lib}/**/*")
   s.platform = Gem::Platform::RUBY
-## Change to Ruby 4.0 - Scott, Fri Feb 27 2026
-  s.required_ruby_version = ">= 3.0"
+  s.required_ruby_version = ">= 4"
 
   s.add_runtime_dependency "evt-log"
 
