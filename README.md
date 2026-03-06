@@ -70,6 +70,39 @@ SomeReceiver::SomeClass.new
 
 ### Importing a Constant
 
+#### Macro
+
+```ruby
+self.import(source_constant, alias: nil)
+```
+
+```ruby
+include Constant::Import
+
+import SomeModule::SomeInnerClass, alias: :SomeClass
+```
+
+The `import` macro is activated by including the `Constant::Import` module.
+
+The nested constants in the source constant will be accessible to the receiver constant without the receiver constant having to use the source constant's namespace.
+
+If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
+
+**Returns**
+
+The list of constants nested in the source constant that have been made available to the receiver constant's namespace.
+
+**Parameters**
+
+| Name | Description | Type |
+| --- | --- | --- |
+| source_constant | The constant whose inner constants will be made accessible without having to specify the source constant's name | Module or Class |
+| alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
+
+##### Alias
+
+The `import` macro is a convenience alias for `__import_constant`. The `__import_constant` method is the concrete implementation. This mechanism helps protect against a naming conflict with another library that implements a method name as common as "import".
+
 #### API
 
 ```
@@ -98,14 +131,6 @@ The list of constants nested in the source constant that have been made availabl
 | source_constant | The constant whose inner constants will be made accessible without having to specify the source constant's name | Module or Class |
 | receiver_constant | The constant whose namespace will be able to access the imported source constant's namespace without fully qualifying it | Module or Class |
 | alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
-
-#### Macro
-
-...
-
-##### Aliases
-
-The `import` macro is a convenience alias for `__import`. The `__import` method is the concrete implementation. This mechanism helps protect against a naming conflict with another library that implements a method name as common as "import".
 
 ## Log Tags
 
