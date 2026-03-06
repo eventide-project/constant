@@ -15,7 +15,7 @@
 ## Work
 
 - Constant::Import
-- Constant::Define
+√- Constant::Define
 
 - Macro (do this after the API)
 - API
