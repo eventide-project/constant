@@ -1,7 +1,7 @@
 require_relative "automated_init"
 
 context "Define Constant" do
-  receiver_constant = Controls::Constant::Random.()
+  receiver_constant = Controls::Constant.example()
 
   new_constant_name = :SomeConstant
 
