@@ -17,7 +17,6 @@
 - Constant::Import
 - [x] Constant::Define
 
-- Macro (do this after the API)
 - API
 - Imported constant's inner constants are accessible by the receiver without using the imported constant's namespace
 - Test that the receiver constant hasn't been extended by the source constant (unless it's an alias)
@@ -25,3 +24,5 @@
 - Receiver constant's inner constants will not include the source constant
 - For an alias constant, a new constant (module) will be defined, and the source constant's inner constants will be added to it
 - Use Constant::Define to turn a constant name into a constant within a specified receiver constant
+
+- Macro (do this after the API)
