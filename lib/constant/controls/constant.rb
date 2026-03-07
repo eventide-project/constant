@@ -4,7 +4,7 @@ module Constant
       def self.example(&block)
         mod = Module.new
 
-        owner = eval('Module.nesting.first || Object', block.send(:binding))
+        owner = block.send(:binding).eval('Module.nesting.first || Object')
 
         prior_constant_names = owner.constants(false)
 
