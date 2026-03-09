@@ -2,15 +2,15 @@ module Constant
   module Controls
     module Constant
       def self.example(&block)
+        return Module.new if block.nil?
+
         mod = Module.new
 
-        owner = block.send(:binding).eval('Module.nesting.first || Object')
+        owner = block.binding.eval('Module.nesting.first || Object')
 
         prior_constant_names = owner.constants(false)
 
-        if not block.nil?
-          block.call
-        end
+        block.call
 
         current_constant_names = owner.constants(false)
         new_constant_names = current_constant_names - prior_constant_names
