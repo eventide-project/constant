@@ -2,9 +2,9 @@ module Constant
   module Controls
     module Constant
       def self.example(&block)
-        return Module.new if block.nil?
-
         mod = Module.new
+
+        return mod if block.nil?
 
         owner = block.binding.eval('Module.nesting.first || Object')
 
