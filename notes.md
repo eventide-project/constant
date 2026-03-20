@@ -33,9 +33,26 @@
   - Also for EnvVar (and for everything else in the future)
 
 
-- Test that the receiver constant hasn't been extended by the source constant (unless it's an alias)
-- Receiver constant's inner constants will include the source constant's inner constants
-- Receiver constant's inner constants will not include the source constant
+
+- [Spec] The receiver constant can't already be extended by the source constant (unless it's an alias)
+
+module Extension
+  module SomeInnerModule
+  end
+end
+
+module SomeModule
+  include Extension
+
+  import Extension # => Error (SomeModule already includes Extension)
+  import Extension, as: Something # => Not an error
+end
+
+
+- [x] [Test] Receiver constant's inner constants will include the source constant's inner constants
+
+- [Test] Receiver constant's inner constants will not include the source constant
+
 - For an alias constant, a new constant (module) will be defined, and the source constant's inner constants will be added to it
 - Use Constant::Define to turn a constant name into a constant within a specified receiver constant
 
@@ -44,19 +61,3 @@
 - Logging
 
 ---
-
-
-
-
-
-
-
-
-
-Import Constant
-
-
-
-  Inner Constants Imported:
-    SomeInnerConstant
-    SomeOtherInnerConstant
