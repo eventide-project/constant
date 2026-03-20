@@ -22,6 +22,11 @@
 
 - [Spec] The receiver constant can't already be extended by the source constant (unless it's an alias)
 
+
+- => [Test] The alias is an inner constant, and the imported inner constants are nested in the alias constant
+
+
+
 module Extension
   module SomeInnerModule
   end
@@ -37,7 +42,7 @@ end
 
 - [x] [Test] Receiver constant's inner constants will include the source constant's inner constants
 
-- [Test] Receiver constant's inner constants will not include the source constant
+- [x] [Test] Receiver constant's inner constants will not include the source constant
 
 - For an alias constant, a new constant (module) will be defined, and the source constant's inner constants will be added to it
 - Use Constant::Define to turn a constant name into a constant within a specified receiver constant
