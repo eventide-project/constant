@@ -14,25 +14,11 @@
 
 ## Work
 
-- Constant::Import
+- => Constant::Import
 - [x] Constant::Define
 
 - API
 - [x] Imported constant's inner constants are accessible by the receiver without using the imported constant's namespace
-
-- Consider creating a stateful object for the lifecycle of the queries and commands executed on a constant
-
-  c = Constant.new(...)
-  c.defined?
-
-  c = Constant.build(name, outer_constant)
-  c.class #=> Constant
-
-
-- Consider an "Eventide" root namespace
-  - Also for EnvVar (and for everything else in the future)
-
-
 
 - [Spec] The receiver constant can't already be extended by the source constant (unless it's an alias)
 
@@ -59,5 +45,21 @@ end
 - Macro (do this after the API)
 
 - Logging
+
+- Consider adding the notions in demo.rb and proof.rb to the readme. It will make the library's purpose and existence easier to understand by other Ruby devs.
+
+- Consider creating a stateful object for the lifecycle of the queries and commands executed on a constant
+
+  c = Constant.new(...)
+  c.defined?
+  c.defined?(in: SomeOtherNamespace)
+
+  c = Constant.build(name, outer_constant)
+  c.class #=> Constant
+
+
+- Consider an "Eventide" root namespace
+  - Also for EnvVar (and for everything else in the future)
+
 
 ---
