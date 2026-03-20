@@ -14,7 +14,7 @@ context "Define Constant" do
   defined = receiver_constant.const_defined?(new_constant_name)
 
   context "Defined" do
-    detail "\e[3m#{defined.inspect}\e[0m"
+    detail defined.inspect
 
     test do
       assert(defined)
