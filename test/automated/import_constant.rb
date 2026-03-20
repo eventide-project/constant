@@ -36,49 +36,16 @@ context "Import Constant" do
       end
     end
   end
-end
 
+  context "Source constant is not included into receiver constant" do
+    receiver_ancestors = receiver_constant.ancestors
 
+    comment "Receiver's Ancestors: #{receiver_ancestors.inspect}"
 
+    included = receiver_ancestors.include?(source_constant)
 
-
-
-
-
-
-
-
-__END__
-
-
-source_constant, receiver_constant
-
-
-- import a constant's inner constants
-  - need an example constant with 2 inner constants
-  - need a random constant to act as the receiver
-  - import the example constant's 2 inner constants into the receiver constant
-
-
-module SomeModule
-  module SomeInnerModule
-    class SomeNestedClass
+    test do
+      refute(included)
     end
   end
 end
-
-module SomeReceiver
-  include Constant::Import
-
-  import SomeModule
-  import SomeModule::SomeInnerModule, alias: :Something
-end
-
-SomeReceiver.const_defined?(SomeModule)
-# => true
-
-SomeReceiver.const_defined?(Something)
-# => true
-
-SomeReceiver::Something
-# => SomeModule::SomeInnerModule
