@@ -89,8 +89,6 @@ The nested constants in the source constant will be accessible to the receiver c
 If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
 
 ```ruby
-include Constant::Import
-
 import SomeModule::SomeInnerClass, alias: :SomeClass
 ```
 
@@ -117,8 +115,6 @@ self.call(source_constant, receiver_constant, alias: nil)
 
 ```ruby
 Constant::Import.(SomeModule::SomeInnerClass, self)
-
-Constant::Import.(SomeModule::SomeInnerClass, self)
 ```
 
 The nested constants in the source constant will be accessible to the receiver constant without the receiver constant having to use the source constant's namespace.
@@ -126,8 +122,6 @@ The nested constants in the source constant will be accessible to the receiver c
 If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
 
 ```ruby
-Constant::Import.(SomeModule::SomeInnerClass, self)
-
 Constant::Import.(SomeModule::SomeInnerClass, self, alias: :SomeClass)
 ```
 
