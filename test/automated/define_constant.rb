@@ -11,13 +11,21 @@ context "Define Constant" do
   comment "Receiver Constant: #{receiver_constant.inspect}"
   comment "New Constant: #{new_constant.inspect}"
 
-  defined = receiver_constant.const_defined?(new_constant_name)
-
   context "Defined" do
+    defined = receiver_constant.const_defined?(new_constant_name)
+
     detail defined.inspect
 
     test do
       assert(defined)
+    end
+  end
+
+  context "The defined constant is returned" do
+    defined_constant = receiver_constant.const_get(new_constant_name)
+
+    test do
+      assert(new_constant == defined_constant)
     end
   end
 end
