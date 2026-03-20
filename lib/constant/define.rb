@@ -3,6 +3,7 @@ module Constant
     def self.call(constant_name, receiver_constant)
       constant = Module.new
       receiver_constant.const_set(constant_name, constant)
+      constant
     end
   end
 end
