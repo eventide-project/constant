@@ -17,7 +17,7 @@ context "Import Constant" do
 
   Constant::Import.(source_constant, receiver_constant)
 
-  context "Inner Constants Imported:" do
+  context "Inner constants imported:" do
     context "SomeInnerConstant" do
       imported_constant_name = :SomeInnerConstant
       defined = receiver_constant.const_defined?(imported_constant_name, inherit=false)
