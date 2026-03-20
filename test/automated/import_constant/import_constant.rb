@@ -11,11 +11,12 @@ context "Import Constant" do
     end
   end
 
-  comment "Import: #{source_constant.inspect}"
-  comment "Inner Constants: #{source_constant.constants.inspect}"
-  comment "Receiver: #{receiver_constant.inspect}"
+  new_constants = Constant::Import.(source_constant, receiver_constant)
 
-  Constant::Import.(source_constant, receiver_constant)
+  comment "Import: #{source_constant.inspect}"
+  comment "Import Inner Constants: #{source_constant.constants.inspect}"
+  comment "Receiver: #{receiver_constant.inspect}"
+  comment "New Constants: #{new_constants.inspect}"
 
   context "Inner constants imported:" do
     context "SomeInnerConstant" do
@@ -46,6 +47,30 @@ context "Import Constant" do
 
     test do
       refute(included)
+    end
+  end
+
+  context "The imported constants are returned:" do
+    imported_constants = receiver_constant.constants
+
+    comment "Imported Constants: #{imported_constants.inspect}"
+
+    context "SomeInnerConstant" do
+      imported_constant_name = :SomeInnerConstant
+      returned = imported_constants.include?(imported_constant_name)
+
+      test do
+        assert(returned)
+      end
+    end
+
+    context "SomeOtherInnerConstant" do
+      imported_constant_name = :SomeOtherInnerConstant
+      returned = imported_constants.include?(imported_constant_name)
+
+      test do
+        assert(returned)
+      end
     end
   end
 end
