@@ -7,9 +7,17 @@ context "Define Constant" do
 
   new_constant = Constant::Define.(new_constant_name, receiver_constant)
 
+  comment "New Constant Name: #{new_constant_name.inspect}"
+  comment "Receiver Constant: #{receiver_constant.inspect}"
+  comment "New Constant: #{new_constant.inspect}"
+
   defined = receiver_constant.const_defined?(new_constant_name)
 
-  test "Defined" do
-    assert(defined)
+  context "Defined" do
+    detail "\e[3m#{defined.inspect}\e[0m"
+
+    test do
+      assert(defined)
+    end
   end
 end

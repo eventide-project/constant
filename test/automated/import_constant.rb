@@ -13,6 +13,7 @@ context "Import Constant" do
 
   comment "Import: #{source_constant.inspect}"
   comment "Inner Constants: #{source_constant.constants.inspect}"
+  comment "Receiver: #{receiver_constant.inspect}"
 
   Constant::Import.(source_constant, receiver_constant)
 
