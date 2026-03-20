@@ -137,6 +137,10 @@ The list of constants nested in the source constant that have been made availabl
 | receiver_constant | The constant whose namespace will be able to access the imported source constant's namespace without fully qualifying it | Module or Class |
 | alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
 
+## Defining a Constant
+
+To Do
+
 ## Log Tags
 
 The following tags are applied to log messages recorded by the `Constant` operations:
