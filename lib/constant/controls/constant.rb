@@ -1,25 +1,28 @@
 module Constant
   module Controls
     module Constant
-      def self.example(&block)
+      def self.example(name: nil, randomize_name: nil, &block)
         mod = Module.new
 
-        return mod if block.nil?
+        name ||= "ExampleModule"
 
-        owner = block.binding.eval('Module.nesting.first || Object')
-
-        prior_constant_names = owner.constants(false)
-
-        block.call
-
-        current_constant_names = owner.constants(false)
-        new_constant_names = current_constant_names - prior_constant_names
-
-        new_constant_names.each do |new_constant_name|
-          new_constant = owner.const_get(new_constant_name, false)
-          owner.send(:remove_const, new_constant_name)
-          mod.const_set(new_constant_name, new_constant)
+        if [nil, true].include?(randomize_name)
+          name = "#{name}_#{SecureRandom.hex(2).upcase}"
         end
+
+        Object.const_set(name, mod)
+
+        if block.nil?
+          return mod
+        end
+
+        dsl = Object.new
+
+        dsl.define_singleton_method(:const) do |name|
+          mod.const_set(name.to_s, Module.new)
+        end
+
+        dsl.instance_eval(&block)
 
         mod
       end
