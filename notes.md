@@ -1,20 +1,15 @@
 # Notes
 
-- [x] Document the API
-- [x] Document the macro syntax
 
-- [x] Make Ruby 4 the minimum
-
-- Set a new constant
-- Always use an alias. Coerce the new constant name to the alias. Use "constant_name" in the implementation, but "alias" in the parameters list
-- Default the receiver to "Object"
-- Macro always works with self
-
-- source_constant, receiver_constant
 
 ## Work
 
-- => Constant::Import
+- [x] Make Ruby 4 the minimum
+
+- [x] Document the API
+- [x] Document the macro syntax
+
+- [x] Constant::Import
 - [x] Constant::Define
 
 - API
@@ -44,10 +39,11 @@ end
 
 - [x] [Test] Receiver constant's inner constants will not include the source constant
 
-- For an alias constant, a new constant (module) will be defined, and the source constant's inner constants will be added to it
-- Use Constant::Define to turn a constant name into a constant within a specified receiver constant
+- [x] For an alias constant, a new constant (module) will be defined, and the source constant's inner constants will be added to it
+- [x] Use Constant::Define to turn a constant name into a constant within a specified receiver constant
 
 - Macro (do this after the API)
+  - Macro always works with self
 
 - Logging
 
