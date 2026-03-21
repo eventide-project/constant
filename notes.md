@@ -66,5 +66,25 @@ end
 - Consider an "Eventide" root namespace
   - Also for EnvVar (and for everything else in the future)
 
+- Return new constant objects, or get the new constants and return them so that full namespaces are present?
+
+- Constant::Get.() as an alternative to receiver_constant.const_get(alias_constant_name, inherit=false)
+  - Make inherit a keyword argument and default to false
+  - Allow a string of symbol of nested constants, eg: .("SomeConstant::SomeInnerConstant::SomeDeeperConstant")
+  - Consider whether the resolution of the constant starts from the current lexical scope if the string representation of the constant
+
+- Constant.defined?(string) as an alternative
+  - Can pass a nested string
+  - Default inherit to false
+
+- A Constant object could allow for calling ".constants" to get constant objects for inner constants, or calling ".constant_names" to get list of symbols
+  - Defaults to inherit=false
+
+- [hypothetical] Constant.resolve(source_constant=nil, *paths)
+  - Useful in the Reflect library
+  - The paths may have a single nested path, a single path, or a list of both
+  - A nested path (eg: "Foo::Bar") would be split, recursed
+  - Returns a nil rather than failing when the constant is not resolved
+
 
 ---
