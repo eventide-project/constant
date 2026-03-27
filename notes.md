@@ -18,22 +18,7 @@
 - [x] The receiver constant can't already be extended by the source constant (unless it's an alias)
 
 
-- [In Progress] [Test] The alias is an inner constant, and the imported inner constants are nested in the alias constant
-
-
-
-module Extension
-  module SomeInnerModule
-  end
-end
-
-module SomeModule
-  include Extension
-
-  import Extension # => Error (SomeModule already includes Extension)
-  import Extension, as: Something # => Not an error
-end
-
+- [x] [Test] The alias is an inner constant, and the imported inner constants are nested in the alias constant
 
 - [x] [Test] Receiver constant's inner constants will include the source constant's inner constants
 
