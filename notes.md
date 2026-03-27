@@ -18,7 +18,7 @@
 - [x] The receiver constant can't already be extended by the source constant (unless it's an alias)
 
 
-- => [Test] The alias is an inner constant, and the imported inner constants are nested in the alias constant
+- [In Progress] [Test] The alias is an inner constant, and the imported inner constants are nested in the alias constant
 
 
 
