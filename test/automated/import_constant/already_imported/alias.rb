@@ -3,9 +3,10 @@ require_relative "../../automated_init"
 context "Import Constant" do
   context "Already Imported" do
     context "Alias" do
-      source_constant = Controls::Constant.example(name: "Source") do
-        const_set(:SomeInnerConstant, Module.new)
-      end
+      source_constant = Controls::Constant.example(
+        name: "Source",
+        inner_constants: %i(SomeInnerConstant)
+      )
 
       receiver_constant = Controls::Constant.example(name: "Receiver")
       receiver_constant.include(source_constant)
