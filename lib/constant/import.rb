@@ -1,6 +1,6 @@
 module Constant
   module Import
-    Error = Class.new(StandardError)
+    Error = Class.new(RuntimeError)
 
     def self.call(source_constant, receiver_constant, **kwargs)
       alias_name = kwargs[:alias]
