@@ -1,7 +1,13 @@
 module Constant
   module Import
+    Error = Class.new(StandardError)
+
     def self.call(source_constant, receiver_constant, **kwargs)
       alias_name = kwargs[:alias]
+
+      if alias_name.nil? && receiver_constant.ancestors.include?(source_constant)
+        raise Error, "#{receiver_constant} already includes #{source_constant}"
+      end
 
       target = receiver_constant
 
