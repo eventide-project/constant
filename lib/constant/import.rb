@@ -2,6 +2,18 @@ module Constant
   module Import
     Error = Class.new(RuntimeError)
 
+    def self.included(base)
+      base.extend(Macro)
+    end
+
+    module Macro
+      def __import_constant(source_constant, **kwargs)
+        Import.(source_constant, self, **kwargs)
+      end
+
+      alias import __import_constant
+    end
+
     def self.call(source_constant, receiver_constant, **kwargs)
       alias_name = kwargs[:alias]
 
