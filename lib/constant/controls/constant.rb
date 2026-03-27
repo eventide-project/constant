@@ -1,7 +1,9 @@
 module Constant
   module Controls
     module Constant
-      def self.example(name: nil, randomize_name: nil, &block)
+      def self.example(name: nil, randomize_name: nil, inner_constants: nil)
+        inner_constants ||= []
+
         mod = Module.new
 
         name ||= "ExampleModule"
@@ -12,9 +14,17 @@ module Constant
 
         Object.const_set(name, mod)
 
-        mod.class_eval(&block) unless block.nil?
+        if not inner_constants.empty?
+          add_inner_constants(mod, inner_constants)
+        end
 
         mod
+      end
+
+      def self.add_inner_constants(mod, inner_constants)
+        inner_constants.each do |inner_constant_name|
+          mod.const_set(inner_constant_name, Module.new)
+        end
       end
     end
   end
