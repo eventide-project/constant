@@ -72,10 +72,6 @@ context "Import Constant" do
         context inner_constant_name.inspect do
           control_inner_constant_name = "#{receiver_constant.name}::#{target_constant.name.split("::").last}::#{inner_constant_name}"
 
-          receiver_inner_constant = receiver_constant.
-            const_get(target_constant_name, inherit=false).
-            const_get(inner_constant_name, inherit=false)
-
           resolved_constant = eval(control_inner_constant_name)
 
           comment "Constant Path: #{control_inner_constant_name.inspect}"
