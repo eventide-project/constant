@@ -5,8 +5,8 @@ context "Import Constant" do
     receiver_constant = Controls::Constant.example(name: "Receiver")
 
     source_constant = Controls::Constant.example(name: "Source") do
-      const :SomeInnerConstant
-      const :SomeOtherInnerConstant
+      const_set(:SomeInnerConstant, Module.new)
+      const_set(:SomeOtherInnerConstant, Module.new)
     end
 
     control_inner_constant_names = %i(
@@ -23,7 +23,7 @@ context "Import Constant" do
     target_constant = alias_constant
     target_constant_name = alias_constant_name
 
-    comment "Control Inner Constant Names: #{control_inner_constant_names}"
+    comment "Control Inner Constant Names: #{control_inner_constant_names.inspect}"
     comment "Source Constant: #{source_constant.inspect}"
     comment "\tSource Inner Constant Names: #{source_constant.constants(false).sort.inspect}"
     comment "Receiver Constant: #{receiver_constant.inspect}"

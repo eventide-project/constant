@@ -12,17 +12,7 @@ module Constant
 
         Object.const_set(name, mod)
 
-        if block.nil?
-          return mod
-        end
-
-        dsl = Object.new
-
-        dsl.define_singleton_method(:const) do |name|
-          mod.const_set(name.to_s, Module.new)
-        end
-
-        dsl.instance_eval(&block)
+        mod.class_eval(&block) unless block.nil?
 
         mod
       end

@@ -4,7 +4,7 @@ context "Import Constant" do
   context "Already Imported" do
     context "Alias" do
       source_constant = Controls::Constant.example(name: "Source") do
-        const :SomeInnerConstant
+        const_set(:SomeInnerConstant, Module.new)
       end
 
       receiver_constant = Controls::Constant.example(name: "Receiver")
