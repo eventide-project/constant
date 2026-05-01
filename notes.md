@@ -1,6 +1,10 @@
 # Notes
 
+## Claude
 
+- Plan
+- Implementation plan
+- Superhuman
 
 ## Work
 
