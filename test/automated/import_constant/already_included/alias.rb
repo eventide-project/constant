@@ -1,7 +1,7 @@
 require_relative "../../automated_init"
 
 context "Import Constant" do
-  context "Already Imported" do
+  context "Already Included" do
     context "Alias" do
       source_constant = Controls::Constant.example(
         name: "Source",
@@ -21,6 +21,7 @@ context "Import Constant" do
       comment "Receiver Constant: #{receiver_constant.inspect}"
       comment "Alias Constant Name: #{alias_constant_name.inspect}"
       comment "Alias Constant: #{alias_constant.inspect}"
+      comment "Alias Constants: #{alias_constant.constants(inherit=false).inspect}"
 
       context "Alias constant is defined" do
         defined = receiver_constant.const_defined?(alias_constant_name, inherit=false)
