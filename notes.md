@@ -4,7 +4,7 @@
 
 - Plan
 - Implementation plan
-- Superhuman
+- Superpowers
 
 ## Work
 
