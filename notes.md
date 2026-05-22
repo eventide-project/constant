@@ -33,10 +33,6 @@
   c = Constant.build(name, outer_constant)
   c.class #=> Constant
 
-
-- Consider an "Eventide" root namespace
-  - Also for EnvVar (and for everything else in the future)
-
 - Return new constant objects, or get the new constants and return them so that full namespaces are present?
 
 - Constant::Get.() as an alternative to receiver_constant.const_get(alias_constant_name, inherit=false)
