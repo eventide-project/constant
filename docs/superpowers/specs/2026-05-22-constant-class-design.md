@@ -1,0 +1,279 @@
+# Constant Class — Design
+
+Date: 2026-05-22
+
+## Summary
+
+Add a `Constant` class to the `constant` library: a stateful object that
+encapsulates the operations done with constants, so callers work through a
+domain object instead of reaching into Ruby's low-level constant internals
+(`const_get`, `const_set`, `const_defined?`, `constants`).
+
+This first cut is **query-focused**. A `Constant` instance wraps a resolved
+module or class and answers questions about it: its name, its namespace,
+whether its name is present in some other namespace, and what module/class
+constants it contains.
+
+## Background & Motivation
+
+The library currently exposes two stateless module-function utilities,
+`Constant::Import` and `Constant::Define`, each invoked through `.call`. Both
+reach directly into Ruby's constant internals.
+
+`notes.md` proposes the complementary shape: a stateful `Constant` object that
+is built once and then queried. This design covers that object, scoped to the
+operations confirmed during brainstorming. Operations noted but not selected
+for this cut are listed under "Out of Scope" below.
+
+## Vocabulary
+
+Precise terms, used consistently throughout this document:
+
+- **constant** — a name bound to a value within a module's scope (the
+  binding). A `Constant` *instance* represents a constant.
+- **value** — what a constant is bound to. In this library's domain the value
+  is always a module or class; a `Constant` instance only ever represents a
+  constant whose value is a module or class.
+- **module** — the type-precise umbrella for "a Module or a Class" (`Class` is
+  a subclass of `Module`). Where this document says "module/class" it means
+  exactly this.
+- **namespace** — the role a module plays when it is used to contain other
+  constants.
+- **inherit** — Ruby's constant-lookup flag (the second argument to
+  `const_defined?`, `const_get`, `constants`). `false` consults only the
+  module's own constant table; `true` follows the ancestor chain. This library
+  defaults `inherit` to `false` everywhere.
+
+## Section 1 — Structure & File Layout
+
+### `Constant` becomes a class
+
+The top-level `Constant` is converted from a module to a class. A class is a
+module, so everything currently nested under `Constant` (`Import`, `Define`,
+`Log`, `Controls`) continues to work unchanged — only the namespace keyword
+changes. `Import`, `Define`, `Macro`, and `Log` keep their current `.call`
+semantics, their behavior, and their existing tests. The conversion is
+behavior-neutral for them.
+
+### New file
+
+`lib/constant/constant.rb` holds the `class Constant` body: its class methods,
+its instance methods, and `Constant::Error`.
+
+### Require manifest
+
+`lib/constant.rb` gains `require "constant/constant"` as the first library
+require, before `log`, `define`, `import`, and `import/macro`. All files that
+open the namespace then agree on `class Constant`, so require order is not
+otherwise sensitive.
+
+### Mechanical edits — `module Constant` → `class Constant`
+
+The five files that open the namespace at top level switch the keyword:
+
+- `lib/constant/define.rb`
+- `lib/constant/import.rb`
+- `lib/constant/import/macro.rb`
+- `lib/constant/log.rb`
+- `lib/constant/controls/constant.rb`
+
+### Test harness edit
+
+`test/test_init.rb` line 14 does `include Constant`. A class cannot be
+`include`d, so this becomes `Controls = Constant::Controls` — a constant
+assignment that gives the test files the unqualified `Controls` they already
+use. This also removes an `include`-as-import of the kind this library exists
+to discourage.
+
+## Section 2 — Construction
+
+### `Constant.new(value)` — the initializer
+
+Purely mechanical. It records the value it is given (`@value = value`) and does
+nothing else: no validation, no deconstruction. Passing an invalid value (a
+non-module, an anonymous module) to the initializer is developer misuse and is
+not accounted for in the implementation. The initializer is the single piece
+of state the object holds.
+
+### Instance state
+
+A single instance variable, `@value`: the wrapped module/class.
+
+### `#value`
+
+Reader returning the recorded module/class.
+
+### `#name`
+
+Instance method, computed from `value` on each call: the last `::`-separated
+segment of `value.name`, as a Symbol (`Foo::Bar::Baz` → `:Baz`).
+
+### `#namespace`
+
+Instance method, computed from `value` on each call: the module named by the
+leading path of `value.name` (`Foo::Bar::Baz` → the module `Foo::Bar`); `Object`
+for a top-level constant. The path-to-module resolution is encapsulated inside
+the class — callers never touch `const_get`.
+
+Because `#name` and `#namespace` are always computed from the wrapped value,
+the instance's identity is the value's canonical identity. `build`'s `name`
+argument (below) *locates* a module; it does not *rename* the resulting
+instance.
+
+### `Constant.build(name_or_value, namespace = Object, inherit: false)` — the constructor
+
+The developer-facing constructor. It owns all convenience behavior and all
+validation in the system.
+
+- Given a **module/class** → delegates to `new` (the `namespace` and `inherit`
+  arguments are not used).
+- Given a **Symbol or String name** → resolves it within `namespace`, honoring
+  `inherit`:
+  - resolves to a module/class → `new(resolved)`
+  - the name is not defined, or it resolves to a non-module value → raises
+    `Constant::Error`
+- `build(:Name)` → `namespace` defaults to `Object`.
+- Accepts a **single** constant name only — nested-path strings (`"Foo::Bar"`)
+  are out of scope.
+- `inherit` is an optional keyword parameter, last in the parameter list,
+  defaulting to `false`. It governs the name-resolution lookup within
+  `namespace`.
+
+## Section 3 — Instance Query API
+
+### `#defined?(in: namespace, inherit: false)`
+
+Answers: *does `namespace` contain a constant whose name is this instance's
+`#name`?* Returns a boolean.
+
+- The namespace is **required**, supplied through the `in:` keyword. (`in` is a
+  Ruby reserved word, so the implementation reads it from `**kwargs` — the same
+  technique `Import` already uses for the reserved `alias:` keyword.) Omitting
+  `in:` raises `ArgumentError` — a missing required argument is a programming
+  error, mirroring how Ruby treats a missing required keyword, not an
+  applicative `Constant::Error`.
+- `inherit` keyword, default `false`.
+- There is no no-argument form. A `Constant` always wraps a resolved value, so
+  asking whether it is defined in its *own* namespace is degenerate; the method
+  only ever answers the useful question — whether the name is present in some
+  *other* namespace. The motivating use is collision-checking: before a future
+  `import`, `source.defined?(in: receiver)` reports whether the name is already
+  taken in the receiver.
+
+### `#constant_names(inherit: false)`
+
+Returns the Symbol names of the wrapped value's inner constants **whose values
+are themselves modules or classes**. Inner constants holding non-module values
+are excluded.
+
+### `#constants(inherit: false)`
+
+Returns `Constant` objects, one for each inner constant whose value is a module
+or class. Because a `Constant` only ever represents a module/class, inner
+constants holding non-module values cannot be represented and are excluded.
+
+`#constants` and `#constant_names` cover the same set of inner constants and
+correspond 1:1 — `#constant_names` gives their names, `#constants` gives them
+as `Constant` objects.
+
+Both default `inherit` to `false`.
+
+## Section 4 — Class-Level API
+
+### `Constant.defined?(name, namespace = Object, inherit: false)`
+
+Returns a boolean: `true` if `namespace` binds a constant called `name`.
+
+- A query — it **never raises**. An undefined name yields `false`.
+- A pure **name-existence** check: it reports whether the name is bound,
+  regardless of the bound value's type. Unlike `#constants` /
+  `#constant_names`, it does *not* filter by value type — a name-collision
+  check cares that a name is *taken*, not what it holds.
+- `namespace` defaults to `Object` (checking top-level constants is a genuine
+  use, so this default is not degenerate — in contrast to the instance
+  `#defined?`, which has no default namespace).
+- `name` is a single Symbol or String — no nested paths.
+- This is the primitive that the instance `#defined?` delegates to: the
+  instance supplies its own `#name`, the `in:` namespace, and `inherit`.
+
+## Error Handling
+
+`Constant::Error = Class.new(RuntimeError)` — defined in
+`lib/constant/constant.rb`, extending `RuntimeError` directly, consistent with
+the project's convention for applicative errors (e.g. `Constant::Import::Error`).
+
+`Constant::Error` is raised from exactly one place: `Constant.build`, when a
+name cannot be resolved within its namespace or resolves to a non-module value.
+The message names the unresolved constant and the namespace, e.g.
+`"SomeName is not defined in SomeNamespace"`.
+
+`new` raises nothing — it trusts its input.
+
+## Testing
+
+Tests use TestBench and live in `test/automated/`. A new directory,
+`test/automated/constant/`, mirrors the existing `import_constant/` layout:
+
+- `build.rb` — the module/class form; the name+namespace form; the default
+  namespace; `inherit`; `Constant::Error` raised on an undefined name and on a
+  name that resolves to a non-module value.
+- `name.rb` — `#name` computed from `#value`.
+- `namespace.rb` — `#namespace` computed from `#value`, including the `Object`
+  case for a top-level constant.
+- `defined.rb` — instance `#defined?` (`in:` namespace, `inherit`) and
+  class-level `Constant.defined?` (default namespace, `inherit`, `false` for an
+  undefined name).
+- `constants.rb` — `#constants` and `#constant_names`, both restricted to
+  module/class inner constants and corresponding 1:1; non-module inner
+  constants excluded.
+
+`Controls::Constant.example` supplies example modules with inner constants.
+`add_inner_constants` currently seeds each inner constant with `Module.new`; it
+needs a small extension so a test can seed a **non-module** inner constant, to
+exercise the exclusion behavior of `#constants` / `#constant_names`.
+
+The existing `Import` and `Define` tests must continue to pass unchanged —
+that is the proof that converting `Constant` from a module to a class is
+behavior-neutral.
+
+`README.md` gains a new section documenting the `Constant` class.
+
+## File-by-File Change Summary
+
+New:
+
+- `lib/constant/constant.rb` — `class Constant`: `Error`, `initialize`/`new`,
+  `build`, class `defined?`, `#value`, `#name`, `#namespace`, instance
+  `#defined?`, `#constants`, `#constant_names`.
+- `test/automated/constant/build.rb`
+- `test/automated/constant/name.rb`
+- `test/automated/constant/namespace.rb`
+- `test/automated/constant/defined.rb`
+- `test/automated/constant/constants.rb`
+
+Modified:
+
+- `lib/constant.rb` — add `require "constant/constant"` as the first library
+  require.
+- `lib/constant/define.rb` — `module Constant` → `class Constant`.
+- `lib/constant/import.rb` — `module Constant` → `class Constant`.
+- `lib/constant/import/macro.rb` — `module Constant` → `class Constant`.
+- `lib/constant/log.rb` — `module Constant` → `class Constant`.
+- `lib/constant/controls/constant.rb` — `module Constant` → `class Constant`;
+  extend the control so a non-module inner constant can be seeded.
+- `test/test_init.rb` — `include Constant` → `Controls = Constant::Controls`.
+- `README.md` — add a `Constant` class section.
+
+## Out of Scope / Deferred
+
+The following appear in `notes.md` but are deliberately excluded from this cut:
+
+- Instance commands — `#get`, `#define`, `#import`.
+- Class-level resolution helpers — `Constant::Get`, `Constant.resolve`.
+- Nested-path strings (`"Foo::Bar::Baz"`) for any name argument.
+- Logging for the `Constant` class. The library's logging guidance targets
+  `.call`-style actuators; `Constant` is a stateful object, not an actuator.
+  This can be revisited later.
+- Equality / comparison of `Constant` instances.
+- Refactoring `Import` / `Define` to delegate to the `Constant` class.
+- `#namespace` returning a `Constant` rather than a raw module.
