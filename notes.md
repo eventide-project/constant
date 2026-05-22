@@ -22,7 +22,7 @@
 - [consideration] Constant::Get
 
 - Logging
-  - Major entry points into actuator (ie: the "call" method) are logged with "trace", and exits are marked with "info"
+  - Major entry points into actuator (ie: the "call" method) are logged with "trace", and exits are marked with "debug" (use debug because the constant library is purely mechanical)
 
 - Consider adding the notions in demo.rb and proof.rb to the readme. It will make the library's purpose and existence easier to understand by other Ruby devs.
 
