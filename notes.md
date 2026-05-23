@@ -47,6 +47,24 @@
 - A Constant object could allow for calling ".constants" to get constant objects for inner constants, or calling ".constant_names" to get list of symbols
   - Defaults to inherit=false
 
+- This library will be useful in creating an implementation of Eventide's Reflect library
+  - Protocol discovery can be done by having an expression of the call chain and the constant resolution and method resolution
+  - Hypothetically, start with a constant gotten using the Constant::Get
+
+    resolved_protocol = Protocol::Get.(source_constant, &protocol_block) do |protocol|
+
+
+    resolved_protocol = Protocol::Get.(object_with_substitute_mod) do |protocol|
+      protocol.build &.get_specialization
+    end
+    ## The protocol can be executed at this point. It's ready and bound.
+    protocol.(some_arg) # maybe
+
+  - The `protocol` block arg is an invocation recorder: each method called on it returns another invocation recorder, so the block specifies a call chain rather than a dot-separated string of method names. All method calls in the chain are presumed to have no arguments.
+
+  - The constant should be retrievable from an object, as well as a module
+
+
 - [hypothetical] Constant.resolve(source_constant=nil, *paths)
   - Useful in the Reflect library
   - The paths may have a single nested path, a single path, or a list of both
