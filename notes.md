@@ -62,6 +62,10 @@
 
   - The `protocol` block arg is an invocation recorder: each method called on it returns another invocation recorder, so the block specifies a call chain rather than a dot-separated string of method names. All method calls in the chain are presumed to have no arguments.
 
+  - A `?` suffix on a link in the chain marks the *next* link as conditional on the user's implementation. The `?`-suffixed method is always invoked; the link after it is invoked only if the return value responds to it. Example: `protocol.some_method?.method_that_might_not_be_supported` — `some_method` is always called; if its return value doesn't respond to `method_that_might_not_be_supported`, the protocol result is the return value of `some_method`; otherwise the protocol result is `some_method.method_that_might_not_be_supported`.
+    - Use case: a `Substitute` module may produce a basic diagnostic substitute, and optionally a more refined one via a deeper method. The protocol picks up the refinement when present and falls back to the basic substitute when not.
+    - Protocols never have predicate methods, so the `?` suffix is unambiguously the conditional-next-link operator.
+
   - The constant should be retrievable from an object, as well as a module
 
 
