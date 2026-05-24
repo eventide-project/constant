@@ -70,6 +70,19 @@
 
   - [research] Study the Eventide `dependency` library's implementation, document how it performs protocol discovery today, then attempt to re-express that discovery using the prospective `Protocol::Get` DSL above. Goal: validate the DSL against a real existing protocol-discovery use case before designing further.
 
+    - **Where it lives:** `dependency` is a thin shim over `subst-attr`. The actual discovery is `SubstAttr::Substitute.build` in `subst-attr/lib/subst_attr/substitute.rb:5-28`.
+    - **Discovery algorithm:**
+      1. No interface → `NullObject.build`.
+      2. Look up inner `Substitute` constant on the interface with ancestor inheritance, via `Reflect.(interface, :Substitute, strict: false, ancestors: true)`. Special case: if the lookup resolves back to `SubstAttr::Substitute` itself (because the user `include`d the library), treat as not-found.
+      3. No `Substitute` constant → plain mimic of the interface.
+      4. `Substitute.respond_to?(:build)` → return `Substitute.build`.
+      5. Otherwise → build a mimic and `extend` it with the `Substitute` module.
+    - **Design tension surfaced for the DSL:**
+      - The first decision point is *constant lookup*, not a method call. The recorder needs a constant-lookup operator (e.g. `protocol::Substitute?`), or this step belongs outside the DSL and only the post-lookup method dispatch is expressed in it.
+      - The `?` operator as sketched returns the previous link's value if the next link isn't supported. For branches 4 vs 5, the caller would need to distinguish "got the `build` return value" from "got the `Substitute` module itself" — currently only inferable via `is_a?(Module)`, which is uglier than the existing imperative code.
+      - Branch 3 (no `Substitute` at all) returns a value of an entirely different shape (a mimic), so it doesn't sit naturally as a chain result — the caller still has to branch.
+    - **Conclusion so far:** the discovery is small (5 branches in ~20 lines) but it exercises three things the DSL doesn't yet handle: constant lookup, distinguishing which chain link produced the result, and a default-construction fallback when discovery yields nothing. Open: either extend the DSL to cover all three, or scope it to the method-dispatch portion only and keep the constant lookup / fallback as caller code.
+
 
 - [hypothetical] Constant.resolve(source_constant=nil, *paths)
   - Useful in the Reflect library
