@@ -83,6 +83,19 @@
       - Branch 3 (no `Substitute` at all) returns a value of an entirely different shape (a mimic), so it doesn't sit naturally as a chain result — the caller still has to branch.
     - **Conclusion so far:** the discovery is small (5 branches in ~20 lines) but it exercises three things the DSL doesn't yet handle: constant lookup, distinguishing which chain link produced the result, and a default-construction fallback when discovery yields nothing. Open: either extend the DSL to cover all three, or scope it to the method-dispatch portion only and keep the constant lookup / fallback as caller code.
 
+    - **"Scope the DSL to method dispatch only" — what it means:** the DSL records a method-call chain on an already-resolved object. The caller does the constant lookup separately (using `Constant::Get`), then hands the result to `Protocol::Get`. Instead of one DSL expression covering all of discovery (which would require new operators for constant lookup and absence handling), the caller splits the work:
+
+        ```ruby
+        substitute_mod = Constant::Get.(interface, :Substitute, inherit: true)  # nil if absent
+        return mimic(interface, record) if substitute_mod.nil?
+
+        result = Protocol::Get.(substitute_mod) do |protocol|
+          protocol.build?
+        end
+        ```
+
+      The DSL now only records `.build?` — pure method dispatch, which is what the recorder was originally framed for. Constant lookup with ancestor inheritance stays in `Constant::Get`. The fallback to `mimic(interface, record)` when the constant is absent stays in caller code. Trade-off: keeps the DSL small and consistent with its current sketch, at the cost of splitting discovery into two phases instead of one expression.
+
 
 - [hypothetical] Constant.resolve(source_constant=nil, *paths)
   - Useful in the Reflect library
