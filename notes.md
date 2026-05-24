@@ -68,6 +68,8 @@
 
   - The constant should be retrievable from an object, as well as a module
 
+  - [research] Study the Eventide `dependency` library's implementation, document how it performs protocol discovery today, then attempt to re-express that discovery using the prospective `Protocol::Get` DSL above. Goal: validate the DSL against a real existing protocol-discovery use case before designing further.
+
 
 - [hypothetical] Constant.resolve(source_constant=nil, *paths)
   - Useful in the Reflect library
