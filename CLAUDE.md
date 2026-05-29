@@ -55,3 +55,12 @@ All Claude/agent artifacts for this project live under a single top-level `agent
 If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
 
 When working with Superpowers `brainstorming` artifacts, use the word **design** rather than **spec** in commit messages, PR descriptions, and prose addressed to the user. The skill's own internal language ("spec self-review", "spec reviewer subagent") may stay as-is — the rule applies to anything you author. The artifact filenames already end in `-design.md`, so the user-facing vocabulary is consistent: the file is a *design*, the folder is `agent/design/`, and commits say "design."
+
+### Decision log — `agent/log/`
+
+Record decisions made during sessions as one file per decision in `agent/log/`.
+
+- **Trigger:** detect — write an entry whenever a real decision is made (the user picks among alternatives, accepts/rejects an approach, or sets a rule that will guide future work). Don't wait to be asked. When in doubt, log it; over-logging is cheaper than under-logging here.
+- **Filename:** `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md`, where the timestamp is **UTC** (compute with `date -u +%Y-%m-%dT%H-%M-%SZ`). ISO 8601 with colons replaced by hyphens for cross-platform filename safety. Contributors are globally distributed, so UTC is mandatory — never use local time.
+- **Content:** one line — `# <title>`. The title states the decision. No body, no template. Keep titles informative enough to skim.
+- **Commit:** include log entries in the same commit as the change they describe, or commit them separately with a `Log:` prefix. Don't sit on them.
