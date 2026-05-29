@@ -1,4 +1,4 @@
-module Constant
+class Constant
   module Controls
     module Constant
       def self.example(name: nil, randomize_name: nil, inner_constants: nil)
