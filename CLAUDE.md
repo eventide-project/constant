@@ -44,3 +44,14 @@ Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/
 
 - Do not use the safe navigation operator (`&.`).
 - `Constant::Import::Error` and similar applicative errors extend directly from `RuntimeError`.
+
+## Agent artifacts
+
+All Claude/agent artifacts for this project live under a single top-level `agent/` folder so they can be committed to git alongside the code.
+
+- `agent/memory/` — auto-memory files (`MEMORY.md` index plus per-memory `.md` files). **Do not** write memory to `~/.claude/projects/.../memory/`.
+- `agent/design/` — design specs (Superpowers `brainstorming` skill output). Overrides the Superpowers default of `docs/superpowers/specs/`. Filename convention stays `YYYY-MM-DD-<topic>-design.md`.
+
+If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
+
+When working with Superpowers `brainstorming` artifacts, use the word **design** rather than **spec** in commit messages, PR descriptions, and prose addressed to the user. The skill's own internal language ("spec self-review", "spec reviewer subagent") may stay as-is — the rule applies to anything you author. The artifact filenames already end in `-design.md`, so the user-facing vocabulary is consistent: the file is a *design*, the folder is `agent/design/`, and commits say "design."
