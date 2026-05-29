@@ -90,7 +90,7 @@
         return mimic(interface, record) if substitute_mod.nil?
 
         result = Protocol::Get.(substitute_mod) do |protocol|
-          protocol.build?
+          protocol.build.get_specialization?
         end
         ```
 
