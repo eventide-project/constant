@@ -61,7 +61,7 @@ When working with Superpowers `brainstorming` artifacts, use the word **design**
 `agent/rules/` holds the project's binding rules — naming conventions, terminology, plan-writing norms, commit conventions, and the like — one rule per file.
 
 - **Read every file in `agent/rules/` at the start of a session and follow them.** They override default behavior where they conflict (explicit user instructions still win).
-- **Format:** frontmatter-free markdown — a `# <title>` stating the rule, the rule in prose, then short `**Why:**` and `**How to apply:**` lines. Filename is a `<kebab-slug>.md`.
+- **Format:** frontmatter-free markdown — a `# <title>` stating the rule, the rule in prose, then short `**Why:**` and `**How to apply:**` lines. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md` — UTC, same as the decision log, with the timestamp synced to the file's creation time.
 - **Recording a new rule:** when the user states a rule, or a decision sets a rule for future work, add it here as a new file, and add a matching one-line entry to `agent/log/`.
 
 ### Decision log — `agent/log/`

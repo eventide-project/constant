@@ -4,4 +4,4 @@ The helpers under `lib/constant/controls/` (e.g. `Controls::Constant`) that buil
 
 **Why:** "Controls" is the established TestBench vocabulary the user works in; "factory" is foreign terminology that the user does not want mixed in. (The project `CLAUDE.md` once described them parenthetically as "factories for building example constants," which seeded earlier slips — that parenthetical has been corrected.)
 
-**How to apply:** When naming or describing these helpers anywhere — plan task titles, prose, commit messages, decision-log entries, code comments — use "control(s)". Build example constants "through `Controls::Constant`," not "through the factory." Related: `control-prefix-test-vars.md`.
+**How to apply:** When naming or describing these helpers anywhere — plan task titles, prose, commit messages, decision-log entries, code comments — use "control(s)". Build example constants "through `Controls::Constant`," not "through the factory." Related: the `control_` test-variable prefix rule.

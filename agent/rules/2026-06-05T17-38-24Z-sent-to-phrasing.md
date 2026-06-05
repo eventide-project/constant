@@ -4,4 +4,4 @@ When describing a value that is passed into a method or an initializer — in Te
 
 **Why:** "Sent to" is the messaging vocabulary the user works in (Eventide ecosystem); it frames a call as sending a message with arguments. The user corrected "initialized with" → "sent to the initializer" directly.
 
-**How to apply:** In `test "..."` descriptions and similar prose, say a value is "sent to" the method/initializer that receives it. Related: `control-prefix-test-vars.md`.
+**How to apply:** In `test "..."` descriptions and similar prose, say a value is "sent to" the method/initializer that receives it. Related: the `control_` test-variable prefix rule.
