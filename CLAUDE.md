@@ -38,7 +38,7 @@ Creates a new anonymous `Module`, assigns it as a named constant inside a receiv
 Gems are installed locally into `./gems` using `bundle --standalone`. The `load_path.rb` file bootstraps this standalone setup and optionally prepends a `LIBRARIES_HOME` env var path (used in Eventide monorepo development to point at sibling library source directories).
 
 ### Testing
-Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/automated/`. Test controls (factories for building example constants) are in `lib/constant/controls/`. The test entry point `test/automated.rb` excludes `_init`, `*sketch*`, and `*_tests` files from auto-discovery.
+Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/automated/`. Controls — the TestBench helpers that build example constants for tests — are in `lib/constant/controls/`. The test entry point `test/automated.rb` excludes `_init`, `*sketch*`, and `*_tests` files from auto-discovery.
 
 ## Code Style
 
