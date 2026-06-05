@@ -31,7 +31,7 @@
 
 **Why atomic:** Once any file reopens `Constant` as a `class` while another file still says `module Constant`, the require chain fails with `TypeError: Constant is not a module` (or vice versa). All seven files must change together before the suite can run. No intermediate commit is viable.
 
-- [ ] **Step 1: Create the skeleton file**
+- [x] **Step 1: Create the skeleton file**
 
 Write `lib/constant/constant.rb` with this content:
 
@@ -40,7 +40,7 @@ class Constant
 end
 ```
 
-- [ ] **Step 2: Flip `module Constant` to `class Constant` in `lib/constant/define.rb`**
+- [x] **Step 2: Replace `module Constant` with `class Constant` in `lib/constant/define.rb`**
 
 ```ruby
 class Constant
@@ -54,7 +54,7 @@ class Constant
 end
 ```
 
-- [ ] **Step 3: Flip in `lib/constant/import.rb`**
+- [x] **Step 3: Replace in `lib/constant/import.rb`**
 
 Only the opening keyword changes. The full file becomes:
 
@@ -96,7 +96,7 @@ class Constant
 end
 ```
 
-- [ ] **Step 4: Flip in `lib/constant/import/macro.rb`**
+- [x] **Step 4: Replace in `lib/constant/import/macro.rb`**
 
 ```ruby
 class Constant
@@ -112,7 +112,7 @@ class Constant
 end
 ```
 
-- [ ] **Step 5: Flip in `lib/constant/log.rb`**
+- [x] **Step 5: Replace in `lib/constant/log.rb`**
 
 ```ruby
 class Constant
@@ -124,7 +124,7 @@ class Constant
 end
 ```
 
-- [ ] **Step 6: Flip in `lib/constant/controls/constant.rb`**
+- [x] **Step 6: Replace in `lib/constant/controls/constant.rb`**
 
 Only the outer keyword changes. The full file becomes:
 
@@ -164,7 +164,7 @@ end
 
 (The inner `module Constant` — the test-control namespace — remains a module; only the outermost keyword changes. Task 9 will extend this file further to seed non-module inner constants.)
 
-- [ ] **Step 7: Wire the new file into `lib/constant.rb`**
+- [x] **Step 7: Add constant.rb to the library loader**
 
 Add `require "constant/constant"` as the first library require, before `constant/log`. Result:
 
@@ -178,7 +178,7 @@ require "constant/import"
 require "constant/import/macro"
 ```
 
-- [ ] **Step 8: Update `test/test_init.rb`**
+- [x] **Step 8: Update `test/test_init.rb`**
 
 A class cannot be `include`d, so the test harness must stop including `Constant`. Replace line 14 `include Constant` with `Controls = Constant::Controls`. The unqualified `Controls` is the only symbol any test file used from the include, and it now resolves via the new top-level constant assignment.
 
@@ -190,12 +190,12 @@ require 'test_bench'; TestBench.activate
 Controls = Constant::Controls
 ```
 
-- [ ] **Step 9: Run the existing suite — must pass unchanged**
+- [x] **Step 9: Run the existing suite — must pass unchanged**
 
 Run: `ruby test/automated.rb`
 Expected: every existing test in `import_constant/`, `define_constant.rb`, the `macro` group, and `already_included` passes. This is the proof that the module → class conversion is behavior-neutral.
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add lib/constant/constant.rb \
@@ -290,9 +290,9 @@ require_relative "../automated_init"
 
 context "Constant" do
   context "#name" do
-    outer_module = Controls::Constant.example(name: "Outer")
     inner_module_name = :Inner
-    outer_module.const_set(inner_module_name, Module.new)
+
+    outer_module = Controls::Constant.example(name: "Outer", inner_constants: [inner_module_name])
     inner_module = outer_module.const_get(inner_module_name)
 
     constant = Constant.new(inner_module)
@@ -306,6 +306,8 @@ context "Constant" do
   end
 end
 ```
+
+**Test convention:** when a test needs an inner module under a controls-built outer module, use the factory's `inner_constants:` keyword rather than manual `const_set` / `const_get` pairs. The factory exists to absorb that setup. Reserve manual `const_set` for non-module bindings (until Task 9 adds `inner_values:`).
 
 - [ ] **Step 2: Run the test to verify it fails**
 
@@ -354,8 +356,7 @@ require_relative "../automated_init"
 context "Constant" do
   context "#namespace" do
     context "Nested constant" do
-      outer_module = Controls::Constant.example(name: "Outer")
-      outer_module.const_set(:Inner, Module.new)
+      outer_module = Controls::Constant.example(name: "Outer", inner_constants: [:Inner])
       inner_module = outer_module.const_get(:Inner)
 
       constant = Constant.new(inner_module)
@@ -498,8 +499,7 @@ Append new contexts to `test/automated/constant/build.rb`, inside the existing `
 ```ruby
     context "Name given" do
       context "Resolves to a module" do
-        outer_module = Controls::Constant.example(name: "Outer")
-        outer_module.const_set(:Inner, Module.new)
+        outer_module = Controls::Constant.example(name: "Outer", inner_constants: [:Inner])
         inner_module = outer_module.const_get(:Inner)
 
         constant = Constant.build(:Inner, outer_module)
@@ -642,8 +642,7 @@ require_relative "../automated_init"
 
 context "Constant" do
   context ".defined?" do
-    host_module = Controls::Constant.example()
-    host_module.const_set(:Present, Module.new)
+    host_module = Controls::Constant.example(inner_constants: [:Present])
     host_module.const_set(:NotAModule, 42)
 
     comment "Host Module: #{host_module.inspect}"
@@ -722,8 +721,7 @@ Append a new top-level context to `test/automated/constant/defined.rb` (after th
 ```ruby
 context "Constant" do
   context "#defined?" do
-    host_module = Controls::Constant.example()
-    host_module.const_set(:Inner, Module.new)
+    host_module = Controls::Constant.example(inner_constants: [:Inner])
     inner_value = host_module.const_get(:Inner)
 
     different_namespace = Controls::Constant.example()
