@@ -49,12 +49,20 @@ Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/
 
 All Claude/agent artifacts for this project live under a single top-level `agent/` folder so they can be committed to git alongside the code.
 
-- `agent/memory/` — auto-memory files (`MEMORY.md` index plus per-memory `.md` files). **Do not** write memory to `~/.claude/projects/.../memory/`.
+- `agent/rules/` — binding project rules/conventions, one per file (see **Rules** below).
 - `agent/design/` — design specs (Superpowers `brainstorming` skill output). Overrides the Superpowers default of `docs/superpowers/specs/`. Filename convention stays `YYYY-MM-DD-<topic>-design.md`.
 
 If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
 
 When working with Superpowers `brainstorming` artifacts, use the word **design** rather than **spec** in commit messages, PR descriptions, and prose addressed to the user. The skill's own internal language ("spec self-review", "spec reviewer subagent") may stay as-is — the rule applies to anything you author. The artifact filenames already end in `-design.md`, so the user-facing vocabulary is consistent: the file is a *design*, the folder is `agent/design/`, and commits say "design."
+
+### Rules — `agent/rules/`
+
+`agent/rules/` holds the project's binding rules — naming conventions, terminology, plan-writing norms, commit conventions, and the like — one rule per file.
+
+- **Read every file in `agent/rules/` at the start of a session and follow them.** They override default behavior where they conflict (explicit user instructions still win).
+- **Format:** frontmatter-free markdown — a `# <title>` stating the rule, the rule in prose, then short `**Why:**` and `**How to apply:**` lines. Filename is a `<kebab-slug>.md`.
+- **Recording a new rule:** when the user states a rule, or a decision sets a rule for future work, add it here as a new file, and add a matching one-line entry to `agent/log/`.
 
 ### Decision log — `agent/log/`
 

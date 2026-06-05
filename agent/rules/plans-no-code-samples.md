@@ -1,9 +1,4 @@
----
-name: Implementation plans contain no code samples
-description: Implementation plans must never include code blocks/samples. Plans describe intent, files, and behavior; Claude generates the actual code interactively, on the user's command.
-metadata:
-  type: feedback
----
+# Implementation plans contain no code samples
 
 Implementation plans (e.g. `agent/plans/*.md`) must never contain code samples — no Ruby blocks, no literal method bodies, no "write this content" snippets. A plan describes the intended work and outcomes in prose. Code is produced later, interactively, when the user directs it.
 
@@ -11,4 +6,4 @@ Plans should also avoid over-prescription. Don't commit up front to specific met
 
 **Why:** The user wants to direct code generation at their command rather than have plans pre-bake implementation. Code samples and premature naming lock in decisions early and remove the interactive, incremental control the user wants over how the work is shaped.
 
-**How to apply:** When writing or revising a plan, describe each step's intent and expected outcome in prose only — no code, and no invented method/file names where those aren't yet decided. When it's time to implement, generate code only on the user's explicit instruction, in the increments they choose. See [[feedback_no_claude_coauthor]] for the related repo-style commit rule.
+**How to apply:** When writing or revising a plan, describe each step's intent and expected outcome in prose only — no code, and no invented method/file names where those aren't yet decided. When it's time to implement, generate code only on the user's explicit instruction, in the increments they choose.

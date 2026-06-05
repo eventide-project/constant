@@ -1,9 +1,4 @@
----
-name: No Claude co-author trailer in commits
-description: Do not add a "Co-Authored-By: Claude ..." trailer (or any AI co-authorship attribution) to git commits. Applies globally.
-metadata:
-  type: feedback
----
+# No Claude co-author trailer in commits
 
 Do not add a `Co-Authored-By: Claude …` trailer (or any other "co-authored by Claude/Anthropic" attribution) to any commit you create. The commit should appear as authored by the user only.
 
