@@ -1,3 +1,4 @@
+require "initializer"
 require "log"
 
 require "constant/constant"

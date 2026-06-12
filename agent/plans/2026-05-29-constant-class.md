@@ -32,7 +32,7 @@ The change is atomic: the moment one file reopens `Constant` as a class while an
 
 ## Task 2: Initialization
 
-- [ ] A `Constant` is initialized with a value that is a constant object. The value is exposed on the instance via an attribute reader.
+- [x] A `Constant` is initialized with a value that is a constant object. The value is exposed on the instance via an attribute reader.
 
 ---
 
