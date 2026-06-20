@@ -1,5 +1,7 @@
+require "initializer"
 require "log"
 
+require "constant/constant"
 require "constant/log"
 require "constant/define"
 require "constant/import"

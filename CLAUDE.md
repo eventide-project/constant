@@ -38,7 +38,7 @@ Creates a new anonymous `Module`, assigns it as a named constant inside a receiv
 Gems are installed locally into `./gems` using `bundle --standalone`. The `load_path.rb` file bootstraps this standalone setup and optionally prepends a `LIBRARIES_HOME` env var path (used in Eventide monorepo development to point at sibling library source directories).
 
 ### Testing
-Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/automated/`. Test controls (factories for building example constants) are in `lib/constant/controls/`. The test entry point `test/automated.rb` excludes `_init`, `*sketch*`, and `*_tests` files from auto-discovery.
+Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/automated/`. Controls — the TestBench helpers that build example constants for tests — are in `lib/constant/controls/`. The test entry point `test/automated.rb` excludes `_init`, `*sketch*`, and `*_tests` files from auto-discovery.
 
 ## Code Style
 
@@ -49,12 +49,30 @@ Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/
 
 All Claude/agent artifacts for this project live under a single top-level `agent/` folder so they can be committed to git alongside the code.
 
-- `agent/memory/` — auto-memory files (`MEMORY.md` index plus per-memory `.md` files). **Do not** write memory to `~/.claude/projects/.../memory/`.
+- `agent/rules/` — binding project rules/conventions, one per file (see **Rules** below).
+- `agent/observations/` — working hypotheses and rule-candidates still under discovery, one per file (see **Observations** below). Not binding.
 - `agent/design/` — design specs (Superpowers `brainstorming` skill output). Overrides the Superpowers default of `docs/superpowers/specs/`. Filename convention stays `YYYY-MM-DD-<topic>-design.md`.
 
 If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
 
 When working with Superpowers `brainstorming` artifacts, use the word **design** rather than **spec** in commit messages, PR descriptions, and prose addressed to the user. The skill's own internal language ("spec self-review", "spec reviewer subagent") may stay as-is — the rule applies to anything you author. The artifact filenames already end in `-design.md`, so the user-facing vocabulary is consistent: the file is a *design*, the folder is `agent/design/`, and commits say "design."
+
+### Rules — `agent/rules/`
+
+`agent/rules/` holds the project's binding rules — naming conventions, terminology, plan-writing norms, commit conventions, and the like — one rule per file.
+
+- **Read every file in `agent/rules/` at the start of a session and follow them.** They override default behavior where they conflict (explicit user instructions still win).
+- **Format:** frontmatter-free markdown — a `# <title>` stating the rule, the rule in prose, then short `**Why:**` and `**How to apply:**` lines. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md` — UTC, same as the decision log, with the timestamp synced to the file's creation time.
+- **Recording a new rule:** when the user states a rule, or a decision sets a rule for future work, add it here as a new file, and add a matching one-line entry to `agent/log/`.
+
+### Observations — `agent/observations/`
+
+`agent/observations/` holds working hypotheses, definitions, and methods that are **not yet binding** — rule-candidates surfaced during open-ended discovery, before the thinking has stabilized enough to canonize. They are *not* read as binding at session start the way rules are; they record in-progress understanding.
+
+- **When to use:** the material is genuinely useful to keep but still under active discovery, or it is a method/definition the user hasn't ratified as a convention. When in doubt between a rule and an observation, prefer an observation — promoting later is cheap, retracting a premature rule is not.
+- **Format:** same frontmatter-free markdown as rules — a `# <title>`, the content in prose. Open with a `**Status:**` line stating that it is a working hypothesis under discovery and what would promote it. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md`, UTC, timestamp synced to creation time — same convention as rules and the log.
+- **Promotion:** when an observation stabilizes into a binding convention, lift it into `agent/rules/` as a new rule and leave the observation as the discovery record (note the promotion in both). Add a `agent/log/` entry for the promotion.
+- **Recording one:** add the file, and add a matching one-line entry to `agent/log/` noting it was recorded as an observation (and why it isn't yet a rule).
 
 ### Decision log — `agent/log/`
 

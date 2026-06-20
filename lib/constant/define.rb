@@ -1,4 +1,4 @@
-module Constant
+class Constant
   module Define
     def self.call(constant_name, receiver_constant)
       constant = Module.new

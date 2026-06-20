@@ -1,0 +1,1 @@
+# Recorded the human-in-the-loop TDD gate discriminator (judgment-bearing + asymmetric cost) and gate-discovery method as an observation, not a rule — the gate set is still under discovery; promote to a rule once it stabilizes

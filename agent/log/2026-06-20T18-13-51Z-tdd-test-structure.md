@@ -1,0 +1,1 @@
+# TDD test structure (exemplar: define_constant.rb): arrange and actuate the concern once at the top of the feature context, narrate with comment, then assert each outcome in its own inner context via an explaining variable in a single test block

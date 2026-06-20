@@ -1,3 +1,0 @@
-- [Memory location: in-repo, not ~/.claude](feedback_memory_location.md) — for this project, write memory to `<repo>/agent/memory/` so it can be committed; never to `~/.claude/projects/.../memory/`.
-- [Recent work recap (2026-05-22)](project_recent_work_recap.md) — frozen snapshot of recent arc; in-flight logging branch instruments `Import.call` with `Log.build`. Verify against git before acting.
-- [No Claude co-author trailer in commits](feedback_no_claude_coauthor.md) — omit `Co-Authored-By: Claude …` from all commits; applies globally (also in `~/.claude/CLAUDE.md`).

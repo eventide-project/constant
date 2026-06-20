@@ -11,4 +11,4 @@ require 'constant/controls'
 
 require 'test_bench'; TestBench.activate
 
-include Constant
+Controls = Constant::Controls
