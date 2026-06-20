@@ -50,3 +50,21 @@ Restated the discriminator in plainest terms (added to the gate-discriminator ob
 
 ### Terminology: "subtle" and "load-bearing" replace "intrinsic" and "asymmetric"
 The dense terms ("intrinsic", "asymmetric", "capability-independent") read as academic and risk a preachy, Uncle-Bob-ish tone for an engineering audience the work is ultimately meant to reach. Reframed the two legs in plainer, conveyable language, meaning unchanged: **subtle** (vs **crude**) replaces *intrinsic*, drawing on Bellware's subtle/crude-knowledge distinction — subtle = design principles/qualities, invisible but foundational; crude = tools/patterns, visible/derivable. **Load-bearing** replaces *asymmetric* — other work rests on the choice, so a wrong one spreads and sticks. Dropped "capability-independent" as a coined term and said it plainly instead (subtlety is about the design, not the model, so gates don't shrink as models improve). Reference: https://madabout.software/articles/subtle-knowledge-crude-knowledge/. → updated the gate-discriminator observation.
+
+### Naming the concept: converged on "deliberation"; "load-bearing" ratified
+Confirmed **load-bearing** for the second leg. Searched for a more soluble replacement for **discriminator** (correct, but academic and carrying ML/GAN baggage). Walked candidates: *inflection* (turning-point geometry; math + management-speak baggage), *reflection* (right essence but collides with the Reflection programming concept), *consideration/pause/juncture*, and landed on **deliberation** — clean (no programming collision, not buzzwordy), and it sharpens the framework through its double sense: *deliberate* = carefully weighed AND intentional, the opposite of the AI's averaging. Organizing pair: **the AI generates; the human deliberates.** Consequences: "discriminator" retires (the test becomes "does this call for deliberation?"); subtle + load-bearing become the *reasons* a point calls for deliberation. Resolved: **gate stays** (the mechanism — where the loop stops). **hinge** kept as the decision the design turns on (subtle + load-bearing), which also relieves "gate" of its old double-duty (decision vs. stop).
+
+### Settled lexicon
+- **hinge** — the decision the design turns on; subtle + load-bearing. The object.
+- **gate** — where the loop stops to hand a hinge to the human. The mechanism.
+- **deliberation** — the human's act at the gate. (The AI generates; the human deliberates.)
+- **subtle** / **crude** and **load-bearing** — the two marks that make a decision a hinge.
+- **"discriminator" retires** — the test it named is just "is this a hinge?", and the answer routes to a gate.
+
+One-liner: *the AI generates straight through, and gates at the hinges — the subtle, load-bearing decisions — for the human to deliberate.*
+
+Propagated (2026-06-20): rewrote both observations and renamed them → `…-tdd-hinge-marks-and-discovery.md` and `…-settling-the-hinge-marks.md`; reworked the human-in-the-loop rule and the design doc around hinge / gate / deliberation; "discriminator" retired.
+
+### Two more terms: "mechanical" adopted; "interjection" considered and declined
+- **Mechanical / mechanics** replaces "non-hinge" — a positive, non-negated term that scales to bulk generated code, with no programming collision. (Rejected for overloading: given→BDD, routine→subroutine, default, fixture.) Hinges take deliberation; everything else is mechanical.
+- **Interjection** considered for the human's act (it conveys the interrupt) but **declined** in favor of keeping **deliberation**: the interrupt is already the **gate**'s job (interjection would duplicate it); "interjection" grammatically means a brief exclamation (underselling considered judgment); and it loses deliberation's double sense (carefully weighed + intentional — the opposite of the AI's averaging).

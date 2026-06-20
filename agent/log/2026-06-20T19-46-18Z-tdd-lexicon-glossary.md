@@ -1,0 +1,1 @@
+# Created a single canonical TDD lexicon glossary (agent/observations/…-tdd-lexicon.md) consolidating the scattered terminology — hinge/gate/deliberation/mechanical/subtle/crude/load-bearing/cradle/efferent/solubility/actuation, plus retired terms; to be promoted to a terminology rule once the vocabulary (esp. provisional "mechanical") is frozen
