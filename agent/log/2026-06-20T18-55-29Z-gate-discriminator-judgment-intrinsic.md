@@ -1,0 +1,1 @@
+# Gate discriminator: ratified soft-spot A — judgment-bearing is now intrinsic (underdetermined-by-the-artifacts), not capability-relative; passes 1 (calibrate knowns) and 2 (specificity on non-gates) both green, AND structure validated, asymmetry is the sharper specificity blade

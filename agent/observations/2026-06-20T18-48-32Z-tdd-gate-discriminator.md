@@ -8,21 +8,45 @@ The gates are the essence of human-in-the-loop TDD (see the human-in-the-loop ru
 
 ## The discriminator — what makes a decision a gate
 
+**Revision (2026-06-20):** judgment-bearing is now defined **intrinsically** (ratified — soft-spot A in `agent/observations/2026-06-20T18-55-29Z-settling-the-gate-discriminator.md`). The earlier capability-relative phrasing ("the AI would average") is retired: it made the gate set shrink as models improve, which is the wrong foundation. Affordability is provisionally split out (soft-spot B, not yet ratified).
+
 A gate is a decision point in the loop with two properties at once:
 
-1. **Judgment-bearing** — resolving it correctly requires design taste the human holds and the AI doesn't; left alone, the AI averages toward common code rather than decides.
-2. **Asymmetric in cost** — a wrong resolution is cheap to fix now and expensive later, because it bakes in and everything downstream inherits it.
+1. **Intrinsic judgment** — the decision is *underdetermined by the code and the tests*; its correct resolution requires intent or taste that exists only in the human, nowhere in the artifacts. (Capability-independent: it does not matter how good the generating model is — the information simply is not in the artifacts.)
+2. **Asymmetric** — a wrong resolution propagates and sets: downstream artifacts inherit it, so it is cheap to fix now and expensive later. (Also intrinsic — you can see it by asking whether other code inherits the decision.)
 
-Both are required. Judgment-bearing but cheap-to-fix-anytime → not a gate (let the AI generate, correct later). Asymmetric but the AI resolves it correctly alone → not a gate (no judgment needed). **A gate is where judgment and irreversibility intersect.**
+Both are required (AND, not OR). Intrinsic judgment but local/non-propagating → not a gate (let the AI generate, correct anytime). Asymmetric but determined by the artifacts → not a gate (no human-only judgment needed). **A gate is where human-only judgment and irreversibility intersect.**
 
-Four questions to test any candidate:
+Two questions to test any candidate:
 
-- Left alone, would the AI guess or regress to the average here? *(judgment)*
-- Is this a call the human can make and the AI can't? *(judgment)*
-- Does a wrong answer propagate and set? *(asymmetry)*
-- Can it be posed as a question the human answers quickly? *(gates must be cheap, or they aren't worth the interruption)*
+- Is the correct resolution absent from the code and tests — does it need intent/taste only the human holds? *(intrinsic judgment)*
+- Does a wrong answer propagate and set into downstream artifacts? *(asymmetry)*
 
-Pass all four → it is a gate. The two known gates pass cleanly, which calibrates the discriminator.
+Pass both → it is a gate.
+
+**Affordability is a separate, downstream question** (provisional, per soft-spot B): *can the gate be posed as a question the human answers quickly?* A real-but-unaffordable gate is still a gate — it just needs a cheaper proxy. This is not part of the gate definition.
+
+### Validation — passes 1 and 2 (2026-06-20)
+
+Run against the intrinsic discriminator. See the settling observation for the full method.
+
+**Pass 1 — calibrate on the knowns (must pass):**
+- *Efferent call* — intrinsic judgment: yes (at first writing nothing exists yet; the call's shape is pure seed, underdetermined by any artifact). Asymmetric: yes, strongly — the call is the contract; every test and the implementation inherit it. **Gate ✓**
+- *Solubility* — intrinsic judgment: yes (green tests do not encode whether the unit dissolves into use; the artifacts underdetermine it). Asymmetric: yes — a non-soluble shape sets and accretes downstream. **Gate ✓**
+- Both fixed points preserved under the intrinsic definition.
+
+**Pass 2 — specificity on known non-gates (must be rejected):**
+- *Name of an explaining variable* — judgment-ish (some taste) but **fails asymmetry**: test-local, non-propagating, renamable anytime. **Not a gate ✓**
+- *Order of `comment` lines* — determined by convention (not intrinsic) and non-propagating. **Not a gate ✓**
+- *Whitespace / formatting* — determined by style, non-propagating. **Not a gate ✓**
+
+**Findings:**
+- The intrinsic refounding holds: **both legs are now capability-independent** — intrinsic judgment ("absent from the artifacts") and asymmetry ("inherited by downstream artifacts") are both read off the artifacts, not off model behavior.
+- **The AND structure is validated.** Explaining-variable naming is judgment-ish yet correctly rejected *because it fails asymmetry* — exactly the case that distinguishes AND from OR.
+- **Asymmetry is the sharper blade for specificity**; the intrinsic-judgment leg is fuzzier at the margin (naming has some taste).
+- Emergent partial resolution of the **naming candidate**: the asymmetry leg cleanly separates *interface/contract names* (propagate and set → gate-ward) from *test-local names* (non-propagating → not a gate). The bare word "naming" conflated the two.
+
+Remaining to settle: pass 3 (reconcile the five candidates), pass 4 (stress the boundary — judgment-but-reversible, asymmetric-but-mechanizable), and ratification of soft-spot B.
 
 ## How to discover the missing gates
 

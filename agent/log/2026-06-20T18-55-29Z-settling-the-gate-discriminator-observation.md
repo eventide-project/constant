@@ -1,0 +1,1 @@
+# Recorded the method for settling the gate discriminator as an observation — stopping criterion (blind verdicts match human judgment with zero unreconciled disagreements), four calibration passes, and two soft spots to decide: make judgment-bearing intrinsic (not capability-relative), and split gate-ness from affordability

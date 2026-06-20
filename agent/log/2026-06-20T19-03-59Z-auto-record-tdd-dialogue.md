@@ -1,0 +1,1 @@
+# Established a standing rule to record substantive TDD design dialogue automatically as the session proceeds (into a running digest observation plus discrete artifacts), rather than only on request; seeded the digest with the full session arc — a settings.json hook can't distill dialogue, so the rule is the durable mechanism
