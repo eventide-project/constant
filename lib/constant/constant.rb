@@ -1,5 +1,5 @@
 class Constant
   include Initializer
 
-  initializer :value
+  initializer :raw_constant
 end
