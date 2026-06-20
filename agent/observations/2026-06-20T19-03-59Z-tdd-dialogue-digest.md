@@ -68,3 +68,6 @@ Propagated (2026-06-20): rewrote both observations and renamed them → `…-tdd
 ### Two more terms: "mechanical" adopted; "interjection" considered and declined
 - **Mechanical / mechanics** replaces "non-hinge" — a positive, non-negated term that scales to bulk generated code, with no programming collision. (Rejected for overloading: given→BDD, routine→subroutine, default, fixture.) Hinges take deliberation; everything else is mechanical.
 - **Interjection** considered for the human's act (it conveys the interrupt) but **declined** in favor of keeping **deliberation**: the interrupt is already the **gate**'s job (interjection would duplicate it); "interjection" grammatically means a brief exclamation (underselling considered judgment); and it loses deliberation's double sense (carefully weighed + intentional — the opposite of the AI's averaging).
+
+### Vocabulary frozen; glossary promoted to a rule
+Froze **mechanical** (dropped the "for now"). Promoted the canonical glossary from an observation to a binding **terminology rule**: `agent/rules/2026-06-20T21-12-34Z-tdd-lexicon.md` (alongside the efferent-not-caller rule). The observation `…19-46-18Z-tdd-lexicon.md` is kept as a tombstone pointing to the rule. The *framework* (which hinges exist, whether the two marks are final) remains under discovery; only the vocabulary is frozen.

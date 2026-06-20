@@ -1,0 +1,1 @@
+# Froze "mechanical" and promoted the canonical TDD glossary from an observation to a binding terminology rule (agent/rules/…-tdd-lexicon.md, alongside efferent-not-caller); left the observation as a tombstone pointer — the vocabulary is settled even though the hinge framework remains under discovery
