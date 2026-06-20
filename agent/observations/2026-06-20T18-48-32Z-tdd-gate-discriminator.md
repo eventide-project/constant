@@ -8,40 +8,35 @@ The gates are the essence of human-in-the-loop TDD (see the human-in-the-loop ru
 
 ## The discriminator — what makes a decision a gate
 
-**Revision (2026-06-20):** judgment-bearing is now defined **intrinsically** (ratified — soft-spot A in `agent/observations/2026-06-20T18-55-29Z-settling-the-gate-discriminator.md`). The earlier capability-relative phrasing ("the AI would average") is retired: it made the gate set shrink as models improve, which is the wrong foundation. Affordability is provisionally split out (soft-spot B, not yet ratified).
+**Terminology (2026-06-20):** the two legs are named **subtle** and **load-bearing** — plainer than the earlier "intrinsic" and "asymmetric"; the meaning is unchanged. "Subtle" draws on Bellware's distinction between *subtle* and *crude* knowledge (https://madabout.software/articles/subtle-knowledge-crude-knowledge/): crude knowledge is tools and patterns — visible, derivable; subtle knowledge is design principles and qualities — invisible to the unpracticed eye but foundational. (History: soft-spot A ratified that this leg is about whether the answer is in the artifacts, not about how good the AI is. Soft-spot B — splitting affordability out — is provisional.)
 
-A gate is a decision point in the loop with two properties at once:
+A gate is a decision that is **subtle** and **load-bearing** at the same time.
 
-1. **Intrinsic judgment** — the decision is *underdetermined by the code and the tests*; its correct resolution requires intent or taste that exists only in the human, nowhere in the artifacts. (Capability-independent: it does not matter how good the generating model is — the information simply is not in the artifacts.)
-2. **Asymmetric** — a wrong resolution propagates and sets: downstream artifacts inherit it, so it is cheap to fix now and expensive later. (Also intrinsic — you can see it by asking whether other code inherits the decision.)
+1. **Subtle** — the choice turns on design judgment: taste, intent, what "good" looks like here. That is subtle knowledge, not crude knowledge (a tool, a pattern, a name you can read off the code). The answer isn't written in the code or the tests, so you can't derive it from them — it lives in the person. Crude choices aren't gates; the AI can just make them.
+2. **Load-bearing** — other work gets built on top of the choice. Get it wrong and the mistake spreads and sticks: cheap to fix now, costly later. A choice that stays local and is easy to change isn't load-bearing.
 
-Both are required (AND, not OR). Intrinsic judgment but local/non-propagating → not a gate (let the AI generate, correct anytime). Asymmetric but determined by the artifacts → not a gate (no human-only judgment needed). **A gate is where human-only judgment and irreversibility intersect.**
+Both are required (AND, not OR). Subtle but local → not a gate (let the AI do it, fix it whenever). Load-bearing but crude → not a gate (the answer is there to read; no judgment needed). **A gate is where a subtle call meets work that will rest on it.**
 
 Two questions to test any candidate:
 
-- Is the correct resolution absent from the code and tests — does it need intent/taste only the human holds? *(intrinsic judgment)*
-- Does a wrong answer propagate and set into downstream artifacts? *(asymmetry)*
+- Does the choice take design judgment that isn't written in the code or tests — subtle, not crude?
+- Will other work rest on it, so a wrong choice spreads and sticks — load-bearing?
 
-Pass both → it is a gate.
+Yes to both → it is a gate.
 
-**Affordability is a separate, downstream question** (provisional, per soft-spot B): *can the gate be posed as a question the human answers quickly?* A real-but-unaffordable gate is still a gate — it just needs a cheaper proxy. This is not part of the gate definition.
+A note on why "subtle vs crude" and not "how good is the AI": subtlety is a fact about the design, not about the tool generating it. A smarter model doesn't turn a subtle call crude — the judgment was never written down to read. So the set of gates doesn't shrink as models improve.
 
-### In plain language
+**Whether we can afford to ask is a separate question** (provisional, per soft-spot B): *can the gate be put to the human quickly?* A real-but-expensive gate is still a gate — it just needs a cheaper proxy. Not part of the definition.
 
-A gate is a point where you stop and put the decision to the human instead of letting the AI just generate. It is a gate only if **both** are true:
+### Examples
 
-1. **The answer isn't in the code or the tests.** You can't get it by reading what's already written; it takes human taste or intent. *(intrinsic)*
-2. **Getting it wrong spreads.** Other code gets built on top of the choice, so a bad answer locks in and is expensive to undo later. *(asymmetric)*
-
-If either is missing, it is not a gate: if the answer is already derivable from what's written, let the AI do it; if a wrong choice stays local and is trivial to change, let the AI do it and fix it whenever.
-
-**What "intrinsic" means:** the answer *is not present in the artifacts* (code + tests) — it lives only in the human's head (intent, taste, what "good" looks like here). No one can read out an answer that was never written down. This is why the word matters: it replaced the *capability-relative* phrasing ("a gate is where the AI would guess"), which depended on how good the model is and would shrink the gate set as models improve. Intrinsic anchors the test to the artifacts, not the model — *is the information there or not?* — and that answer doesn't change no matter how capable the AI gets.
-
-Contrast: *naming a local variable* is determined by the value it holds (in the code) and stays local → not a gate. *Whether the unit's shape is soluble* is written nowhere and takes taste, and it sets downstream → a gate.
+- *Naming a local variable* — you can read the right name off the value it holds (crude), and it stays local. Not a gate.
+- *The shape of the call (the efferent interface)* — written nowhere yet, takes judgment (subtle), and everything gets built on it (load-bearing). A gate.
+- *Whether the unit is soluble* — passing tests don't tell you (subtle), and a clumsy shape gets built on (load-bearing). A gate.
 
 ### Validation — passes 1 and 2 (2026-06-20)
 
-Run against the intrinsic discriminator. See the settling observation for the full method.
+Run against the discriminator. (The bullets below use the earlier labels: *intrinsic judgment* = **subtle**, *asymmetric* = **load-bearing**.) See the settling observation for the full method.
 
 **Pass 1 — calibrate on the knowns (must pass):**
 - *Efferent call* — intrinsic judgment: yes (at first writing nothing exists yet; the call's shape is pure seed, underdetermined by any artifact). Asymmetric: yes, strongly — the call is the contract; every test and the implementation inherit it. **Gate ✓**

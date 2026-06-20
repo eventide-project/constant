@@ -1,0 +1,1 @@
+# Renamed the gate-discriminator legs for an engineering audience: "subtle" (vs crude, per Bellware's subtle/crude-knowledge distinction) replaces "intrinsic"; "load-bearing" replaces "asymmetric"; dropped "capability-independent" as a coined term and stated it plainly — meaning unchanged, less academic, avoiding a preachy tone
