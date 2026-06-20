@@ -43,3 +43,7 @@ A gate = **intrinsic judgment ∩ asymmetry** (AND). Discovery is a pincer: anal
 
 ### Meta: auto-record this dialogue
 Decided the TDD dialogue is too valuable to record only on request. Established a standing rule to record substantive TDD design dialogue automatically as the session proceeds — into this digest plus discrete artifacts — rather than waiting to be asked. A settings.json hook can't do this (it can't distill dialogue); the rule is the durable mechanism. → rule `…19-03-59Z-auto-record-tdd-dialogue.md`.
+
+### Plain-language statement of the discriminator
+Restated the discriminator in plainest terms (added to the gate-discriminator observation as "In plain language"): a gate is where you stop and put the decision to the human; it is a gate only if **(1)** the answer isn't in the code or tests — it takes human taste/intent (*intrinsic*) **and (2)** getting it wrong spreads and locks in (*asymmetric*). Clarified **intrinsic**: the answer isn't present in the artifacts, only in the human's head — anchored to the artifacts, not the model, so it doesn't shrink as models improve (vs. the retired "the AI would guess" phrasing). Examples: naming a local variable → not a gate (derivable + local); the unit's solubility → a gate (unwritten + sets downstream).
+*(Process note: this exchange initially went unrecorded; caught and recorded retroactively. Reinforces applying the auto-record rule in the same turn.)*

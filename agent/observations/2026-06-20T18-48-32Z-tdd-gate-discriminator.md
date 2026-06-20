@@ -26,6 +26,19 @@ Pass both → it is a gate.
 
 **Affordability is a separate, downstream question** (provisional, per soft-spot B): *can the gate be posed as a question the human answers quickly?* A real-but-unaffordable gate is still a gate — it just needs a cheaper proxy. This is not part of the gate definition.
 
+### In plain language
+
+A gate is a point where you stop and put the decision to the human instead of letting the AI just generate. It is a gate only if **both** are true:
+
+1. **The answer isn't in the code or the tests.** You can't get it by reading what's already written; it takes human taste or intent. *(intrinsic)*
+2. **Getting it wrong spreads.** Other code gets built on top of the choice, so a bad answer locks in and is expensive to undo later. *(asymmetric)*
+
+If either is missing, it is not a gate: if the answer is already derivable from what's written, let the AI do it; if a wrong choice stays local and is trivial to change, let the AI do it and fix it whenever.
+
+**What "intrinsic" means:** the answer *is not present in the artifacts* (code + tests) — it lives only in the human's head (intent, taste, what "good" looks like here). No one can read out an answer that was never written down. This is why the word matters: it replaced the *capability-relative* phrasing ("a gate is where the AI would guess"), which depended on how good the model is and would shrink the gate set as models improve. Intrinsic anchors the test to the artifacts, not the model — *is the information there or not?* — and that answer doesn't change no matter how capable the AI gets.
+
+Contrast: *naming a local variable* is determined by the value it holds (in the code) and stays local → not a gate. *Whether the unit's shape is soluble* is written nowhere and takes taste, and it sets downstream → a gate.
+
 ### Validation — passes 1 and 2 (2026-06-20)
 
 Run against the intrinsic discriminator. See the settling observation for the full method.
