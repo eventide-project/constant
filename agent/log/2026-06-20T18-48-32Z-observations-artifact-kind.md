@@ -1,0 +1,1 @@
+# Established `agent/observations/` as a first-class artifact kind in CLAUDE.md — non-binding working hypotheses and rule-candidates under discovery, with a Status line and a promotion path into agent/rules/
