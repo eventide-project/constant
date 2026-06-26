@@ -24,6 +24,34 @@ Before acting, the AI **forecasts the gates** for the task — predicts which up
 
 Most powerful as a **supplement that focuses attention** and a **calibration channel for transferring the hinge-map** — not a replacement for human vigilance.
 
+## Developing the form of a good forecast (2026-06-26, theorizing)
+
+Pushing on the three failure modes yields a shape for a *well-formed* forecast.
+
+### Anchoring is mean-contamination of the above-the-mean element
+A naive forecast ("here's the call I'm about to make — ratify?") makes the human evaluate *is X acceptable?* instead of *what is best?* Evaluating a proposal is lower-energy than originating the best, so the human slides from **originator** mode into **judge** mode. Judge mode is downstream of the AI's proposal — it can only catch errors in what was offered, never supply what was never offered — and the proposal is drawn from the mean. So anchoring pulls the above-the-mean element *down toward the AI's mean* and demotes the human from the one irreducible mode (originator) to a transitional one (judge). **The mechanism meant to prevent averaging induces averaging — in the human.** Anchoring attacks the purpose, not just a gate.
+→ **First law: a forecast must provoke origination, not validation.**
+
+### Calibration: asymmetric costs → recall-bias, which then self-destructs
+Precision failure (crying wolf: flag a mechanical decision) is *cheap and instructive* — "that's mechanical, proceed" is itself a labeled calibration signal. Recall failure (miss a hinge) is *expensive and invisible* — silent averaging through a load-bearing call. Asymmetry ⇒ bias toward recall (when unsure, flag). But raw recall-bias collides with crying-wolf: over-flagging habituates the human into rubber-stamping, which silently restores the misses.
+
+### Resolution: forecast the *partition*, not the gates
+Don't forecast "here are the hinges." Forecast the **whole decision partition**, tiered by confidence: **tier 1 gates** (high-confidence hinges — deliberate), **tier 2 suspected** (might be — glance), **tier 3 mechanical** (about to decide silently — audit only if something looks off). Key insight: **the dangerous miss lives in the proceed pile** — a hinge the AI can't see is one it filed under "mechanical." Exposing tier 3 (the inverse of forecasting gates) is where recall is recovered: the AI can't know which silent decision is secretly a hinge, but the human scanning the list might. Tiering keeps the high-attention channel (tier 1) clean, so recall-bias doesn't flood it. Bonus: a partition is about *which decisions need you*, not *what the answers are*, so it engages the human in **boundary-setting** (the recursion) rather than ratifying answers — originator/boundary-setter, not judge. So the partition also satisfies the first law.
+→ **Second law: expose the proceed-pile, or recall fails silently.**
+
+### The blind spot is bounded, not solved
+The AI still cannot see the hinge it cannot see. The partition does not *find* the hidden hinge; it converts an **unknown unknown** (a hinge nobody noticed) into a **known region to audit** (somewhere in tier 3). The most a blind instrument can do: not see, but *point at where the unseen lives*. Catch-the-seam vigilance stays irreducible; the forecast narrows where it must look.
+
+### Meta-payoff: the forecast is the training loop
+Every **re-filing** by the human (tier 3 → tier 1 "you should have stopped"; tier 1 → tier 3 "not a hinge") is a *labeled example for the hinge-map*. So forecasting the partition is the concrete instrument by which **boundary-setting migrates to the AI**: re-filings become new rules/exemplars (conditioner output). The forecast generates its own training signal — the migration made mechanical and observable.
+
+### The catch: it doesn't scale → step-local
+An exhaustive partition is tiny for `name` but explodes for a large feature, and a giant partition reintroduces the recall problem at the meta-level. So the partition must be **step-local**: exhaustive only at the altitude of the current cradle (this method, this turn), not the whole feature.
+→ **Third law: keep it step-local, or it's unaffordable.**
+
+### Compressed
+A well-formed forecast is **a step-local, confidence-tiered decision partition, recall-biased, presented to provoke origination rather than validation — and its re-filings are the conditioning signal that migrates the hinge-map to the AI.** Three laws: provoke origination; expose the proceed-pile; keep it step-local. (Still speculation — untested.)
+
 ## How to test it
 
 A crude version already ran: the Name-feature proposal forecast GATE 1/GATE 2 and the candidate seams up front. Test on that run: did announcing the gates help the human spend attention where it mattered, or did it anchor toward ratifying? Track, per gate, whether forecasting changed the **ratify-vs-correct** outcome. Over several features, measure forecast precision/recall against where interjections actually fired.
