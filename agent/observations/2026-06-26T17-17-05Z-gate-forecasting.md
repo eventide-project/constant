@@ -76,15 +76,19 @@ Both are limits on **Law 1** (*provoke origination, not mean-bias*): one attacks
 ### Fault-line A — options the AI can't produce
 Law 1's mitigation for mean-bias was "don't hand the person one answer to ratify; show the options instead." But the list of options is the AI's own, drawn from the average of what it has seen, and two problems follow.
 
-First, the best option may not be on the list. Options come in two kinds:
-- **Options available to the AI** — it can produce them; it just may have missed them this pass. More tries, or asking from different angles, surface them.
-- **Options unavailable to the AI** — only the person can produce them; the AI never reaches them however much it improves. (Same thing that makes a hinge subtle: the answer isn't in the artifacts, so averaging can't get there.)
+First, the best option may not be on the list. The full picture is a **three-rung ladder** (*structure settled; labels provisional — the wording isn't final yet*):
 
-Second — and worse — **showing a list makes the person pick from it instead of producing their own.** A list invites selection; a blank start invites origination. So presenting options suppresses the person's own generation, exactly when the option that mattered was one *unavailable* to the AI (which only the person could have produced). That is mean-bias one level up, and a Law-1 violation at the level of the option list.
+1. **Recognized** — the AI produced it; it's on the list.
+2. **Overlooked** — the AI could produce it but didn't this pass; more tries, or asking from different angles, surface it. *Fixable.*
+3. **Unavailable** — only the person can produce it; the AI never reaches it however much it improves. (Same thing that makes a hinge subtle: the answer isn't in the artifacts, so averaging can't get there.) *Not fixable.*
 
-**The available kind is fixable; the unavailable kind isn't.**
-- *Available options:* a single list is one draw from the average. Run several independent lists, from different angles, and coverage rises. This shrinks the available-but-missed gap; it does nothing for the unavailable kind.
-- *Unavailable options:* the AI can't produce them — but you can stop the list from suppressing the person. Have the person produce their answer **first, before seeing the AI's list**; show the list afterward only as a cross-check ("did either of us have one the other didn't?"). The person's answer is never bounded by the list, because it comes first. This is the same "answer first, compare second" structure as the conditioning-confidence check — so the defense against unavailable options and the confidence measure are one and the same.
+It looks like a 2×2 — capability (can-produce / can't) × noticing (on-list / off-list) — but the fourth cell is **impossible**: being recognized presupposes being available (you can't surface what you can't produce), so *unavailable options are always off the list*. That collapses the grid to these three rungs. Fault-line A lives in rungs **2 and 3** — the options absent from the list.
+
+Second — and worse — **showing a list makes the person pick from it instead of producing their own.** A list invites selection; a blank start invites origination. So presenting options suppresses the person's own generation, exactly when the option that mattered was a rung-3 one (which only the person could have produced). That is mean-bias one level up, and a Law-1 violation at the level of the option list.
+
+**Rung 2 is fixable; rung 3 isn't.**
+- *Overlooked (rung 2):* a single list is one draw from the average. Run several independent lists, from different angles, and coverage rises. This shrinks the overlooked gap; it does nothing for rung 3.
+- *Unavailable (rung 3):* the AI can't produce these — but you can stop the list from suppressing the person. Have the person produce their answer **first, before seeing the AI's list**; show the list afterward only as a cross-check ("did either of us have one the other didn't?"). The person's answer is never bounded by the list, because it comes first. This is the same "answer first, compare second" structure as the conditioning-confidence check — so the defense against rung-3 options and the confidence measure are one and the same.
 
 **What the AI can tell about its own blindness.** It can't tell *which* options it failed to produce, but it can tell when its list is *all of one kind* — every option a variation on one approach. That sameness is a sign it's stuck and probably missing whole categories, and a cue to push the person to produce fresh. (Catches the stuck-in-one-approach case, not the case where the options are varied but all still below what the person would produce.)
 
