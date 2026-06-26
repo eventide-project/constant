@@ -316,6 +316,68 @@ At the time of writing the run is paused at the first gate, with the substantive
 hinges (the discriminating nested example; the outcome set) still open for the
 human's deliberation.
 
+## 14. Running the experiment to completion — the corrections, gate by gate
+
+The run played out as a sequence of human corrections, each one a data point.
+
+- **GATE 1, return type (correct).** The human changed `#name` from a **Symbol**
+  to a **String**. This opened a genuine design question — is there a foundational
+  Ruby case for Symbol? The answer (supplied as *crude* knowledge): Ruby is mixed
+  — `Module#name` is a String, `Module#constants`/`Method#name` are Symbols — and
+  the strongest specific precedent for a wrapped module/class's own name is
+  `Module#name` (a String), the very type `#name` is derived from. Decided:
+  String. The baseline (design doc, plan) was corrected on `master`;
+  `#constant_names` stays Symbols, mirroring `Module#constants`.
+- **GATE 1, outcome set (correct).** The AI leaned "nested case only" (minimalism).
+  The human required **both** the nested and top-level cases, as **separate files
+  in a `name/` directory** — a structure the AI hadn't proposed.
+- **Two mechanical-tier corrections.** A variable named `expected_name` (foreign
+  vocabulary; the suite uses role-naming) and a stray comma in a test name. Both
+  were caught by the human auditing the "proceed pile" — exactly what Law 2 is for.
+- **GATE 2, solubility (correct).** The AI implemented `split("::").last` and
+  filed the alternative `rpartition` as a "micro-optimization." The human chose
+  `rpartition` — not for speed, but because it *expresses the concern faithfully*:
+  "the part after the last separator" **is** "the final segment," whereas
+  `split.last` only coincides. A sharp lesson: **mean-bias can reach the AI's
+  justification, not just its code** — the AI had the right option but the wrong
+  reason for ranking it.
+- **Turn 3.** `#name` committed (`rpartition`), Task 3 checked off, decision logs
+  added; run 1 integrated into `master`; 28 tests pass.
+
+Mid-run, the human asked "are you recording all of this?" — and the honest answer
+was no: the run's data was being narrated in chat but not persisted. That gap was
+closed by writing an experiment-run log
+(`agent/experiments/2026-06-26-name-feature-run-1.md`) capturing forecast vs.
+actual and ratify-vs-correct per gate.
+
+## 15. The most informative miss — caught after integration
+
+After integration, the human spotted that the test **context nesting** was wrong:
+a flattened `context "Constant Name"` instead of `"Constant"` → `"Name"` mirroring
+the `constant/name/` folders (the existing `import_constant/macro` convention).
+This was a **true miss**: it escaped the forecast, every gate, the human's live
+deliberations, *and* integration. The reason: the forecast partition had no entry
+for *test-structure conventions*, so context nesting was never an itemized,
+auditable decision — "expose the proceed-pile" can only help for what is actually
+in the pile. The convention was only *implicit* in the existing tests; writing it
+as a binding rule converts a recurring miss into conditioner output the AI can
+apply and forecast going forward. (Two test-convention rules came out of this run:
+the "Is"-prefix naming rule and the context-nesting rule.)
+
+## 16. What the experiment showed
+
+- **The forecast located the substantive gates** — return type and outcome set
+  fired at GATE 1, solubility at GATE 2, where predicted.
+- **Mean-bias did not suppress the human's origination** this run (the human
+  corrected despite seeing the AI's proposals) — but run 1 is the *AI-proposes*
+  baseline, not a clean test; it also showed mean-bias reaching the AI's *reasons*.
+- **The blind spots were real and they were the residue:** the misses clustered in
+  conventions not yet written down (vocabulary, test structure). Each became a
+  rule — the migration from *decider* to *conditioner*, observed in one feature.
+- **Every correction was the above-the-mean element at work:** String over Symbol,
+  both-cases over minimal, `rpartition` over `split.last`, precise names. The AI
+  generated; the human supplied the standard the AI's averaging could not.
+
 ---
 
 ## The takeaways, compressed
@@ -373,7 +435,14 @@ human's deliberation.
   running **dialogue digest** (`…19-03-59Z-tdd-dialogue-digest.md`) that preserves
   the reasoning behind each fork.
 - Decision log: `agent/log/` — one line per decision, in commit order.
-- The experiment: branch `name-experiment-1` (from tag `pre-name-experiment`).
+- The Name feature (the experiment's product): `lib/constant/constant.rb`
+  (`#name`) and `test/automated/constant/name/{nested,top_level}.rb`, on `master`.
+- The experiment run: `agent/experiments/2026-06-26-name-feature-run-1.md` —
+  forecast vs. actual, ratify-vs-correct per gate, findings (run 1 integrated to
+  `master`; the experiment is closed). The git scaffolding (branch, checkpoint
+  tag) is incidental and not load-bearing now that the run is recorded here.
+- Test-convention rules produced by the run: the "Is"-prefix naming rule and the
+  context-nesting-mirrors-folders rule, in `agent/rules/`.
 
 ## A note on the session itself
 
