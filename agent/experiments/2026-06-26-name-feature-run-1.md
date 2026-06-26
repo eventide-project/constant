@@ -81,3 +81,28 @@ run could try *originate-blind* (answer-first) for comparison.
   mechanical corrections were under-tiered (candidate refinement: naming /
   vocabulary consistency may belong in tier 2). No predicted gate went
   unfired except where pre-settled by the design.
+
+## Post-integration miss (the most informative data point)
+
+After run 1 was integrated, the human caught that the test **context nesting**
+was wrong: a flattened `context "Constant Name"` instead of `"Constant"` →
+`"Name"` mirroring the `constant/name/` folders (the existing
+`import_constant/macro` convention). Fixed in `fe86b56`; convention recorded as
+a rule (`agent/rules/2026-06-26T21-38-52Z-test-context-nesting-mirrors-folders.md`).
+
+Why it matters for the experiment: this is a **true miss** — it escaped the
+forecast, every gate, the human's live deliberations, *and* integration. The
+forecast partition had no entry for *test-structure conventions* (context
+nesting), so it sat silently in the mechanical pile and nobody audited for it.
+Findings:
+
+- The "expose the proceed-pile" law only helps for items that are *in* the
+  exposed pile. Context nesting wasn't itemized at all — a gap in the partition,
+  not a failure to audit it. **Refinement:** the step-local partition should
+  explicitly enumerate test-structure conventions (context nesting mirrors
+  folders; the "Is" naming rule; `control_` prefixing) as auditable items.
+- Both human and AI missed it during the run — evidence that a convention not
+  yet written down (it was only implicit in `import_constant/`) is exactly the
+  kind of thing that slips. Writing it as a rule converts it from an unwritten
+  convention (a recurring miss) into conditioner output (the AI can now apply it
+  and forecast it).
