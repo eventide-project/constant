@@ -1,6 +1,6 @@
 # Observation: name concepts literally — no analogies, no codes, no academic jargon
 
-**Status:** Working hypothesis from repeated user correction during the TDD-AI dialogue; a strong candidate to promote to a rule (or to fold into the lexicon rule `agent/rules/2026-06-20T21-12-34Z-tdd-lexicon.md` as a "how to choose terms" clause). Recorded as an observation pending the human's call on whether it binds. Sharpens the lexicon rule's existing solubility criterion.
+**Status:** PROMOTED to a binding rule on 2026-06-26 → `agent/rules/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`. This file is kept as the discovery record (extracted from repeated user correction during the TDD-AI dialogue). Edit the rule, not this file, for the binding statement. Sharpens the lexicon rule's existing solubility criterion.
 
 ## The principle
 
