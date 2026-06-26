@@ -1,0 +1,1 @@
+# Rule: a test (context) name starts with "Is" only when the test asserts a value equals/is some other comparator; other assertions (predicates, presence, raised errors, exclusions, behaviors) are named for what they establish. The Constant#name tests are the canonical good example (both assert name == comparator)
