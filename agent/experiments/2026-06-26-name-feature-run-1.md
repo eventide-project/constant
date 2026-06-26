@@ -32,7 +32,8 @@ run could try *originate-blind* (answer-first) for comparison.
 | 4 | Return type | T1 gate | **CORRECT** | Symbol → **String** (mirrors `Module#name`). Triggered a baseline fix + a Ruby-conventions deliberation |
 | 5 | Test-name punctuation ("…name, as a String") | T3 mechanical | **CORRECT** | comma removed |
 | 6 | Outcome set | T2 suspected | **CORRECT** | AI lean = nested-only (minimalism); human = **both** cases, **separate files** in a `name/` directory (structure the AI hadn't proposed) |
-| 7 | `#name` implementation `split("::").last` | mechanical (turn 2) | **pending** | 28 tests pass; awaiting GATE 2 solubility verdict |
+| 7 | `#name` implementation (turn 2) | mechanical | **ratify** (behavior) | 28 tests pass |
+| 8 | GATE 2 — solubility: `split("::").last` | GATE 2 | **CORRECT** | → `rpartition("::").last`. Reason: it expresses the concern faithfully — "the part after the *last* separator" *is* "the final segment" — whereas `split.last` ("the last of all segments") only coincides. Explicitly *not* optimization. The AI had mis-framed `rpartition` as a micro-optimization |
 
 ## Findings so far
 
@@ -52,11 +53,18 @@ run could try *originate-blind* (answer-first) for comparison.
   still corrected the return type and the outcome set rather than ratifying. Run 1
   is not a clean test of mean-bias; an originate-blind run 2 would isolate it.
 - **The corrections were the above-the-mean role in action.** String over Symbol
-  (faithful to `Module#name`), both-cases over minimal, precise vocabulary — each
-  is the human introducing a standard above the AI's averaged proposal.
+  (faithful to `Module#name`), both-cases over minimal, precise vocabulary,
+  `rpartition` over `split.last` — each is the human introducing a standard above
+  the AI's averaged proposal.
+- **The AI's *framing* can be averaged, not just its code (GATE 2).** The AI
+  offered `rpartition` but labelled it a micro-optimization and chose
+  `split.last` for "readability." The human kept `rpartition` for a reason the AI
+  hadn't surfaced — it expresses the concern more faithfully. The miss wasn't the
+  option (the AI listed it) but the *justification*: the AI under-valued it. A
+  reminder that mean-bias reaches the reasons offered, not only the answers.
 
 ## State at time of writing
 
-- Turn 1 (test files) and turn 2 (implementation) complete; **28 tests pass**.
-- Paused at **GATE 2 (solubility)** — human verdict pending.
-- Not yet done: GATE 2 resolution, turn 3 (task commit + decision-log entry).
+- Turns 1–2 complete; GATE 2 resolved (correction: `rpartition`). **28 tests pass.**
+- All gates resolved: return type (String), nested + top-level outcomes, solubility (`rpartition`).
+- Not yet done: turn 3 — the task commit (lib + tests) and the decision-log entry.
