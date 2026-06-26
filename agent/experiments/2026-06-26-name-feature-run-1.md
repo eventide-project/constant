@@ -63,8 +63,21 @@ run could try *originate-blind* (answer-first) for comparison.
   option (the AI listed it) but the *justification*: the AI under-valued it. A
   reminder that mean-bias reaches the reasons offered, not only the answers.
 
-## State at time of writing
+## Final state — run 1 complete
 
-- Turns 1–2 complete; GATE 2 resolved (correction: `rpartition`). **28 tests pass.**
-- All gates resolved: return type (String), nested + top-level outcomes, solubility (`rpartition`).
-- Not yet done: turn 3 — the task commit (lib + tests) and the decision-log entry.
+- Turns 1–3 complete; all gates resolved (return type **String**; nested +
+  top-level outcomes; solubility via `rpartition`). **28 tests pass.**
+- Task 3 committed (`Constant reports its name`); decision-log entries added
+  (case-per-file test structure; the `rpartition` choice).
+- **Integrated to `master`.**
+
+## Tally
+
+- **Gates that fired (corrections): 4** — return type, outcome set (GATE 1);
+  solubility (GATE 2); plus two mechanical-tier corrections (variable
+  vocabulary, test-name punctuation).
+- **Ratified: 2** — efferent shape, the nested example (G1b).
+- **Forecast quality:** the substantive gates were predicted; the two
+  mechanical corrections were under-tiered (candidate refinement: naming /
+  vocabulary consistency may belong in tier 2). No predicted gate went
+  unfired except where pre-settled by the design.
