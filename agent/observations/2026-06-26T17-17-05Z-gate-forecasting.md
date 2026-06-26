@@ -30,8 +30,23 @@ Most powerful as a **supplement that focuses attention** and a **calibration cha
 
 Pushing on the three failure modes yields a shape for a *well-formed* forecast.
 
+### Mean-bias (the mechanism) vs lowering (its effect at a hinge) — resolved
+
+**Resolved (2026-06-26):** keep **mean-bias** as the name for the *mechanism* — the forecast pulling the human toward the AI's mean-drawn answer — and use **lowering** for the specific *effect* mean-bias has *at a hinge*. Mean-bias is the cause; the lowering is what it does at a gate.
+
+**Why the distinction is needed:** "mean-bias" names a *direction* (toward the mean), not a *harm*. Bias toward the mean is a **lowering** only if you start *above* the mean; for a *below-the-mean* design the same pull is a *raising* — an improvement. So the bare direction-name would over-claim badness, smuggling in the premise "the human is above the mean."
+
+**The rescue — scope it to hinges.** Law 1 governs only how a **gate** is presented, i.e. a hinge. On a hinge the human is above the mean *by definition*: a hinge is *subtle* (answer absent from the artifacts), so the AI can only average — its proposal is a mean-draw that cannot contain the subtle knowledge, and the human, holding it, can do better. So at a hinge, bias toward the AI's proposal is *always* a lowering. The below-the-mean case can only occur on a **mechanical** decision (human has no subtle edge; the AI's mean-level answer is as good or better) — but there is no gate there, so Law 1 never applies. The counterexample is real but lives outside the gate.
+
+| | human vs AI on this decision | bias toward AI's answer | gate? |
+|---|---|---|---|
+| **Hinge** | human above (subtle edge) | **lowering** — harmful | yes — Law 1 applies |
+| **Mechanical** | human at/below | raising or neutral — fine | no |
+
+So at a gate, mean-bias necessarily produces a **lowering**: it pulls the human to produce *worse than their unbiased best*. "Toward the mean" is just what lowering looks like when you are above the mean — which, at a hinge, you always are. Law 1 stays *provoke origination, not mean-bias*; the harm it prevents is the lowering. (Outside a gate — on mechanical decisions — mean-bias causes no lowering, and there is no gate there anyway, so Law 1 never applies.)
+
 ### Mean-bias: the forecast drags the above-the-mean element toward the mean
-A naive forecast ("here's the call I'm about to make — ratify?") makes the human evaluate *is X acceptable?* instead of *what is best?* Evaluating a proposal is lower-energy than originating the best, so the human slides from **originator** mode into **judge** mode. Judge mode is downstream of the AI's proposal — it can only catch errors in what was offered, never supply what was never offered — and the proposal is drawn from the mean. So the forecast exerts **mean-bias**: it pulls the above-the-mean element *down toward the AI's mean* and demotes the human from the one irreducible mode (originator) to a transitional one (judge). **The mechanism meant to prevent averaging induces averaging — in the human.** Mean-bias attacks the purpose, not just a gate. (When conditioning has lifted the AI's proposal *above* the mean, biasing the human toward it is not mean-bias — see fault-line "when is bias correct?")
+A naive forecast ("here's the call I'm about to make — ratify?") makes the human evaluate *is X acceptable?* instead of *what is best?* Evaluating a proposal is lower-energy than originating the best, so the human slides from **originator** mode into **judge** mode. Judge mode is downstream of the AI's proposal — it can only catch errors in what was offered, never supply what was never offered — and the proposal is drawn from the mean. So the forecast exerts **mean-bias**: it pulls the above-the-mean element *down toward the AI's mean* and demotes the human from the one irreducible mode (originator) to a transitional one (judge). This effect — the human producing worse than their unbiased best — is the **lowering**. **The mechanism meant to prevent averaging induces averaging — in the human.** Mean-bias attacks the purpose, not just a gate. (When conditioning has lifted the AI's proposal *above* the mean, biasing the human toward it is not mean-bias — see fault-line "when is bias correct?")
 → **First law: a forecast must provoke origination, not exert mean-bias.**
 
 ### Calibration: asymmetric costs → lean toward flagging, which then self-destructs
