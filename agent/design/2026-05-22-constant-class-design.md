@@ -129,8 +129,10 @@ site where `value` would be generic.
 ### `#name`
 
 Instance method, computed from `raw_constant` on each call: the last
-`::`-separated segment of `raw_constant.name`, as a Symbol (`Foo::Bar::Baz` →
-`:Baz`).
+`::`-separated segment of `raw_constant.name`, as a String (`Foo::Bar::Baz` →
+`"Baz"`). This mirrors `Module#name` (a String, the type `#name` is derived
+from); the inner-constant listing `#constant_names` stays Symbols, mirroring
+`Module#constants` — the same String/Symbol split Ruby itself ships.
 
 ### `#namespace`
 
