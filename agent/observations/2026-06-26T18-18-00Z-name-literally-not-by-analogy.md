@@ -12,15 +12,15 @@ Name a concept with a **direct, literal description of what it is**. Avoid three
 
 ## The test
 
-For any candidate name, ask: *can the reader understand it without being taught a mapping?* If they must memorize "X stands for Y," it fails. A literal description ("options unavailable to the AI") passes; an analogy ("the menu problem") fails even though it is vivid.
+For any candidate name, ask: *can the reader understand it without being taught a mapping?* If they must memorize "X stands for Y," it fails. A literal description ("unreachable options") passes; an analogy ("the menu problem") fails even though it is vivid.
 
 ## Worked example (this is where the principle was extracted)
 
 | Rejected | Why it failed | Adopted (literal) |
 |---|---|---|
 | "the menu problem" / "menu trap" | analogy — memorize menu=list, dish=option | *(describe directly: showing a list makes the person pick instead of produce)* |
-| "A1" / "A2" | opaque codes | **options available to the AI** / **options unavailable to the AI** |
-| "recoverable" / "irreducible" (of options) | academic | **available to the AI** (can produce) / **unavailable to the AI** (can't, ever) |
+| "A1" / "A2" | opaque codes | **reached** / **missed** / **unreachable** (the three-rung ladder) |
+| "recoverable" / "irreducible" (of options) | academic | **missed** (the AI could reach it, fixable) / **unreachable** (the AI can't, ever) |
 
 ## Why
 
