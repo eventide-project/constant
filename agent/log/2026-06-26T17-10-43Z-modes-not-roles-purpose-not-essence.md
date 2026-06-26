@@ -1,0 +1,1 @@
+# Terminology on the human-role material: reserve "role" for the human's whole position and call the items "modes of the one role" (not separate roles, so no "portfolio of roles" collective noun); rename "essence" to "purpose" for the level that answers why a human is here at all. Item word (mode vs capacity) and role-level wording deferred

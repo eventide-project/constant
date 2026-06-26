@@ -1,0 +1,1 @@
+# Reconciled "the role is the set of its modes" with the single-purpose thesis: originating the standard (the above-the-mean element) is the irreducible purpose answering "why a human at all"; the set of modes is that purpose operationalized, answering "what the human does all day" — two levels, not rivals

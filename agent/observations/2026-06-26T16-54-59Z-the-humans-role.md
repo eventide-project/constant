@@ -32,9 +32,9 @@ This makes the machinery instrumentation, not the role:
 
 So the human's role is not merely *access to* a standard; it is *being the super-mean element itself*. The human takes the AI above its inherent pull toward average. This is the mechanism beneath the **Originator** mode below — what makes it essential and undelegatable: delegating it to the AI would collapse the configuration back to the mean.
 
-## The role is a portfolio, with a moving part
+## The role is exercised through several modes
 
-The standard is supplied in several modes. The load-bearing distinction is **essential** (never goes to zero) vs. **transitional** (shrinks as conditioning improves):
+The standard is supplied through several **modes** of the one role. ("Role" is reserved for the whole position; the items are *modes of the role*, not separate roles, so no collective noun like "portfolio of roles" is needed. The item word — **mode** vs **capacity** — and the role-level wording are not yet frozen.) The load-bearing distinction is **essential** (never goes to zero) vs. **transitional** (shrinks as conditioning improves):
 
 | Mode | What the human does | Essential / transitional |
 |---|---|---|
@@ -45,6 +45,17 @@ The standard is supplied in several modes. The load-bearing distinction is **ess
 | **Judge / ratifier** | Validates the AI's call against the standard (solubility verdict; "is it settled") | **Transitional**, slower — drift-catching outlives deciding |
 
 Ties to the two-dials finding: **gate-policy (dial 2) is transitional; conditioning is the lever that moves it.** So AI TDD describes a **migration**: the human's role moves from per-instance *deciding* toward *originating + conditioning + boundary-setting* — less a participant in each loop, more the **author of the standard the loop runs on**.
+
+## Reconciliation: the role is the set of its modes vs. the single-purpose thesis
+
+Two claims appear to compete: that the human is the *source and guarantor of the standard of "good"* (a single **purpose**), and that the role is exercised through several modes (irreducibly plural — the role *is* the set of its modes, no residue once the modes are named). They are not rivals; they sit at two levels:
+
+- **The purpose answers "why is a human here at all?"** — because the configuration needs an element above the mean, and only the human can be it (the above-the-mean sharpening). This is carried by the **Originator** mode and it is irreducible: the single reason the collaboration needs a human.
+- **The modes answer "what does the human actually do all day?"** — originating the standard gets *operationalized* across a real collaboration as a managed allocation across modes (originator, boundary-setter, conditioner, decider, judge). There is no single verb for the day-to-day; it is the mix.
+
+So: **originating the standard is the irreducible core; the set of modes is how that core is operationalized.** The purpose does not reduce the modes to one row, and the modes do not dissolve the purpose into "just a mix" — the set of modes is *the operational form of the one purpose*. The other modes (boundary-setting, conditioning, deciding, judging) are all in service of getting the above-the-mean standard into the work: conditioning transfers it ahead of time, deciding injects it in-loop, judging defends it against drift, boundary-setting decides where it must enter. Each is the purpose acting through a different mechanism.
+
+This also explains the "moving part": as conditioning succeeds, weight shifts out of the transitional modes into the AI, concentrating the human's allocation on the purpose itself (originating) and the standard-about-the-standard (boundary-setting). Same purpose, migrating allocation.
 
 ## The open question, sharpened
 
