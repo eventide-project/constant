@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents when working with code in this repository.
 
 ## Commands
 
@@ -47,7 +47,7 @@ Uses [TestBench](https://github.com/test-bench/test-bench). Tests live in `test/
 
 ## Agent artifacts
 
-All Claude/agent artifacts for this project live under a single top-level `agent/` folder so they can be committed to git alongside the code.
+All agent artifacts for this project live under a single top-level `agent/` folder so they can be committed to git alongside the code.
 
 - `agent/rules/` — binding project rules/conventions, one per file (see **Rules** below).
 - `agent/observations/` — working hypotheses and rule-candidates still under discovery, one per file (see **Observations** below). Not binding.
