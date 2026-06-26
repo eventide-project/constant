@@ -1,0 +1,1 @@
+# Constant#name uses raw_constant.name.rpartition("::").last, not split("::").last. rpartition expresses the concern faithfully — "the part after the last separator" is "the final segment" — whereas split.last ("the last of all segments") only coincidentally yields it. A solubility call: prefer the operation that names the concept over one that merely produces the same result

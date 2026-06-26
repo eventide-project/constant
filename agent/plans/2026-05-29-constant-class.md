@@ -38,7 +38,7 @@ The change is atomic: the moment one file reopens `Constant` as a class while an
 
 ## Task 3: Name
 
-- [ ] A `Constant` reports its own name — the unqualified, final segment of the value's qualified name — as a String.
+- [x] A `Constant` reports its own name — the unqualified, final segment of the value's qualified name — as a String.
 
 ---
 
