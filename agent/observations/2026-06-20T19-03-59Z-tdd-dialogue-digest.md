@@ -71,3 +71,33 @@ Propagated (2026-06-20): rewrote both observations and renamed them → `…-tdd
 
 ### Vocabulary frozen; glossary promoted to a rule
 Froze **mechanical** (dropped the "for now"). Promoted the canonical glossary from an observation to a binding **terminology rule**: `agent/rules/2026-06-20T21-12-34Z-tdd-lexicon.md` (alongside the efferent-not-caller rule). The observation `…19-46-18Z-tdd-lexicon.md` is kept as a tombstone pointing to the rule. The *framework* (which hinges exist, whether the two marks are final) remains under discovery; only the vocabulary is frozen.
+
+---
+
+## 2026-06-26 — The prior question: *whether* to interject
+
+### The "whether" is upstream of the "where"
+Raised: the whole hinge/gate apparatus answers *where* the human interjects and *how*, but presupposes *that* the human interjects — and it remains possible to let the AI proceed **entirely unscrutinized** (set the call, judge solubility, resolve hinges, generate straight through, no gate). So the live question is *whether* to interject, upstream of *where*.
+
+### Resolution: it's a second dial, not the hinge marks
+The hinge marks (subtle + load-bearing) locate **leverage, not necessity** — where judgment pays off *given* the human is in the loop, not that the human must be. This splits the framework into two dials, rightly separated: **(1) hinge-ness** — subtle ∧ load-bearing, a fact about the *design*, capability-independent (soft-spot A's whole point); says *where the risk is*. **(2) gate-policy** — given a hinge, do we actually stop? Capability- and cost-**dependent**; says *whether to pay to cover it*. Capability was pushed out of dial 1 deliberately; it re-enters at dial 2, legitimately. The whether-question is dial 2, and it can be turned to "don't interject."
+
+### The tension, the escape hatch, the floor
+- **Tension:** "subtle" = *absent from artifacts, only in the human*. At a real hinge, unscrutinized = the AI can only **average**, which the thesis forbids — an argument to interject *at hinges specifically*, threatening to collapse "whether" back into "where."
+- **Escape hatch (already in the thesis):** "condition on this project's high-solubility code" pre-loads the subtle knowledge into the AI; to that degree the gate is overhead. **Better conditioning → fewer gates.** "Unscrutinized" = the framework with gate-policy dialed to *trust*, valid to the degree conditioning absorbed the subtlety. Terminal aim: drive gates toward zero by transferring subtle knowledge into conditioning.
+- **Floor (recursion):** "whether to interject" is itself the most load-bearing hinge, so it must be deliberated at least once by the human to set the policy. The human can delegate the loop but not the decision to delegate without first making it. One irreducible interjection.
+
+### Consequence for soft-spot B
+This reframes affordability: it is not a downstream *filter* on hinge-ness — it **is** the gate-policy axis (dial 2). → observation `agent/observations/2026-06-26T16-40-50Z-whether-to-interject.md`.
+
+### The inquiry reframed: what is the human's *role*?
+Stepped back: the hinge/gate/deliberation machinery is **instrumentation** (where/when the human acts); it never names *what the human is for*. We had mapped the controls without naming the role. The real object of discovery is **the human's role in AI TDD** — and the hinge framework is a hypothesis about it, not the role itself.
+
+**Proposal: the human is the source and guarantor of the standard of "good."** Every thread converges on one ingredient only the human supplies — *subtle* = absent from artifacts/only in the person; "don't regress to the mean" needs an external referent for above-the-mean; solubility can't be certified by the green bar. The AI can generate but cannot *originate* the standard (it's subtle by definition), and its native move without the standard is to average = definitionally not-good. So the machinery is recast: hinges/gates = the points where the standard must be injected; deliberation = one mode of injecting it; cradle + solubility = the human imposing the shape standard and the quality standard.
+
+**The role is a portfolio, split essential vs transitional:** *Originator* (holds what "good" means — essential, can't be delegated, it's what's delegated *from*) and *Boundary-setter* (what counts as a hinge; gate-policy — essential; the irreducible floor) vs *Decider* (in-loop hinge resolution — transitional) and *Judge/ratifier* (validates against the standard — transitional, slower). *Conditioner* (transfers the standard into the AI ahead of the loop) is **the lever** that converts transitional load into the AI. Ties to the two dials: gate-policy is transitional, conditioning moves it → AI TDD is a **migration** of the human from per-instance deciding toward originating + conditioning + boundary-setting; the human becomes the *author of the standard the loop runs on*.
+
+**Sharpened research question:** no longer "where are the hinges" but **how the standard transfers from human into AI conditioning, and what residue never transfers** — the residue *is* the permanent human role (candidates: originator, boundary-setter). → observation `agent/observations/2026-06-26T16-54-59Z-the-humans-role.md`.
+
+### Sharpening: the human is the above-the-mean element
+"Don't regress to the mean" requires an external referent for *above* the mean — with teeth. The Human/AI configuration must contain an element above average, above the AI's natural inclination to average; **the human is that element.** The AI's gravity is "good enough" (the mean); the human is inclined to "better" — and *better than the AI has encountered*. Irreducible because averaging only reproduces the *encountered* distribution; "better than encountered" is outside it, so it can't be recovered from corpus/artifacts — only **introduced**, by the human. So the human's role isn't *access to* a standard but *being the super-mean element*; this is the mechanism beneath **Originator** and why delegating it collapses the configuration to the mean. → folded into `2026-06-26T16-54-59Z-the-humans-role.md`.

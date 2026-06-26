@@ -1,0 +1,1 @@
+# The human is the above-the-mean element of the Human/AI configuration: the AI's gravity is "good enough" (the mean), the human is inclined to "better" — and better than the AI has encountered, which averaging cannot recover; this is the mechanism beneath the Originator role and why it is irreducible
