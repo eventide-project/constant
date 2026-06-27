@@ -1,6 +1,6 @@
 # Observation: can the AI know its own conditioning level, and can it learn what the human is about to think?
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. Answers two questions raised in the TDD-AI dialogue and adds a deeper reason the human's role is irreducible. Companion to `2026-06-26T16-54-59Z-the-humans-role.md` (above-the-mean element, the migration), `2026-06-26T17-17-05Z-gate-forecasting.md` (conditioning-confidence measure, the two fault-lines), and `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials).
+**Status:** Working hypothesis, under active discovery. Not a binding rule. Answers two questions raised in the TDD-AI dialogue and adds a deeper reason the human's role is irreducible. Companion to `2026-06-26T16-54-59Z-the-humans-role.md` (above-the-mean element, the migration), `2026-06-26T17-17-05Z-gate-forecasting.md` (conditioning-confidence measure, the two limits), and `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials).
 
 ## Q1 — Can the AI know whether it is under high vs low conditioning?
 

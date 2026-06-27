@@ -7,7 +7,7 @@
 Name a concept with a **direct, literal description of what it is**. Avoid three things, all of which force the reader to memorize an arbitrary mapping back to the actual idea:
 
 1. **Real-world analogies / metaphors** (e.g. "the menu problem", "menu trap", "dishes", "cooking"). A metaphor is *itself* jargon: the reader must learn and hold the mapping (menu = the AI's option list, dish = option, cooking = originating). That is *more* to carry, not less — the opposite of soluble. Reasoning through an IRL analogy requires arbitrary memorization of yet more terms.
-2. **Opaque codes** (e.g. "A1 / A2", "fault-line A"). A code carries no meaning; the reader must look up a key.
+2. **Opaque codes** (e.g. "A1 / A2", "limit A"). A code carries no meaning; the reader must look up a key.
 3. **Academic jargon** (e.g. "irreducible", "intrinsic", "recall / precision", "anchoring"). Off-axis, imported, and read as preachy to a working-engineer audience.
 
 ## The test
