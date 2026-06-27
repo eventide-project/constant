@@ -7,6 +7,10 @@ class Constant
     raw_constant.name.rpartition("::").last
   end
 
+  def full_name
+    raw_constant.name
+  end
+
   def namespace
     namespace_name = raw_constant.name.rpartition("::").first
 
