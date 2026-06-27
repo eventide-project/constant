@@ -1,0 +1,1 @@
+# Terminology: dropped the coined metaphor "seal" (a feature) for the plain term "name the outcomes" — the act is naming each assertion's outcome context at feature-end (the naming gate). Updated the first-turn rule and digest
