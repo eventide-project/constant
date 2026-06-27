@@ -13,10 +13,8 @@ context "Constant" do
     comment "Raw Constant: #{control_value.inspect}"
     comment "Namespace: #{namespace.inspect}"
 
-    context "Is the name of the containing namespace as a String" do
-      test do
-        assert(namespace == control_module.name)
-      end
+    test do
+      assert(namespace.raw_constant == control_module)
     end
   end
 end

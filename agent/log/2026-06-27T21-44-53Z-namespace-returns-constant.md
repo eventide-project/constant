@@ -1,0 +1,1 @@
+# Decision: Constant#namespace returns a Constant (the enclosing constant, wrapped), not a String — the String-returning form is removed as unneeded, and the separate namespace_constant method is folded back into namespace. Root namespace is Constant.new(Object). Reverses the earlier String/nil decision
