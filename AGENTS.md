@@ -51,6 +51,7 @@ All agent artifacts for this project live under a single top-level `agent/` fold
 
 - `agent/rules/` — binding project rules/conventions, one per file (see **Rules** below).
 - `agent/observations/` — working hypotheses and rule-candidates still under discovery, one per file (see **Observations** below). Not binding.
+- `agent/deferred/` — design changes to make once the current task is done, one per file (see **Deferred** below).
 - `agent/design/` — design specs (Superpowers `brainstorming` skill output). Overrides the Superpowers default of `docs/superpowers/specs/`. Filename convention stays `YYYY-MM-DD-<topic>-design.md`.
 
 If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
@@ -73,6 +74,15 @@ When working with Superpowers `brainstorming` artifacts, use the word **design**
 - **Format:** same frontmatter-free markdown as rules — a `# <title>`, the content in prose. Open with a `**Status:**` line stating that it is a working hypothesis under discovery and what would promote it. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md`, UTC, timestamp synced to creation time — same convention as rules and the log.
 - **Promotion:** when an observation stabilizes into a binding convention, lift it into `agent/rules/` as a new rule and leave the observation as the discovery record (note the promotion in both). Add a `agent/log/` entry for the promotion.
 - **Recording one:** add the file, and add a matching one-line entry to `agent/log/` noting it was recorded as an observation (and why it isn't yet a rule).
+
+### Deferred — `agent/deferred/`
+
+`agent/deferred/` holds design changes that have been identified but intentionally **postponed until the current task is finished** — work that shouldn't interrupt the task in flight but must not be lost.
+
+- **When to use:** a design or convention change surfaces mid-task that is real and worth doing, but acting on it now would derail the current work. Register it here and keep going.
+- **Format:** same frontmatter-free markdown as rules and observations — a `# <title>` stating the change, then prose. Include a `**Gated on:**` line naming what must finish before the item is actionable, plus short `**Why:**` and `**How to apply:**` lines. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md`, UTC, timestamp synced to creation time — same convention as rules, observations, and the log.
+- **Resolution:** when the gating task is done, act on the item, then **delete the file** (the change itself lands in code/rules, and a `agent/log/` entry records that it was carried out). Deferred items are a queue, not a permanent record.
+- **Recording one:** add the file; a matching `agent/log/` entry is optional for the deferral itself but required when the item is resolved.
 
 ### Decision log — `agent/log/`
 
