@@ -11,9 +11,9 @@ class Constant
     namespace_name = raw_constant.name.rpartition("::").first
 
     if namespace_name.empty?
-      Object
+      nil
     else
-      Object.const_get(namespace_name)
+      namespace_name
     end
   end
 end
