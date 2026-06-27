@@ -3,7 +3,7 @@ require_relative "../automated_init"
 context "Import Constant" do
   receiver_constant = Controls::Constant.example(name: "Receiver")
 
-  control_inner_constant_names = %i(
+  control_inner_constant_names = %w(
     SomeInnerConstant
     SomeOtherInnerConstant
   )

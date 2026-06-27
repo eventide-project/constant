@@ -2,7 +2,7 @@ require_relative "../../automated_init"
 
 context "Import Constant" do
   context "Macro" do
-    control_inner_constant_names = %i(
+    control_inner_constant_names = %w(
       SomeInnerConstant
       SomeOtherInnerConstant
     )

@@ -4,7 +4,7 @@ context "Import Constant" do
   context "Alias" do
     receiver_constant = Controls::Constant.example(name: "Receiver")
 
-    control_inner_constant_names = %i(
+    control_inner_constant_names = %w(
       SomeInnerConstant
       SomeOtherInnerConstant
     )
@@ -14,7 +14,7 @@ context "Import Constant" do
       inner_constants: control_inner_constant_names
     )
 
-    alias_constant_name = :SomeAliasConstant
+    alias_constant_name = "SomeAliasConstant"
 
     returned_constants = Constant::Import.(source_constant, receiver_constant, alias: alias_constant_name)
 

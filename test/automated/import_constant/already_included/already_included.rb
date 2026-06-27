@@ -4,7 +4,7 @@ context "Import Constant" do
   context "Already Included" do
     source_constant = Controls::Constant.example(
       name: "Source",
-      inner_constants: %i(SomeInnerConstant)
+      inner_constants: %w(SomeInnerConstant)
     )
 
     receiver_constant = Controls::Constant.example(name: "Receiver")
