@@ -1,0 +1,1 @@
+# Rule: advance one outcome at a time and stop at every gate — no batch-generating test files (a batch skips gates and hides pending mistakes); finish by naming the empty test via name-options + "Chat about this" (same handoff as the actuation gate). Recorded after over-running by generating five equality test files at once

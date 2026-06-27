@@ -13,7 +13,7 @@ context "Constant" do
 
     context "Is Object for a top-level constant" do
       test do
-        assert(namespace.raw_constant == Object)
+        assert(namespace == Constant.new(Object))
       end
     end
   end

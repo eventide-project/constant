@@ -15,7 +15,7 @@ context "Constant" do
 
     context "Is the constant that contains the value" do
       test do
-        assert(namespace.raw_constant == control_module)
+        assert(namespace == Constant.new(control_module))
       end
     end
   end

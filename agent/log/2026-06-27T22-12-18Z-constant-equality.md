@@ -1,0 +1,1 @@
+# Implemented Constant#== (value equality over raw_constant; false for non-Constants, no raise), plus eql? and hash for hash-key parity (equal Constants collide as Hash keys / dedupe in a Set). Carried out the deferred == item: simplified the namespace tests to assert namespace == Constant.new(...) instead of reaching into .raw_constant
