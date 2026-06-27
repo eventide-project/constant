@@ -1,0 +1,1 @@
+# Rule: at the actuation gate the AI offers candidate actuations as options; the human chooses one or selects "chat about this" (dictate the actuation, or chat to figure it out) — operationalizes Law 1 (provoke origination, not mean-bias) and fault-line A (origination escape)

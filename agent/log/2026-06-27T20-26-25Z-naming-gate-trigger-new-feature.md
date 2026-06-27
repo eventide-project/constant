@@ -1,0 +1,1 @@
+# Rule: naming the test is deferred to the end — once the cradle shell (actuation + unnamed assert) is implemented, leave it unnamed through development and come back at the end to name the outcome contexts; this closing step is the start-of-next-feature seam (unnamed namespace vs named name confirms it)
