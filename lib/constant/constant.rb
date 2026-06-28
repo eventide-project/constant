@@ -1,7 +1,7 @@
 class Constant
   include Initializer
 
-  initializer :raw_constant
+  initializer :mod
 
   Error = Class.new(RuntimeError)
 
@@ -9,58 +9,58 @@ class Constant
     alias_method :__name, :name
   end
 
-  def self.name(raw_constant)
-    raw_constant.name.rpartition("::").last
+  def self.name(mod)
+    mod.name.rpartition("::").last
   end
 
-  def self.namespace(raw_constant)
-    namespace_name = raw_constant.name.rpartition("::").first
+  def self.namespace(mod)
+    namespace_name = mod.name.rpartition("::").first
 
     if namespace_name.empty?
       new(Object)
     else
-      namespace_constant = Object.const_get(namespace_name)
-      new(namespace_constant)
+      namespace_mod = Object.const_get(namespace_name)
+      new(namespace_mod)
     end
   end
 
-  def self.build(name_or_raw_constant, namespace_name_or_raw_constant=nil, inherit: nil)
-    namespace_name_or_raw_constant ||= Object
+  def self.build(name_or_module, namespace_name_or_module=nil, inherit: nil)
+    namespace_name_or_module ||= Object
     inherit ||= false
 
-    if name_or_raw_constant.is_a?(Module)
-      new(name_or_raw_constant)
+    if name_or_module.is_a?(Module)
+      new(name_or_module)
     else
-      namespace = build(namespace_name_or_raw_constant).raw_constant
+      namespace = build(namespace_name_or_module).mod
 
-      if not namespace.const_defined?(name_or_raw_constant, inherit)
-        raise Error, "#{name_or_raw_constant} is not defined in #{namespace}"
+      if not namespace.const_defined?(name_or_module, inherit)
+        raise Error, "#{name_or_module} is not defined in #{namespace}"
       end
 
-      raw_constant = namespace.const_get(name_or_raw_constant, inherit)
+      mod = namespace.const_get(name_or_module, inherit)
 
-      if not raw_constant.is_a?(Module)
-        raise Error, "#{name_or_raw_constant} in #{namespace} is not a module or class"
+      if not mod.is_a?(Module)
+        raise Error, "#{name_or_module} in #{namespace} is not a module or class"
       end
 
-      new(raw_constant)
+      new(mod)
     end
   end
 
   def name
-    self.class.name(raw_constant)
+    self.class.name(mod)
   end
 
   def full_name
-    raw_constant.name
+    mod.name
   end
 
   def namespace
-    self.class.namespace(raw_constant)
+    self.class.namespace(mod)
   end
 
   def ==(other)
-    other.is_a?(Constant) && raw_constant == other.raw_constant
+    other.is_a?(Constant) && mod == other.mod
   end
 
   def eql?(other)
@@ -68,6 +68,6 @@ class Constant
   end
 
   def hash
-    raw_constant.hash
+    mod.hash
   end
 end
