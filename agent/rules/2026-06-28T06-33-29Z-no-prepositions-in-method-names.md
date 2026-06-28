@@ -1,0 +1,11 @@
+# Never favor prepositions in method names
+
+Do not put a preposition in a method name (`import_from`, `define_in`, `set_to`, `copy_into`). A preposition in a method name points at the **argument** — but arguments are **inherent to methods**, so nothing in the name needs to announce them. The parameter already says "what follows is an argument"; a preposition-word adds no information the call site doesn't already carry. Name the method for the action alone (`import`, `define`, `set`, `copy`).
+
+**The rubric argument (why "some" is not allowed):** a preposition refers to the argument, and a method's arguments are intrinsic to it. So any rationale that licenses a preposition in *one* method name licenses it in *every* method name that takes an argument — i.e. nearly all of them. A consistent rubric therefore has two stable points: prepositions in *all* names, or in *none*. "Some" is incoherent. We take *none*.
+
+**Why:** Reaching for the preposition is a **bias toward the mean** — the average Ruby idiom — not a choice that earns its keep (see the mean-bias lexicon, `agent/log/2026-06-26T17-43-13Z-de-jargon-mean-bias-miss-false-alarm.md`). The literal action is the whole meaning of the name; the preposition is ceremony.
+
+**Scope — method names only.** This governs **method/initializer names**, not prose or terminology. Prose deliberately *does* use prepositional phrasing where it carries meaning: the relation verb is **"mediates for"** (`agent/rules/`/`agent/log/…mediates-for-verb`) and inputs are described as **"sent to"** a method (`agent/rules/2026-06-05T17-38-24Z-sent-to-phrasing.md`). Those are descriptions of a relationship, not identifiers; the preposition is load-bearing there and absent here.
+
+**How to apply:** When naming a method, name the action and stop. If you feel the pull to append `_from`/`_to`/`_in`/`_with`/`_into`/`_for`, that is the mean-bias tell — the argument the preposition would point at is already the parameter. Related: name-literally-not-by-analogy (`agent/rules/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`), the TDD lexicon's solubility/precision criteria.
