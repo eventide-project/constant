@@ -1,0 +1,1 @@
+# Rule: after making changes, run the full test suite (`ruby test/automated.rb`) and confirm green *before* considering whether to commit — the suite run is a precondition of the commit decision, not a post-decision step. Verification, not ceremony; keeps recorded history green at every commit. → rule `…07-12-02Z-run-suite-before-commit.md`
