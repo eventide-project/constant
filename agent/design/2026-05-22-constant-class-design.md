@@ -131,8 +131,12 @@ site where `value` would be generic.
 Instance method, computed from `raw_constant` on each call: the last
 `::`-separated segment of `raw_constant.name`, as a String (`Foo::Bar::Baz` →
 `"Baz"`). This mirrors `Module#name` (a String, the type `#name` is derived
-from); the inner-constant listing `#constant_names` stays Symbols, mirroring
-`Module#constants` — the same String/Symbol split Ruby itself ships.
+from). Every constant name the library *returns* is a String — including the
+inner-constant listing `#constant_names`, which normalizes the Symbols of
+`Module#constants` to Strings. Ruby itself ships a String/Symbol split
+(`Module#name` a String, `Module#constants` Symbols), but the library presents
+uniform String **outputs**; on **input** it accepts either type wherever the
+delegated Ruby method does.
 
 ### `#namespace`
 
@@ -188,9 +192,10 @@ Answers: *does `namespace` contain a constant whose name is this instance's
 
 ### `#constant_names(inherit: false)`
 
-Returns the Symbol names of the wrapped value's inner constants **whose values
-are themselves modules or classes**. Inner constants holding non-module values
-are excluded.
+Returns the names, as Strings, of the wrapped value's inner constants **whose
+values are themselves modules or classes**. Inner constants holding non-module
+values are excluded. (`Module#constants` returns Symbols; they are normalized to
+Strings on the way out, per the String-outputs convention.)
 
 ### `#constants(inherit: false)`
 

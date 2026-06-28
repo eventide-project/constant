@@ -44,7 +44,16 @@ The change is atomic: the moment one file reopens `Constant` as a class while an
 
 ## Task 4: Namespace
 
-- [ ] A `Constant` reports its namespace: the constant object that contains its value. A top-level constant has no containing constant object; its namespace is the top-level namespace.
+- [x] A `Constant` reports its namespace: the constant object that contains its value. A top-level constant has no containing constant object; its namespace is the top-level namespace.
+
+Built and reworked: `#namespace` returns the containing constant **wrapped in a `Constant`** (not the bare module, and not the namespace name as a String — both forms were tried and dropped). A top-level constant's namespace is `Constant.new(Object)` — a method that must return a `Constant` can't return `nil`, so `Object` is the top-level fixpoint.
+
+---
+
+## Added features (built test-first, outside the original task sequence)
+
+- [x] **Full name** — A `Constant` reports its full, `::`-qualified name as a String (`raw_constant.name` in full), where `#name` (Task 3) returns only the final segment.
+- [x] **Value equality** — `Constant#==`, `#eql?`, and `#hash` compare by the wrapped `raw_constant`: equal `Constant`s compare equal, dedupe in a `Set`, and interchange as `Hash` keys. A non-`Constant` operand compares `false` without raising.
 
 ---
 
@@ -82,13 +91,13 @@ This supports the next two tasks, which must distinguish inner constants that ar
 
 ## Task 10: Inner constant names
 
-- [ ] A `Constant` reports the names of its own inner constants that are themselves constant objects, as Symbols. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
+- [ ] A `Constant` reports the names of its own inner constants that are themselves constant objects, as Strings. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default. (Ruby's `Module#constants` returns Symbols; normalize to Strings on the way out, per the String-outputs convention.)
 
 ---
 
 ## Task 11: Inner constants
 
-- [ ] A `Constant` reports its own inner constants that are themselves constant objects, each wrapped in a `Constant`. The selection matches the names query; the difference is that wrapped constants are returned rather than Symbols.
+- [ ] A `Constant` reports its own inner constants that are themselves constant objects, each wrapped in a `Constant`. The selection matches the names query; the difference is that wrapped constants are returned rather than name Strings.
 
 ---
 
