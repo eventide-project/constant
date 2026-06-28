@@ -1,20 +1,20 @@
 require_relative "../../automated_init"
 
 context "Constant" do
-  context "Namespace" do
+  context "Build" do
     control_constant_name = "SomeConstant"
     control_namespace = Controls::Constant.example(inner_constants: [control_constant_name])
-    control_value = control_namespace.const_get(control_constant_name)
+    control_namespace_name = control_namespace.name
 
-    constant = Constant.new(control_value)
-
+    constant = Constant.build(control_constant_name, control_namespace_name)
     namespace = constant.namespace
     control_namespace_constant = Constant.new(control_namespace)
 
-    comment "Raw Constant: #{control_value.inspect}"
+    comment "Constant Name: #{control_constant_name.inspect}"
+    comment "Namespace Name: #{control_namespace_name.inspect}"
     comment "Namespace: #{namespace.inspect}"
 
-    context "Is the constant that contains the value" do
+    context "Resolves the namespace given as a name" do
       test do
         assert(namespace == control_namespace_constant)
       end

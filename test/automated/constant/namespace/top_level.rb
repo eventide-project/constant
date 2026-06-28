@@ -7,13 +7,14 @@ context "Constant" do
     constant = Constant.new(control_value)
 
     namespace = constant.namespace
+    control_namespace_constant = Constant.new(Object)
 
     comment "Raw Constant: #{control_value.inspect}"
     comment "Namespace: #{namespace.inspect}"
 
     context "Is Object for a top-level constant" do
       test do
-        assert(namespace == Constant.new(Object))
+        assert(namespace == control_namespace_constant)
       end
     end
   end

@@ -24,13 +24,15 @@ class Constant
     end
   end
 
-  def self.build(name_or_raw_constant, namespace=nil, inherit: nil)
-    namespace ||= Object
+  def self.build(name_or_raw_constant, namespace_name_or_raw_constant=nil, inherit: nil)
+    namespace_name_or_raw_constant ||= Object
     inherit ||= false
 
     if name_or_raw_constant.is_a?(Module)
       new(name_or_raw_constant)
     else
+      namespace = build(namespace_name_or_raw_constant).raw_constant
+
       if not namespace.const_defined?(name_or_raw_constant, inherit)
         raise Error, "#{name_or_raw_constant} is not defined in #{namespace}"
       end
