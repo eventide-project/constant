@@ -1,0 +1,7 @@
+# At the actuation hinge, show the nested contexts the actuation sits in; downstream hinges omit them
+
+When presenting the actuation hinge (hinge 1 of the cycle), show the actuation **inside its nested `context` blocks** — the folder-mirroring contexts it lives under (e.g. `context "Constant" do` / `context "Build" do`). At the subsequent hinges (assertion, controls), **do not** repeat the contexts — show just that hinge's concern with the actuation anchor.
+
+**Why:** The actuation hinge is where the outcome's **structural placement** is established — which class/feature contexts it nests under, mirroring the test's folder path (per the folder-mirroring rule). Seeing the nesting at hinge 1 lets the human judge *where* the outcome lives before anything else is built. Once that placement is settled at hinge 1, the contexts are fixed; repeating them at the assertion and controls hinges is noise that buries each hinge's actual concern. So the nesting is shown once, where it is decided, and elided thereafter.
+
+**How to apply:** At hinge 1, render the actuation within its full `context` nesting. At hinges 2–3, drop the `context` wrappers and show only the hinge's lines plus the actuation (per the assertion-hinge and controls-hinge presentation rules). The full nesting returns when the turn-one test file is assembled and shown after the three test hinges. Related: the hinge-cycle rule, the folder-mirroring rule, the first-turn rule, and the assertion-hinge-shows-actuation / controls-hinge-shows-actuation rules.
