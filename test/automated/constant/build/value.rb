@@ -1,4 +1,4 @@
-require_relative "../automated_init"
+require_relative "../../automated_init"
 
 context "Constant" do
   context "Build" do

@@ -22,8 +22,15 @@ class Constant
       end
 
       def self.add_inner_constants(mod, inner_constants)
-        inner_constants.each do |inner_constant_name|
-          mod.const_set(inner_constant_name, Module.new)
+        if inner_constants.is_a?(Hash)
+          inner_constants.each do |inner_constant_name, inner_constant_value|
+            mod.const_set(inner_constant_name, inner_constant_value)
+          end
+        else
+          inner_constants.each do |inner_constant_name|
+            inner_constant_value = Module.new
+            mod.const_set(inner_constant_name, inner_constant_value)
+          end
         end
       end
     end
