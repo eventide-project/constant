@@ -1,0 +1,1 @@
+# Terminology: say "normal path", never "happy path" — the latter is imported affective-metaphor jargon; "normal path" is the literal term (normal course vs. error/exceptional cases). Consistent with name-literally-not-by-analogy. → rule `…07-41-49Z-normal-path-not-happy-path.md`

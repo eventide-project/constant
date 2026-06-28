@@ -1,0 +1,16 @@
+# Don't inline method calls as arguments — bind the result to a variable first
+
+Do not pass the result of a method call directly as an argument to another call. Bind it to an explaining local variable, then pass the variable.
+
+```ruby
+# No
+new(namespace.const_get(name_or_value, inherit))
+
+# Yes
+raw_constant = namespace.const_get(name_or_value, inherit)
+new(raw_constant)
+```
+
+**Why:** The intermediate value is a meaningful domain object; naming it documents what it is at the call site and gives a single place to inspect it (debugging, logging, a breakpoint). Inlining hides the value behind a nested expression and forces the reader to parse the call inside-out. A named local reads top-to-bottom and states the intent.
+
+**How to apply:** When an argument would otherwise be a method-call result, assign it to a local named for the value (e.g. `raw_constant`, `namespace_constant`), then pass that local. This is the same impulse as the test convention of binding the actuation result to an explaining variable before asserting on it. (Plain variables, constants, and literals as arguments are fine — the rule is about *method-call results*.) Related: the show-the-test/explaining-variable conventions.
