@@ -2,20 +2,20 @@ require_relative "../automated_init"
 
 context "Constant" do
   context "Full Name" do
-    control_inner_constant_name = "SomeConstant"
-    control_module = Controls::Constant.example(inner_constants: [control_inner_constant_name])
-    control_value = control_module.const_get(control_inner_constant_name)
+    control_module_name = "SomeConstant"
+    control_namespace = Controls::Constant.example(inner_constants: [control_module_name])
+    control_module = control_namespace.const_get(control_module_name)
 
-    constant = Constant.new(control_value)
+    constant = Constant.new(control_module)
 
     full_name = constant.full_name
 
-    comment "Raw Constant: #{control_value.inspect}"
+    comment "Module: #{control_module.inspect}"
     comment "Full Name: #{full_name.inspect}"
 
     context "Is the whole qualified name as a String" do
       test do
-        assert(full_name == control_value.name)
+        assert(full_name == control_module.name)
       end
     end
   end

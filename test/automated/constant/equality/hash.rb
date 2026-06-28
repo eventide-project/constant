@@ -2,14 +2,14 @@ require_relative "../../automated_init"
 
 context "Constant" do
   context "Equality" do
-    control_value = Controls::Constant.example
+    control_module = Controls::Constant.example
 
-    constant = Constant.new(control_value)
-    other_constant = Constant.new(control_value)
+    constant = Constant.new(control_module)
+    control_module_constant = Constant.new(control_module)
 
-    equal_hashes = constant.hash == other_constant.hash
+    equal_hashes = constant.hash == control_module_constant.hash
 
-    comment "Control Constant: #{control_value.inspect}"
+    comment "Module: #{control_module.inspect}"
 
     context "Equal hash when mediating for the same constant" do
       test do

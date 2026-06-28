@@ -2,16 +2,13 @@ require_relative "../../automated_init"
 
 context "Constant" do
   context "Equality" do
-    control_value = Controls::Constant.example
+    control_module = Controls::Constant.example
 
-    constant = Constant.new(control_value)
+    constant = Constant.new(control_module)
 
-    other = control_value
+    equal = constant == control_module
 
-    equal = constant == other
-
-    comment "Control Constant: #{control_value.inspect}"
-    comment "Other (not a Constant): #{other.inspect}"
+    comment "Module: #{control_module.inspect}"
 
     context "Unequal when the other is not a Constant" do
       test do

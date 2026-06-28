@@ -2,18 +2,18 @@ require_relative "../../automated_init"
 
 context "Constant" do
   context "Name" do
-    control_value = Controls::Constant.example
+    control_module = Controls::Constant.example
 
-    constant = Constant.new(control_value)
+    constant = Constant.new(control_module)
 
     name = constant.name
 
-    comment "Raw Constant: #{control_value.inspect}"
+    comment "Module: #{control_module.inspect}"
     comment "Name: #{name.inspect}"
 
     context "Is the whole name as a String" do
       test do
-        assert(name == control_value.name)
+        assert(name == control_module.name)
       end
     end
   end
