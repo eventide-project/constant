@@ -24,7 +24,10 @@ class Constant
     end
   end
 
-  def self.build(name_or_raw_constant, namespace = Object, inherit: false)
+  def self.build(name_or_raw_constant, namespace=nil, inherit: nil)
+    namespace ||= Object
+    inherit ||= false
+
     if name_or_raw_constant.is_a?(Module)
       new(name_or_raw_constant)
     else
