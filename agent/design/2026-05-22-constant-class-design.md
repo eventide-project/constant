@@ -142,6 +142,13 @@ inner-constant listing `#constant_names`, which normalizes the Symbols of
 uniform String **outputs**; on **input** it accepts either type wherever the
 delegated Ruby method does.
 
+### `#full_name`
+
+Instance method, computed from `mod` on each call: the full, `::`-qualified name
+as a String (`mod.name` in full; `Foo::Bar::Baz` → `"Foo::Bar::Baz"`), where
+`#name` returns only the final segment. Added test-first, after the original
+task sequence.
+
 ### `#namespace`
 
 Instance method, computed from `mod` on each call: the **`Constant`** for the
@@ -169,6 +176,10 @@ validation in the system.
   - the name is not defined, or it resolves to a non-module value → raises
     `Constant::Error`
 - `build(:Name)` → `namespace` defaults to `Object`.
+- The `namespace` argument may itself be given as a **name or a module**: a name
+  is resolved to its module through `build` recursively (defaulting to
+  `Object`), so `build(:Inner, :Outer)` and `build(:Inner, Outer)` are
+  equivalent.
 - Accepts a **single** constant name only — nested-path strings (`"Foo::Bar"`)
   are out of scope.
 - `inherit` is an optional keyword parameter, last in the parameter list,
@@ -233,6 +244,14 @@ Returns a boolean: `true` if `namespace` binds a constant called `name`.
 - This is the primitive that the instance `#defined?` delegates to: the
   instance supplies its own `#name`, the `in:` namespace, and `inherit`.
 
+## Equality
+
+Added test-first, after the original task sequence. Two `Constant`s are equal
+when they mediate the same module: `#==` and `#eql?` compare by the mediated
+`mod`, and a non-`Constant` operand compares `false` without raising; `#hash` is
+the mediated module's `hash`. So equal `Constant`s compare equal, dedupe in a
+`Set`, and interchange as `Hash` keys.
+
 ## Error Handling
 
 `Constant::Error = Class.new(RuntimeError)` — defined in
@@ -251,23 +270,27 @@ The message names the unresolved constant and the namespace, e.g.
 Tests use TestBench and live in `test/automated/`. A new directory,
 `test/automated/constant/`, mirrors the existing `import_constant/` layout:
 
-- `build.rb` — the module/class form; the name+namespace form; the default
-  namespace; `inherit`; `Constant::Error` raised on an undefined name and on a
-  name that resolves to a non-module value.
-- `name.rb` — `#name` computed from `#mod`.
-- `namespace.rb` — `#namespace` computed from `#mod`, including the `Object`
-  case for a top-level module.
-- `defined.rb` — instance `#defined?` (`in:` namespace, `inherit`) and
-  class-level `Constant.defined?` (default namespace, `inherit`, `false` for an
-  undefined name).
-- `constants.rb` — `#constants` and `#constant_names`, both restricted to
-  module/class inner constants and corresponding 1:1; non-module inner
-  constants excluded.
+- `build/` — one file per outcome: `value` (the module form), `name`
+  (name+namespace), `namespace_name` (the namespace itself given as a name),
+  `undefined` and `non_module` (the two `Constant::Error` cases).
+- `name/` — `#name` computed from `#mod`, with `top_level` and `nested` cases.
+- `namespace/` — `#namespace` computed from `#mod`, with `top_level` and
+  `nested` cases (the latter covering a non-`Object` namespace).
+- `full_name.rb` — `#full_name`.
+- `equality/` — `#==`, `#eql?`, `#hash`: `equal`, `eql`, `hash`, `unequal`, and
+  `non_constant`.
+- `defined.rb` *(pending Tasks 7–8)* — instance `#defined?` (`in:` namespace,
+  `inherit`) and class-level `Constant.defined?` (default namespace, `inherit`,
+  `false` for an undefined name).
+- `constants.rb` *(pending Tasks 10–11)* — `#constants` and `#constant_names`,
+  both restricted to module/class inner constants and corresponding 1:1;
+  non-module inner constants excluded.
 
 `Controls::Constant.example` supplies example modules with inner constants.
-`add_inner_constants` currently seeds each inner constant with `Module.new`; it
-needs a small extension so a test can seed a **non-module** inner constant, to
-exercise the exclusion behavior of `#constants` / `#constant_names`.
+`add_inner_constants` seeds module-valued inner constants from an Array of names
+(each a fresh `Module.new`) and **non-module** inner constants from a Hash of
+`name => value` — the Hash form added to exercise the exclusion behavior of
+`#constants` / `#constant_names`.
 
 The existing `Import` and `Define` tests must continue to pass unchanged —
 that is the proof that converting `Constant` from a module to a class is
@@ -280,13 +303,17 @@ behavior-neutral.
 New:
 
 - `lib/constant/constant.rb` — `class Constant`: `Error`, `initialize`/`new`,
-  `build`, class `defined?`, `#mod`, `#name`, `#namespace`, instance
-  `#defined?`, `#constants`, `#constant_names`.
-- `test/automated/constant/build.rb`
-- `test/automated/constant/name.rb`
-- `test/automated/constant/namespace.rb`
-- `test/automated/constant/defined.rb`
-- `test/automated/constant/constants.rb`
+  `build`, class `defined?`, `#mod`, `#name`, `#full_name`, `#namespace`,
+  `#==`/`#eql?`/`#hash`, instance `#defined?`, `#constants`, `#constant_names`.
+- `test/automated/constant/build/` — `value`, `name`, `namespace_name`,
+  `undefined`, `non_module`.
+- `test/automated/constant/name/` — `top_level`, `nested`.
+- `test/automated/constant/namespace/` — `top_level`, `nested`.
+- `test/automated/constant/full_name.rb`
+- `test/automated/constant/equality/` — `equal`, `eql`, `hash`, `unequal`,
+  `non_constant`.
+- `test/automated/constant/defined.rb` *(pending Tasks 7–8)*
+- `test/automated/constant/constants.rb` *(pending Tasks 10–11)*
 
 Modified:
 
