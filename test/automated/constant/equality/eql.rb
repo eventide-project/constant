@@ -11,7 +11,7 @@ context "Constant" do
 
     comment "Module: #{control_module.inspect}"
 
-    context "Eql? when mediating for the same constant" do
+    context "Eql? when mediating the same module" do
       test do
         assert(eql)
       end

@@ -9,7 +9,7 @@ encapsulates the operations done with constants, so callers work through a
 domain object instead of reaching into Ruby's low-level constant internals
 (`const_get`, `const_set`, `const_defined?`, `constants`).
 
-This first cut is **query-focused**. A `Constant` instance wraps a resolved
+This first cut is **query-focused**. A `Constant` instance mediates a resolved
 module or class and answers questions about it: its name, its namespace,
 whether its name is present in some other namespace, and what module/class
 constants it contains.
@@ -112,7 +112,7 @@ test of its own.
 
 ### Instance state
 
-A single instance variable, `@raw_constant`: the wrapped module/class.
+A single instance variable, `@raw_constant`: the mediated module/class.
 
 ### `#raw_constant`
 
@@ -145,7 +145,7 @@ the leading path of `raw_constant.name` (`Foo::Bar::Baz` → the module
 `Foo::Bar`); `Object` for a top-level constant. The path-to-module resolution is encapsulated inside
 the class — callers never touch `const_get`.
 
-Because `#name` and `#namespace` are always computed from the wrapped value
+Because `#name` and `#namespace` are always computed from the mediated value
 (`raw_constant`), the instance's identity is the value's canonical identity. `build`'s `name`
 argument (below) *locates* a module; it does not *rename* the resulting
 instance.
@@ -183,7 +183,7 @@ Answers: *does `namespace` contain a constant whose name is this instance's
   error, mirroring how Ruby treats a missing required keyword, not an
   applicative `Constant::Error`.
 - `inherit` keyword, default `false`.
-- There is no no-argument form. A `Constant` always wraps a resolved value, so
+- There is no no-argument form. A `Constant` always mediates a resolved value, so
   asking whether it is defined in its *own* namespace is degenerate; the method
   only ever answers the useful question — whether the name is present in some
   *other* namespace. The motivating use is collision-checking: before a future
@@ -192,7 +192,7 @@ Answers: *does `namespace` contain a constant whose name is this instance's
 
 ### `#constant_names(inherit: false)`
 
-Returns the names, as Strings, of the wrapped value's inner constants **whose
+Returns the names, as Strings, of the mediated value's inner constants **whose
 values are themselves modules or classes**. Inner constants holding non-module
 values are excluded. (`Module#constants` returns Symbols; they are normalized to
 Strings on the way out, per the String-outputs convention.)

@@ -2,7 +2,7 @@
 
 Two words, kept distinct:
 
-- **module** — a raw Ruby `Module`/`Class`. This is the base noun for the unwrapped thing; "raw constant"/"value" are retired. A `Class` qualifies (`Class < Module`) and the term covers both, but in practice the term is exact: the controls only ever build a `Module` (`Controls::Constant.example` returns `Module.new`), and **no test exercises a `Class`** — the implementation is Class/Module-agnostic by construction (`is_a?(Module)` guard, accessors on `Module#name`), so a `Class` test would be green-on-arrival, asserting Ruby's `Class < Module` guarantee rather than driving any design. A `Class` test earns its place only once behavior *distinguishes* a class.
+- **module** — a raw Ruby `Module`/`Class`. This is the base noun for the raw module itself; "raw constant"/"value" are retired. A `Class` qualifies (`Class < Module`) and the term covers both, but in practice the term is exact: the controls only ever build a `Module` (`Controls::Constant.example` returns `Module.new`), and **no test exercises a `Class`** — the implementation is Class/Module-agnostic by construction (`is_a?(Module)` guard, accessors on `Module#name`), so a `Class` test would be green-on-arrival, asserting Ruby's `Class < Module` guarantee rather than driving any design. A `Class` test earns its place only once behavior *distinguishes* a class.
 - **constant** — an instance of the `Constant` class. The word "constant" is **reserved** for `Constant` instances and never names the raw module.
 
 A variable for a module — and by extension any module-ish control, e.g. one playing a **namespace** role — carries a suffix that says **which form of the thing it holds**, consistently throughout the code:

@@ -22,7 +22,7 @@ guided tour, those files are the source of truth.
 ## 0. Where we started
 
 The `constant` library is a small Ruby gem in the Eventide ecosystem. An
-in-progress plan adds a stateful `Constant` class (it wraps a module/class and
+in-progress plan adds a stateful `Constant` class (it mediates a module/class and
 answers questions about it). Two tasks were done (class conversion;
 initialization with a `#raw_constant` reader); **Task 3 — Name** was next.
 
@@ -324,7 +324,7 @@ The run played out as a sequence of human corrections, each one a data point.
   to a **String**. This opened a genuine design question — is there a foundational
   Ruby case for Symbol? The answer (supplied as *crude* knowledge): Ruby is mixed
   — `Module#name` is a String, `Module#constants`/`Method#name` are Symbols — and
-  the strongest specific precedent for a wrapped module/class's own name is
+  the strongest specific precedent for a mediated module/class's own name is
   `Module#name` (a String), the very type `#name` is derived from. Decided:
   String. The baseline (design doc, plan) was corrected on `master`;
   `#constant_names` stays Symbols, mirroring `Module#constants`.
