@@ -65,7 +65,9 @@ Built and reworked: `#namespace` returns the containing constant **wrapped in a 
 
 ## Task 6: Build from a name
 
-- [ ] Given a name and a namespace, `build` resolves the name to its constant object and wraps it. The namespace defaults to the top level. An option directs whether resolution follows the ancestor chain. When the name is not bound in the namespace, or is bound to a value that is not a constant object, `build` raises an error.
+- [x] Given a name and a namespace, `build` resolves the name to its constant object and wraps it. The namespace defaults to the top level. An option directs whether resolution follows the ancestor chain. When the name is not bound in the namespace, or is bound to a value that is not a constant object, `build` raises an error.
+
+Driven outcomes (red→green): name resolved within a namespace; `Constant::Error` on an undefined name; `Constant::Error` on a name that resolves to a non-module value. The **default-namespace** and **`inherit`** outcomes were *dropped as green-on-arrival* — both behaviors were already present (the `namespace = Object` default and `const_get`'s threaded `inherit`), so their tests would have driven no design (see the no-green-on-arrival-tests rule). Extension deferred: `build`'s namespace parameter accepting a name as well as a raw constant (`agent/deferred/2026-06-28T15-57-24Z-build-namespace-as-name.md`).
 
 ---
 
