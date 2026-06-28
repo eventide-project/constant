@@ -21,6 +21,10 @@ class Constant
     end
   end
 
+  def self.build(raw_constant)
+    new(raw_constant)
+  end
+
   def name
     self.class.name(raw_constant)
   end

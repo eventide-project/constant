@@ -59,7 +59,7 @@ Built and reworked: `#namespace` returns the containing constant **wrapped in a 
 
 ## Task 5: Build from a constant object
 
-- [ ] Given a constant object, `build` wraps it in a `Constant`.
+- [x] Given a constant object, `build` wraps it in a `Constant`.
 
 ---
 
