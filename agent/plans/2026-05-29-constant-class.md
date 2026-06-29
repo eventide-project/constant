@@ -73,7 +73,9 @@ Driven outcomes (red→green): name resolved within a namespace; `Constant::Erro
 
 ## Task 7: Definition predicate
 
-- [ ] A class-level predicate reports whether a name is bound within a namespace, defaulting to the top level. It tests existence only — the bound value's type does not matter — and never raises.
+- [x] A class-level predicate reports whether a name is bound within a namespace, defaulting to the top level. It tests existence only — the bound value's type does not matter — and never raises.
+
+One driven outcome (red→green): a constant name defined in the namespace → `true` (`Affirms the constant name is defined in the namespace`). `Constant.defined?` reflects `build`'s signature — positional `name`, positional namespace (a name or a module), trailing `inherit:` — and reuses `build` to resolve the namespace, then checks existence via `const_defined?`. The other facets — undefined name → `false` (never raises), value-type-agnostic existence, the default top-level namespace, and `inherit` — were all **green-on-arrival** (`const_defined?` returns `false` for an undefined name and ignores value type; the `namespace ||= Object` default and threaded `inherit` are already present), so dropped per the no-green-on-arrival rule.
 
 ---
 

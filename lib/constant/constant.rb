@@ -47,6 +47,14 @@ class Constant
     end
   end
 
+  def self.defined?(name, namespace_name_or_module=nil, inherit: nil)
+    namespace_name_or_module ||= Object
+    inherit ||= false
+
+    namespace = build(namespace_name_or_module).mod
+    namespace.const_defined?(name, inherit)
+  end
+
   def name
     self.class.name(mod)
   end
