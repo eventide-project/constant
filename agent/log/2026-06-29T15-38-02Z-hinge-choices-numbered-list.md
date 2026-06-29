@@ -1,0 +1,1 @@
+# Hinge choices always go through the AskUserQuestion selection UI; never add a "Chat about this" option (the built-in "Other" is the escape); the 2-option floor forces surfacing the real underlying decision rather than padding
