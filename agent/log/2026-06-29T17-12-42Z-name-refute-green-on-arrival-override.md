@@ -1,0 +1,1 @@
+# Added a name-scenario refute (undefined name → not defined) to Constant#defined? as a deliberate green-on-arrival exception — for symmetry/documentation with the module scenario; const_defined? already returns false, so it drives no design (cf. Task 7, which dropped the identical class-predicate outcome)

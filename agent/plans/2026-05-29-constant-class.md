@@ -82,7 +82,7 @@ One driven outcome (red→green): a constant name defined in the namespace → `
 
 ## Task 8: Instance definition predicate
 
-- [ ] An instance predicate, `Constant#defined?`, receives a name or a Ruby module as a positional argument and reports whether it is defined **within the module the instance mediates** — the instance is the namespace being searched. For a name: whether that name is bound. For a module: whether that exact module is nested within (identity/containment, not name-existence). Supports an `inherit` keyword (default `false`). Two arms → two outcomes (`name`, `module`), each its own test file.
+- [x] An instance predicate, `Constant#defined?`, receives a name or a Ruby module as a positional argument and reports whether it is defined **within the module the instance mediates** — the instance is the namespace being searched. For a name: whether that name is bound. For a module: whether that exact module is nested within (identity/containment, not name-existence). Supports an `inherit` keyword (default `false`). Two scenarios → outcomes: `name` (defined by name), `module` (nested module affirmed, same-named non-nested module refuted), each its own test file. The refuting module outcome is the discriminator that witnesses identity over name-existence. `inherit` is threaded but not separately driven (green-on-arrival).
 
   Reworked from the design doc's `#defined?(in: namespace)` collision-check framing (instance as the thing looked for) — dictated across the actuation hinges; see `agent/log/2026-06-29T15-44-03Z-…`, `…T15-59-32Z-defined-module-arg-identity`, `…-inherit`. Test layout is nested-by-receiver: `constant/defined_predicate/class.rb` (Task 7) plus `constant/defined_predicate/instance/{name,module}.rb`.
 

@@ -69,8 +69,14 @@ class Constant
     self.class.namespace(mod)
   end
 
-  def defined?(name, inherit: false)
-    self.class.defined?(name, mod, inherit: inherit)
+  def defined?(name_or_module, inherit: false)
+    if name_or_module.is_a?(Module)
+      mod.constants(inherit).any? do |constant_name|
+        mod.const_get(constant_name, inherit).equal?(name_or_module)
+      end
+    else
+      self.class.defined?(name_or_module, mod, inherit: inherit)
+    end
   end
 
   def ==(other)
