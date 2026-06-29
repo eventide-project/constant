@@ -402,11 +402,6 @@ its own derivation source. Settled specifics:
   records its final-segment name, the raw value, and its namespace (a
   `Constant::Module`) — name first (more primary than the value); a literal is
   only built where the binding is known.
-- **File layout.** The subtypes live under `lib/constant/constant/` —
-  `constant/module.rb`, `constant/literal.rb` — alongside the parent
-  `constant/constant.rb`, so the file system reflects the namespacing
-  (`Constant::Module`/`Constant::Literal` nest under `Constant`). The legacy
-  `Import`/`Define`/`Log`/`Controls` files are not yet conformed.
 - **Name/full_name/namespace** stay per-subtype (each derives from a different
   source); the module earns its keep through the equality protocol and the
   interface contract, not forced reuse.

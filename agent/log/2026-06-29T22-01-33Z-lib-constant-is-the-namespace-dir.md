@@ -1,0 +1,1 @@
+# lib/constant/ IS the Constant namespace directory: Constant::Module/Literal correctly live at lib/constant/{module,literal}.rb (like Constant::Import at lib/constant/import.rb). Do NOT double-nest under lib/constant/constant/ — that would imply Constant::Constant::Module. An earlier move to lib/constant/constant/ was a mistake and was reverted
