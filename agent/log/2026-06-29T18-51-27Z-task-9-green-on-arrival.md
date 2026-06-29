@@ -1,0 +1,1 @@
+# Task 9 (Controls seed non-module inner constants) marked done as green-on-arrival — already provided by Controls::Constant's existing Hash-form seeding; no new code; ergonomic mixed-seeding helper deferred to Tasks 10–11 if needed

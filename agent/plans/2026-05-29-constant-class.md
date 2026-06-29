@@ -90,9 +90,11 @@ One driven outcome (red→green): a constant name defined in the namespace → `
 
 ## Task 9: Controls — non-module inner constants
 
-- [ ] Extend `Controls::Constant` so it can seed inner constants whose values are not modules, alongside its existing seeding of module-valued inner constants.
+- [x] Extend `Controls::Constant` so it can seed inner constants whose values are not modules, alongside its existing seeding of module-valued inner constants.
 
 This supports the next two tasks, which must distinguish inner constants that are themselves modules from inner constants bound to other kinds of values. This task ships the controls change only; the tests that exercise it ship with Tasks 10 and 11.
+
+**Done — green-on-arrival; no new code.** The capability already exists in `Controls::Constant.add_inner_constants`: the Hash form (`inner_constants: { name => value }`) seeds arbitrary, including non-module, values via `const_set`, coexisting with the Array form's module-valued seeding. It's exercised today by `build/non_module.rb` and the `defined?` name tests. A mixed module (module-valued + non-module inners) — what Tasks 10–11 need — is expressible by passing a Hash with explicit `Module.new`/`Controls::Constant.example` values alongside literals. The only thing *not* present is an ergonomic auto-generated-module-in-a-mix helper; deferred to if/when Tasks 10–11 actually want it. See `agent/log/2026-06-29T18-51-27Z-task-9-green-on-arrival.md`.
 
 ---
 
