@@ -5,7 +5,7 @@ context "Constant" do
     context "Full Name" do
       control_namespace = Constant::Module.new(Object)
       control_name = "SomeConstant"
-      control_value = "a string"
+      control_value = "some string"
 
       literal = Constant::Literal.new(control_value, control_name, control_namespace)
 

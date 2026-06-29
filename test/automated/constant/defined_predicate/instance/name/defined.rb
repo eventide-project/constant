@@ -5,7 +5,7 @@ context "Constant" do
     context "Instance" do
       context "Name" do
         control_constant_name = "SomeConstant"
-        control_value = "a string"
+        control_value = "some string"
         control_module = Controls::Constant.example(inner_constants: { control_constant_name => control_value })
 
         constant = Constant::Module.new(control_module)
