@@ -1,7 +1,7 @@
 module Constant
   class Module
-    include Initializer
     include Constant
+    include Initializer
 
     initializer :value
 

@@ -3,6 +3,7 @@ require "log"
 
 require "constant/constant"
 require "constant/module"
+require "constant/literal"
 require "constant/log"
 require "constant/define"
 require "constant/import"

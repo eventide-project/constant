@@ -71,7 +71,7 @@ conforms.
 
 ## Task 2: `Constant::Literal` — construction and binding queries
 
-- [ ] Introduce the `Constant::Literal` class, which includes `Constant`. It is
+- [x] Introduce the `Constant::Literal` class, which includes `Constant`. It is
   constructed from a literal value together with its name and its namespace
   (the value cannot supply its own name — the name lives in the binding). It
   reports the bound value through `#value`, and answers the binding queries
