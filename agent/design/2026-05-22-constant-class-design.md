@@ -9,7 +9,7 @@ encapsulates the operations done with constants, so callers work through a
 domain object instead of reaching into Ruby's low-level constant internals
 (`const_get`, `const_set`, `const_defined?`, `constants`).
 
-This first cut is **query-focused**. A `Constant` instance mediates a resolved
+This first increment is **query-focused**. A `Constant` instance mediates a resolved
 module or class and answers questions about it: its name, its namespace,
 whether its name is present in some other namespace, and what module/class
 constants it contains.
@@ -23,7 +23,7 @@ reach directly into Ruby's constant internals.
 `notes.md` proposes the complementary shape: a stateful `Constant` object that
 is built once and then queried. This design covers that object, scoped to the
 operations confirmed during brainstorming. Operations noted but not selected
-for this cut are listed under "Out of Scope" below.
+for this increment are listed under "Out of Scope" below.
 
 ## Vocabulary
 
@@ -330,9 +330,99 @@ Modified:
 - `test/test_init.rb` — `include Constant` → `Controls = Constant::Controls`.
 - `README.md` — add a `Constant` class section.
 
+## Section 5 — Intended Direction: `Constant` as a mixin, with `Module` and `Literal` subtypes
+
+*Added 2026-06-29, while starting Task 10. This is an **intended direction**, still
+forming — it supersedes Sections 2–4 where they conflict once adopted. Some
+points are settled (dictated); others are open. The working record, with the
+open questions, is `agent/observations/2026-06-29T19-13-17Z-constant-literal-type.md`.*
+
+### What prompted it
+
+`#constants` is to gain an `include_literal_constants:` keyword (default
+`false`). When `true`, the result also includes **literal constants** —
+constants bound to a value that is not a module or class (per the
+literal-constants terminology rule; this retires "non-module" in live prose).
+
+A literal cannot be mediated the way a module is. A module knows its own
+qualified name (`mod.name`), from which `#name`/`#full_name`/`#namespace` are
+derived; a literal value does not — its name lives in the *binding* (the
+containing namespace's constant table), not in the value. So a literal constant
+needs its own domain type, constructed with its name and namespace.
+
+### The two views of a constant
+
+- **Binding view** — *a constant is a name bound to a value in a namespace.*
+  Shared by every constant: `#name`, `#full_name`, `#namespace`, the bound
+  value, value-equality.
+- **Container view** — *a constant that is itself a namespace holding inner
+  constants.* Meaningful only for a module: `#constants`, `#constant_names`,
+  `#defined?`.
+
+### The type model
+
+`Constant` stops being the module-mediating *class* and becomes a **mixin
+module** carrying the shared binding behavior, **included into two concrete
+classes**:
+
+- **`Constant::Module`** — the module constant. Inherits today's `Constant`
+  behavior: mediates a module, derives name/namespace from `mod.name`, and
+  answers the container view for real (`#constants`, `#constant_names`,
+  `#defined?`).
+- **`Constant::Literal`** — the literal constant. Its binding comes from a
+  supplied name + namespace. It answers the container view **degenerately but
+  truthfully**: `#constants` → `[]`, `#defined?(…)` → `false` (a literal
+  contains nothing). This keeps `#constants`' result **uniform** — every element
+  answers the full interface — rather than heterogeneous.
+
+The shared `Constant` module holds the common algorithms expressed over
+subtype-provided primitives (template-method style — e.g. `==`/`eql?`/`#hash`
+over a subtype key), while each subtype supplies its own derivation source.
+
+### Public API migration (breaking)
+
+Morphing `Constant` into a module removes `Constant.new` (a module cannot be
+instantiated). The current class-level surface is rehomed:
+
+- **`Constant.build(value)` becomes the factory** — it inspects the value and
+  returns a `Constant::Module` for a module or a `Constant::Literal` for a
+  literal. Callers go through one entry point and get the right subtype; this is
+  also how `#constants` mints each element.
+- Direct construction is `Constant::Module.new(mod)` /
+  `Constant::Literal.new(value, name, namespace)`.
+- `Constant.defined?` (class predicate) and the `Constant.name` /
+  `Constant.namespace` static helpers also need a home (on the `Constant` module
+  as module-functions, or on `Constant::Module`).
+
+This is a **breaking change** to the published surface — tolerable only because
+the `Constant` class is newly introduced by this same plan; nothing external
+depends on it yet.
+
+### Open (not yet settled)
+
+- What the shared `Constant` module actually contains vs. duck typing (the two
+  subtypes share little raw code — each derives binding queries differently).
+- `Constant::Literal`'s value accessor — `#mod`/`#raw` ("mod" is a misnomer for
+  a literal; `#raw` for the raw value, with `#mod` perhaps `Constant::Module`-only).
+- `Constant::Literal` equality — by value, by (namespace, name), or by binding.
+- `Constant::Module` as a name shadows the conceptual "Module" within the
+  namespace — unambiguous, but a deliberate check.
+- `#constant_names` (Task 11) and the `include_literal_constants` symmetry there.
+- Sequencing: this redesign precedes Task 10's implementation; Tasks 10–11 are
+  re-scoped around it.
+
+### Relation to the as-built `#defined?`
+
+The instance `#defined?` was already reworked in Task 8 away from this doc's
+Section 3 (`#defined?(in: namespace)` collision-check) to *the instance is the
+namespace searched* — `constant.defined?(name_or_module)` reports whether the
+argument is defined within the mediated module (name → name-existence; module →
+identity/containment). Under this direction, that lives on `Constant::Module`,
+and `Constant::Literal#defined?` returns `false`. Section 3 is to be conformed.
+
 ## Out of Scope / Deferred
 
-The following appear in `notes.md` but are deliberately excluded from this cut:
+The following appear in `notes.md` but are deliberately excluded from this increment:
 
 - Instance commands — `#get`, `#define`, `#import`.
 - Class-level resolution helpers — `Constant::Get`, `Constant.resolve`.

@@ -1,0 +1,1 @@
+# Design direction recorded: Constant morphs into a mixin module included by Constant::Module and Constant::Literal subtypes; Constant.build becomes a factory dispatching by value; #constants gains include_literal_constants (default false) — design doc Section 5, breaking but acceptable (Constant is new)
