@@ -1,0 +1,1 @@
+# Rejected: adorning a Module with a `to_Constant`/`__constant` back-reference to its Constant — no consistent attachment point means callers can never know which modules carry it, and decorating static modules risks process-life retention; use on-demand Constant.build instead
