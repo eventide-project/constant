@@ -81,7 +81,7 @@ conforms.
 
 ## Task 3: Shared equality protocol; `Constant::Literal` equality by binding location
 
-- [ ] Lift `#==`/`#eql?`/`#hash` into the `Constant` mixin, expressed over a
+- [x] Lift `#==`/`#eql?`/`#hash` into the `Constant` mixin, expressed over a
   subtype-provided equality key, so both subtypes share one protocol. The
   `Constant::Module` key is its `#value` (a module's identity already encodes its
   location); the `Constant::Literal` key is its `#full_name`, so two literal

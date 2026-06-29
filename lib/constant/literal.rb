@@ -12,5 +12,9 @@ module Constant
         "#{namespace.full_name}::#{name}"
       end
     end
+
+    def identity
+      full_name
+    end
   end
 end

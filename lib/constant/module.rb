@@ -27,16 +27,8 @@ module Constant
       end
     end
 
-    def ==(other)
-      other.is_a?(Constant) && value == other.value
-    end
-
-    def eql?(other)
-      self == other
-    end
-
-    def hash
-      value.hash
+    def identity
+      value
     end
   end
 end

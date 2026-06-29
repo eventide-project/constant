@@ -50,4 +50,16 @@ module Constant
     namespace = build(namespace_name_or_module).value
     namespace.const_defined?(name, inherit)
   end
+
+  def ==(other)
+    other.is_a?(Constant) && identity == other.identity
+  end
+
+  def eql?(other)
+    self == other
+  end
+
+  def hash
+    identity.hash
+  end
 end
