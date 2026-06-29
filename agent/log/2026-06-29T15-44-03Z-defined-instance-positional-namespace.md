@@ -1,0 +1,1 @@
+# Constant#defined? reworked: the instance IS the namespace — it takes a positional name-or-module and reports whether that is defined within the mediated module (overrides the design doc's `in:` collision-check framing)
