@@ -94,15 +94,15 @@ This supports the next two tasks, which must distinguish inner constants that ar
 
 ---
 
-## Task 10: Inner constant names
+## Task 10: Inner constants
 
-- [ ] A `Constant` reports the names of its own inner constants that are themselves modules, as Strings. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default. (Ruby's `Module#constants` returns Symbols; normalize to Strings on the way out, per the String-outputs convention.)
+- [ ] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
 
 ---
 
-## Task 11: Inner constants
+## Task 11: Inner constant names
 
-- [ ] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. The selection matches the names query; the difference is that the mediating `Constant`s are returned rather than name Strings.
+- [ ] A `Constant` reports the names of its own inner constants that are themselves modules, as Strings. The selection matches the inner-constants query; the difference is that name Strings are returned rather than the mediating `Constant`s. (Ruby's `Module#constants` returns Symbols; normalize to Strings on the way out, per the String-outputs convention.)
 
 ---
 
