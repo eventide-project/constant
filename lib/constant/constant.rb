@@ -1,10 +1,4 @@
-class Constant
-  include Initializer
-
-  initializer :mod
-
-  alias raw mod
-
+module Constant
   Error = Class.new(RuntimeError)
 
   class << self
@@ -19,10 +13,10 @@ class Constant
     namespace_name = mod.name.rpartition("::").first
 
     if namespace_name.empty?
-      new(Object)
+      Constant::Module.new(Object)
     else
       namespace_mod = Object.const_get(namespace_name)
-      new(namespace_mod)
+      Constant::Module.new(namespace_mod)
     end
   end
 
@@ -30,10 +24,10 @@ class Constant
     namespace_name_or_module ||= Object
     inherit ||= false
 
-    if name_or_module.is_a?(Module)
-      new(name_or_module)
+    if name_or_module.is_a?(::Module)
+      Constant::Module.new(name_or_module)
     else
-      namespace = build(namespace_name_or_module).mod
+      namespace = build(namespace_name_or_module).value
 
       if not namespace.const_defined?(name_or_module, inherit)
         raise Error, "#{name_or_module} is not defined in #{namespace}"
@@ -41,11 +35,11 @@ class Constant
 
       mod = namespace.const_get(name_or_module, inherit)
 
-      if not mod.is_a?(Module)
+      if not mod.is_a?(::Module)
         raise Error, "#{name_or_module} in #{namespace} is not a module or class"
       end
 
-      new(mod)
+      Constant::Module.new(mod)
     end
   end
 
@@ -53,41 +47,7 @@ class Constant
     namespace_name_or_module ||= Object
     inherit ||= false
 
-    namespace = build(namespace_name_or_module).mod
+    namespace = build(namespace_name_or_module).value
     namespace.const_defined?(name, inherit)
-  end
-
-  def name
-    self.class.name(mod)
-  end
-
-  def full_name
-    mod.name
-  end
-
-  def namespace
-    self.class.namespace(mod)
-  end
-
-  def defined?(name_or_module, inherit: false)
-    if name_or_module.is_a?(Module)
-      mod.constants(inherit).any? do |constant_name|
-        mod.const_get(constant_name, inherit).equal?(name_or_module)
-      end
-    else
-      self.class.defined?(name_or_module, mod, inherit: inherit)
-    end
-  end
-
-  def ==(other)
-    other.is_a?(Constant) && mod == other.mod
-  end
-
-  def eql?(other)
-    self == other
-  end
-
-  def hash
-    mod.hash
   end
 end

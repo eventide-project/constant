@@ -4,7 +4,7 @@ context "Constant" do
   context "Equality" do
     control_module = Controls::Constant.example
 
-    constant = Constant.new(control_module)
+    constant = Constant::Module.new(control_module)
 
     equal = constant == control_module
 

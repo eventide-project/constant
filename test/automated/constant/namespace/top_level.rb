@@ -4,10 +4,10 @@ context "Constant" do
   context "Namespace" do
     control_value = Controls::Constant.example
 
-    constant = Constant.new(control_value)
+    constant = Constant::Module.new(control_value)
 
     namespace = constant.namespace
-    control_namespace_constant = Constant.new(Object)
+    control_namespace_constant = Constant::Module.new(Object)
 
     comment "Raw Constant: #{control_value.inspect}"
     comment "Namespace: #{namespace.inspect}"

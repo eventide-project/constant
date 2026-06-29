@@ -1,4 +1,4 @@
-class Constant
+module Constant
   module Import
     module Macro
       def __import_constant(source_constant, **kwargs)

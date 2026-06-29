@@ -8,7 +8,7 @@ context "Constant" do
         control_module = Controls::Constant.example(inner_constants: [control_constant_name])
         control_inner_module = control_module.const_get(control_constant_name)
 
-        constant = Constant.new(control_module)
+        constant = Constant::Module.new(control_module)
 
         defined = constant.defined?(control_inner_module)
 

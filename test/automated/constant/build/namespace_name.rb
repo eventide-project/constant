@@ -8,7 +8,7 @@ context "Constant" do
 
     constant = Constant.build(control_constant_name, control_namespace_name)
     namespace = constant.namespace
-    control_namespace_constant = Constant.new(control_namespace)
+    control_namespace_constant = Constant::Module.new(control_namespace)
 
     comment "Constant Name: #{control_constant_name.inspect}"
     comment "Namespace Name: #{control_namespace_name.inspect}"

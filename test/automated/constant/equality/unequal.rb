@@ -5,8 +5,8 @@ context "Constant" do
     control_module = Controls::Constant.example
     control_other_module = Controls::Constant.example
 
-    constant = Constant.new(control_module)
-    control_other_module_constant = Constant.new(control_other_module)
+    constant = Constant::Module.new(control_module)
+    control_other_module_constant = Constant::Module.new(control_other_module)
 
     equal = constant == control_other_module_constant
 

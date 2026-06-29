@@ -4,7 +4,7 @@ context "Constant" do
   context "Name" do
     control_module = Controls::Constant.example
 
-    constant = Constant.new(control_module)
+    constant = Constant::Module.new(control_module)
 
     name = constant.name
 

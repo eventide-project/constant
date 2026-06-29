@@ -5,7 +5,7 @@ context "Constant" do
     control_value = Controls::Constant.example
 
     constant = Constant.build(control_value)
-    control_constant = Constant.new(control_value)
+    control_constant = Constant::Module.new(control_value)
 
     comment "Raw Constant: #{control_value.inspect}"
     comment "Constant: #{constant.inspect}"

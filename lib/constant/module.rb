@@ -1,0 +1,42 @@
+module Constant
+  class Module
+    include Initializer
+    include Constant
+
+    initializer :value
+
+    def name
+      Constant.name(value)
+    end
+
+    def full_name
+      value.name
+    end
+
+    def namespace
+      Constant.namespace(value)
+    end
+
+    def defined?(name_or_module, inherit: false)
+      if name_or_module.is_a?(::Module)
+        value.constants(inherit).any? do |constant_name|
+          value.const_get(constant_name, inherit).equal?(name_or_module)
+        end
+      else
+        Constant.defined?(name_or_module, value, inherit: inherit)
+      end
+    end
+
+    def ==(other)
+      other.is_a?(Constant) && value == other.value
+    end
+
+    def eql?(other)
+      self == other
+    end
+
+    def hash
+      value.hash
+    end
+  end
+end

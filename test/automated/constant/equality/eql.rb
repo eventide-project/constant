@@ -4,8 +4,8 @@ context "Constant" do
   context "Equality" do
     control_module = Controls::Constant.example
 
-    constant = Constant.new(control_module)
-    control_module_constant = Constant.new(control_module)
+    constant = Constant::Module.new(control_module)
+    control_module_constant = Constant::Module.new(control_module)
 
     eql = constant.eql?(control_module_constant)
 

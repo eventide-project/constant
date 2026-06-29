@@ -45,7 +45,7 @@ conforms.
 
 ## Task 1: Morph `Constant` into a mixin module; extract `Constant::Module`; rename the accessor to `#value`
 
-- [ ] Convert the top-level `Constant` from a class into a **module** that carries
+- [x] Convert the top-level `Constant` from a class into a **module** that carries
   the shared behavior, and move the module-constant behavior into a new class
   `Constant::Module` that includes `Constant`. The instance behavior the class
   holds today — the recorded value, `#name`, `#full_name`, `#namespace`, the

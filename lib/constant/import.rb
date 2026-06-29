@@ -1,4 +1,4 @@
-class Constant
+module Constant
   module Import
     Error = Class.new(RuntimeError)
 

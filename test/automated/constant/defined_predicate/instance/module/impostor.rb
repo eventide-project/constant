@@ -9,7 +9,7 @@ context "Constant" do
         control_other_module = Controls::Constant.example(inner_constants: [control_constant_name])
         control_impostor = control_other_module.const_get(control_constant_name)
 
-        constant = Constant.new(control_module)
+        constant = Constant::Module.new(control_module)
 
         defined = constant.defined?(control_impostor)
 

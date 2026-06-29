@@ -6,7 +6,7 @@ context "Constant" do
     control_namespace = Controls::Constant.example(inner_constants: [control_module_name])
     control_module = control_namespace.const_get(control_module_name)
 
-    constant = Constant.new(control_module)
+    constant = Constant::Module.new(control_module)
 
     name = constant.name
 

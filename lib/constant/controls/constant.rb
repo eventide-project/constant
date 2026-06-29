@@ -1,10 +1,10 @@
-class Constant
+module Constant
   module Controls
     module Constant
       def self.example(name: nil, randomize_name: nil, inner_constants: nil)
         inner_constants ||= []
 
-        mod = Module.new
+        mod = ::Module.new
 
         name ||= "ExampleModule"
 
@@ -28,7 +28,7 @@ class Constant
           end
         else
           inner_constants.each do |inner_constant_name|
-            inner_constant_value = Module.new
+            inner_constant_value = ::Module.new
             mod.const_set(inner_constant_name, inner_constant_value)
           end
         end

@@ -1,0 +1,1 @@
+# Constant converted from a class to a mixin module; module-constant behavior moved to Constant::Module (accessor renamed #mod/#raw -> #value); the Constant::Module name shadows Ruby's Module, so Define/Controls/build write ::Module; behavior-neutral (existing suite green)
