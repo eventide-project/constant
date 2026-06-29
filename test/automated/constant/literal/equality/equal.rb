@@ -9,8 +9,8 @@ context "Constant" do
       control_value = "some string"
       control_other_value = 42
 
-      literal = Constant::Literal.new(control_value, control_name, control_namespace)
-      other_literal = Constant::Literal.new(control_other_value, control_name, control_namespace)
+      literal = Constant::Literal.new(control_name, control_value, control_namespace)
+      other_literal = Constant::Literal.new(control_name, control_other_value, control_namespace)
 
       equal = literal == other_literal
 

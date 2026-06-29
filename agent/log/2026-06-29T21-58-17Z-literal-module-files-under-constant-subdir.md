@@ -1,0 +1,1 @@
+# Constant::Module and Constant::Literal moved to lib/constant/constant/{module,literal}.rb so the file system reflects the namespacing (nested types of Constant live under a directory named for the parent, alongside constant/constant.rb). Legacy Constant::Import/Define/Log/Controls not yet conformed — open question

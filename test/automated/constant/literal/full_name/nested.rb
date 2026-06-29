@@ -9,7 +9,7 @@ context "Constant" do
       control_value = "some string"
       control_full_name = "#{control_namespace_module.name}::#{control_name}"
 
-      literal = Constant::Literal.new(control_value, control_name, control_namespace)
+      literal = Constant::Literal.new(control_name, control_value, control_namespace)
 
       full_name = literal.full_name
 

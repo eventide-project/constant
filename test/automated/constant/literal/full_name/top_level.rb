@@ -7,7 +7,7 @@ context "Constant" do
       control_name = "SomeConstant"
       control_value = "some string"
 
-      literal = Constant::Literal.new(control_value, control_name, control_namespace)
+      literal = Constant::Literal.new(control_name, control_value, control_namespace)
 
       full_name = literal.full_name
 

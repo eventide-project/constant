@@ -398,9 +398,15 @@ its own derivation source. Settled specifics:
   sole accessor on both subtypes — no `#mod`, no `#raw`.** This removes the
   as-built `#mod` reader and the `#raw` alias (the "Raw alias" added-feature),
   both superseded by `#value` under this restructure.)
-- **Construction.** `Constant::Module.new(mod)` (as today). `Constant::Literal.new(value, name, namespace)`
-  records the raw value, its final-segment name, and its namespace (a
-  `Constant::Module`) — a literal is only built where the binding is known.
+- **Construction.** `Constant::Module.new(mod)` (as today). `Constant::Literal.new(name, value, namespace)`
+  records its final-segment name, the raw value, and its namespace (a
+  `Constant::Module`) — name first (more primary than the value); a literal is
+  only built where the binding is known.
+- **File layout.** The subtypes live under `lib/constant/constant/` —
+  `constant/module.rb`, `constant/literal.rb` — alongside the parent
+  `constant/constant.rb`, so the file system reflects the namespacing
+  (`Constant::Module`/`Constant::Literal` nest under `Constant`). The legacy
+  `Import`/`Define`/`Log`/`Controls` files are not yet conformed.
 - **Name/full_name/namespace** stay per-subtype (each derives from a different
   source); the module earns its keep through the equality protocol and the
   interface contract, not forced reuse.
@@ -419,7 +425,7 @@ instantiated). The current class-level surface is rehomed:
   **undefined-name** error remains. (`build/non_module.rb` is re-scoped from
   asserting `Constant::Error` to asserting a `Constant::Literal`.)
 - Direct construction is `Constant::Module.new(mod)` /
-  `Constant::Literal.new(value, name, namespace)`.
+  `Constant::Literal.new(name, value, namespace)`.
 - `Constant::Module` shadows Ruby's `Module` inside the namespace, so code that
   means Ruby's `Module` (e.g. `build`'s value dispatch) writes **`::Module`**.
 - `Constant.defined?` (class predicate) and the `Constant.name` /

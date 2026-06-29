@@ -9,7 +9,7 @@ context "Constant" do
       control_value = "some string"
       control_queried_name = "SomeQueriedConstant"
 
-      literal = Constant::Literal.new(control_value, control_name, control_namespace)
+      literal = Constant::Literal.new(control_name, control_value, control_namespace)
 
       defined = literal.defined?(control_queried_name)
 

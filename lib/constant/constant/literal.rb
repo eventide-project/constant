@@ -3,7 +3,7 @@ module Constant
     include Constant
     include Initializer
 
-    initializer :value, :name, :namespace
+    initializer :name, :value, :namespace
 
     def full_name
       if namespace.value.equal?(Object)
