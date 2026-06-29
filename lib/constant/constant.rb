@@ -3,10 +3,12 @@ class Constant
 
   initializer :mod
 
+  alias raw mod
+
   Error = Class.new(RuntimeError)
 
   class << self
-    alias_method :__name, :name
+    alias __name name
   end
 
   def self.name(mod)

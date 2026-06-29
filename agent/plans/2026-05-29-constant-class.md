@@ -54,6 +54,7 @@ Built and reworked: `#namespace` returns a `Constant` for the containing module 
 
 - [x] **Full name** — A `Constant` reports its full, `::`-qualified name as a String (`mod.name` in full), where `#name` (Task 3) returns only the final segment.
 - [x] **Value equality** — `Constant#==`, `#eql?`, and `#hash` compare by the mediated `mod`: equal `Constant`s compare equal, dedupe in a `Set`, and interchange as `Hash` keys. A non-`Constant` operand compares `false` without raising.
+- [x] **Raw alias** — `Constant#raw` aliases `#mod` (a shorter, adjectival reader for the same raw module). A mechanical alias via the `alias` keyword — no test, consistent with the untested `#mod` initializer reader.
 
 ---
 
