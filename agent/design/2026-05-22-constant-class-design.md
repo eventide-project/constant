@@ -163,7 +163,7 @@ Because `#name` and `#namespace` are always computed from the mediated module
 `name` argument (below) *locates* a module; it does not *rename* the resulting
 instance.
 
-### `Constant.build(name_or_module, namespace = Object, inherit: false)` — the constructor
+### `Constant.build(name_or_module, namespace=Object, inherit: false)` — the constructor
 
 The developer-facing constructor. It owns all convenience behavior and all
 validation in the system.
@@ -228,7 +228,7 @@ Both default `inherit` to `false`.
 
 ## Section 4 — Class-Level API
 
-### `Constant.defined?(name, namespace = Object, inherit: false)`
+### `Constant.defined?(name, namespace=Object, inherit: false)`
 
 Returns a boolean: `true` if `namespace` binds a constant called `name`.
 
