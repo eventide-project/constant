@@ -1,0 +1,1 @@
+# "Lib report" command: category analysis of lib/ (role/layer, Ruby construct, method style, API currency, error taxonomy, idioms), re-derived from source, printed not written — companion to the test report
