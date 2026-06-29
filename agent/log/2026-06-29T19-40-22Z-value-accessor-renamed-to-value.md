@@ -1,0 +1,1 @@
+# The bound-value accessor is #value, the sole accessor on both Constant::Module (returns the module) and Constant::Literal (returns the literal value) — no #mod, no #raw; this removes the as-built #mod reader and the #raw alias (the "Raw alias" added-feature), and supersedes the earlier #raw-universal/#mod-Module-only settlement

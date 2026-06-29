@@ -1,6 +1,6 @@
 # Constant::Literal — a literal-constant type alongside the module-mediating Constant
 
-**Status:** Working design under active discovery, surfaced while starting Task 10. Settled pieces and open questions below. Promote to the design doc (and log) once the type model stabilizes; not yet binding.
+**Status:** **Settled (2026-06-29)** and folded into the design doc (Section 5). This file is kept as the discovery record; the binding direction now lives in `agent/design/2026-05-22-constant-class-design.md` Section 5, and the resolutions are logged at `agent/log/2026-06-29T19-34-57Z-constant-literal-design-questions-settled.md`. The open questions below were resolved: shared-module = equality protocol + contract; value accessor = `#raw` universal / `#mod` Module-only; literal equality = by binding location (`full_name`); `Constant::Module` name kept (`::Module` where Ruby's is meant); `build` = universal factory (the `non_module` error removed); `#constant_names` gains the `include_literal_constants` symmetry; the type model is sequenced before Task 10.
 
 ## What prompted it
 

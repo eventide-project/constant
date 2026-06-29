@@ -376,20 +376,52 @@ classes**:
   answers the full interface — rather than heterogeneous.
 
 The shared `Constant` module holds the common algorithms expressed over
-subtype-provided primitives (template-method style — e.g. `==`/`eql?`/`#hash`
-over a subtype key), while each subtype supplies its own derivation source.
+subtype-provided primitives (template-method style), while each subtype supplies
+its own derivation source. Settled specifics:
+
+- **Equality protocol (shared).** The module defines `==`/`eql?`/`#hash` over a
+  subtype-provided `#equality_key`. `Constant::Module`'s key is its `#value` (the
+  module — whose object identity already encodes its location);
+  `Constant::Literal`'s
+  key is its `full_name` — so two literals are equal iff they share a **binding
+  location** (same namespace + name), regardless of the bound value. Different
+  key types make cross-subtype operands unequal; a non-`Constant` operand
+  compares `false` without raising.
+- **Value accessor — `#value`.** The bound-value reader is **`#value`**,
+  universal across both subtypes: `Constant::Module#value` returns the module,
+  `Constant::Literal#value` returns the literal value. This **renames the
+  as-built `#mod` reader back to `#value`** — one accessor whose name spans both
+  a module-value and a literal-value, which is precisely why the literal subtype
+  can answer it. (This narrows the Vocabulary's earlier retirement of "value":
+  the *term* for a bare module is still "module"/"mod", but the *method*
+  returning the bound value — module or literal — is `#value`. **`#value` is the
+  sole accessor on both subtypes — no `#mod`, no `#raw`.** This removes the
+  as-built `#mod` reader and the `#raw` alias (the "Raw alias" added-feature),
+  both superseded by `#value` under this restructure.)
+- **Construction.** `Constant::Module.new(mod)` (as today). `Constant::Literal.new(value, name, namespace)`
+  records the raw value, its final-segment name, and its namespace (a
+  `Constant::Module`) — a literal is only built where the binding is known.
+- **Name/full_name/namespace** stay per-subtype (each derives from a different
+  source); the module earns its keep through the equality protocol and the
+  interface contract, not forced reuse.
 
 ### Public API migration (breaking)
 
 Morphing `Constant` into a module removes `Constant.new` (a module cannot be
 instantiated). The current class-level surface is rehomed:
 
-- **`Constant.build(value)` becomes the factory** — it inspects the value and
-  returns a `Constant::Module` for a module or a `Constant::Literal` for a
-  literal. Callers go through one entry point and get the right subtype; this is
-  also how `#constants` mints each element.
+- **`Constant.build` becomes the universal factory.** `build(module)` →
+  `Constant::Module`. `build(name, namespace)` resolves the name and dispatches
+  on the resolved value: a module → `Constant::Module`, a literal →
+  `Constant::Literal` (which now has its name + namespace + value). The
+  **`non_module` error is removed** — a name resolving to a literal is no longer
+  a `Constant::Error`; it is a valid `Constant::Literal` result. The
+  **undefined-name** error remains. (`build/non_module.rb` is re-scoped from
+  asserting `Constant::Error` to asserting a `Constant::Literal`.)
 - Direct construction is `Constant::Module.new(mod)` /
   `Constant::Literal.new(value, name, namespace)`.
+- `Constant::Module` shadows Ruby's `Module` inside the namespace, so code that
+  means Ruby's `Module` (e.g. `build`'s value dispatch) writes **`::Module`**.
 - `Constant.defined?` (class predicate) and the `Constant.name` /
   `Constant.namespace` static helpers also need a home (on the `Constant` module
   as module-functions, or on `Constant::Module`).
@@ -398,18 +430,28 @@ This is a **breaking change** to the published surface — tolerable only becaus
 the `Constant` class is newly introduced by this same plan; nothing external
 depends on it yet.
 
-### Open (not yet settled)
+### Settled (2026-06-29)
 
-- What the shared `Constant` module actually contains vs. duck typing (the two
-  subtypes share little raw code — each derives binding queries differently).
-- `Constant::Literal`'s value accessor — `#mod`/`#raw` ("mod" is a misnomer for
-  a literal; `#raw` for the raw value, with `#mod` perhaps `Constant::Module`-only).
-- `Constant::Literal` equality — by value, by (namespace, name), or by binding.
-- `Constant::Module` as a name shadows the conceptual "Module" within the
-  namespace — unambiguous, but a deliberate check.
-- `#constant_names` (Task 11) and the `include_literal_constants` symmetry there.
-- Sequencing: this redesign precedes Task 10's implementation; Tasks 10–11 are
-  re-scoped around it.
+The open questions are resolved (decisions at
+`agent/log/2026-06-29T19-34-57Z-…`):
+
+- **Shared module contents** — the equality protocol (over `#equality_key`) plus
+  the interface contract; per-subtype name/full_name/namespace/value derivation.
+- **Value accessor** — `#value` universal (both subtypes), renaming the as-built
+  `#mod` reader back to `#value`; `#raw`/`#mod` superseded.
+- **Literal equality** — by binding location (`full_name`).
+- **`Constant::Module` name** — kept; Ruby's `Module` is written `::Module`
+  where meant.
+- **`build`** — universal factory; the `non_module` error is removed.
+- **`#constant_names`** — gains `include_literal_constants:` (default `false`),
+  1:1 with `#constants`.
+- **Sequencing** — the type model is built before Task 10's `#constants`; Tasks
+  10–11 re-scope around it, and `build/non_module.rb` is re-scoped to assert a
+  `Constant::Literal`.
+
+`include_literal_constants:` defaults `false` on both `#constants` and
+`#constant_names`; with `true`, literal constants are included (as
+`Constant::Literal` / their names).
 
 ### Relation to the as-built `#defined?`
 
