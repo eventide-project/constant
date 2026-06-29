@@ -16,5 +16,13 @@ module Constant
     def identity
       full_name
     end
+
+    def constants(inherit: false)
+      []
+    end
+
+    def defined?(name_or_module, inherit: false)
+      false
+    end
   end
 end

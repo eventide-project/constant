@@ -95,7 +95,7 @@ conforms.
 
 ## Task 4: `Constant::Literal` degenerate container queries
 
-- [ ] `Constant::Literal` answers the container view truthfully for something
+- [x] `Constant::Literal` answers the container view truthfully for something
   that contains nothing: `#constants` returns an empty array, and `#defined?`
   returns `false` for any argument. This keeps a literal usable wherever a
   `Constant` is expected, without it ever claiming to contain inner constants.
