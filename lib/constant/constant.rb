@@ -5,21 +5,6 @@ module Constant
     alias __name name
   end
 
-  def self.name(mod)
-    mod.name.rpartition("::").last
-  end
-
-  def self.namespace(mod)
-    namespace_name = mod.name.rpartition("::").first
-
-    if namespace_name.empty?
-      Constant::Module.new(Object)
-    else
-      namespace_mod = Object.const_get(namespace_name)
-      Constant::Module.new(namespace_mod)
-    end
-  end
-
   def self.build(name_or_module, namespace_name_or_module=nil, inherit: nil)
     namespace_name_or_module ||= Object
     inherit ||= false
@@ -40,6 +25,21 @@ module Constant
       end
 
       Constant::Module.new(mod)
+    end
+  end
+
+  def self.name(mod)
+    mod.name.rpartition("::").last
+  end
+
+  def self.namespace(mod)
+    namespace_name = mod.name.rpartition("::").first
+
+    if namespace_name.empty?
+      Constant::Module.new(Object)
+    else
+      namespace_mod = Object.const_get(namespace_name)
+      Constant::Module.new(namespace_mod)
     end
   end
 
