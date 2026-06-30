@@ -1,0 +1,1 @@
+# New artifact kind agent/loops/ — loop records: one file per feature recording the passes through the loop (hinge -> options -> decision/chat per pass), the narrative companion to the one-line decision log; retroactive reconstructions marked as Backfill. Documented in AGENTS.md and a format rule

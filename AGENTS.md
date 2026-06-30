@@ -52,6 +52,7 @@ All agent artifacts for this project live under a single top-level `agent/` fold
 - `agent/rules/` — binding project rules/conventions, one per file (see **Rules** below).
 - `agent/observations/` — working hypotheses and rule-candidates still under discovery, one per file (see **Observations** below). Not binding.
 - `agent/deferred/` — design changes to make once the current task is done, one per file (see **Deferred** below).
+- `agent/loops/` — loop records: one file per feature, the narrative of its passes through the loop (see **Loops** below).
 - `agent/design/` — design specs (Superpowers `brainstorming` skill output). Overrides the Superpowers default of `docs/superpowers/specs/`. Filename convention stays `YYYY-MM-DD-<topic>-design.md`.
 
 If other Superpowers skills (e.g. `writing-plans`) would normally write under `docs/superpowers/<kind>/`, write to `agent/<kind>/` instead (e.g. `agent/plans/`), keeping the per-skill filename conventions.
@@ -83,6 +84,14 @@ When working with Superpowers `brainstorming` artifacts, use the word **design**
 - **Format:** same frontmatter-free markdown as rules and observations — a `# <title>` stating the change, then prose. Include a `**Gated on:**` line naming what must finish before the item is actionable, plus short `**Why:**` and `**How to apply:**` lines. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md`, UTC, timestamp synced to creation time — same convention as rules, observations, and the log.
 - **Resolution:** when the gating task is done, act on the item, then **delete the file** (the change itself lands in code/rules, and a `agent/log/` entry records that it was carried out). Deferred items are a queue, not a permanent record.
 - **Recording one:** add the file; a matching `agent/log/` entry is optional for the deferral itself but required when the item is resolved.
+
+### Loops — `agent/loops/`
+
+`agent/loops/` holds **loop records** — one file per feature documenting the passes through the **loop** (the distributed OODA cycle in the TDD lexicon). Where the decision log records *what* was decided (one line each), a loop record records *how*: per pass, the **hinge** the AI determined, the **options** put to the developer at the gate, and the **decision** the developer made (or the **chat** that replaced the options).
+
+- **Format:** `YYYY-MM-DD-<feature-slug>.md`; a title and summary, then one section per pass (hinge → options → decision/chat), then an outcome line. A hinge handled without a gate is recorded as "none — not gated" (surfacing skipped gates is part of the value). See the loop-records rule in `agent/rules/`.
+- **Live vs. backfill:** records written while doing the work are the default; a record reconstructed retroactively from memory is marked at the top as a **Backfill**.
+- **Companion, not replacement:** the one-line decision log stays one line per decision; the loop record is the narrative beside it.
 
 ### Decision log — `agent/log/`
 
