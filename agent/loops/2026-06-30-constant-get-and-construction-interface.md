@@ -62,8 +62,30 @@ defined"). Recorded as a rule.
 
 ---
 
-**Outcome (so far):** `Constant::Module#get` resolves an inner constant to the
-right Constant subtype, raising on undefined; `Module.build`/`Literal.build`
-constructors exist. Suite green (57). Still to come this feature: the `.to_s`
-normalization (driven by its own test), `Constant::Literal#get` (degenerate), and
-wiring `Constant.build` to delegate to `#get`.
+## Pass 6 — The normalization (the original goal)
+
+Drove `Constant::Literal.build(:Sym, value, namespace)` → `#name == "SomeConstant"`
+(String). The test (a Symbol name, asserting a String `#name`) discriminates the
+coercion; the implementation added `name.to_s` to `Literal.build`. Named (dev
+note): **"Is the name symbol as a string."**
+
+## Pass 7 — `Constant::Literal#get` (degenerate)
+
+A literal has no inner constants, so `#get` always raises `Constant::Error`. Used
+the error-test form; the condition context, **"When the name is not defined"**
+(chosen via options, paralleling `Module#get`), with `test "Is an error"`.
+
+## Pass 8 — Wire the factory to `#get`
+
+Refactored `Constant.build`: a module → `Constant::Module.build`; a name →
+`build(namespace).get(name)`. Resolution, dispatch, the undefined-name error, and
+the name normalization all now live in `#get` — `build` is a thin dispatcher.
+Behavior-neutral (the existing `build/` tests pass unchanged).
+
+---
+
+**Outcome:** the construction interface — `#get` (resolves; raises on undefined;
+degenerate on a literal), the `build` constructors (`Module.build`,
+`Literal.build` with `.to_s` normalization), and `Constant.build` delegating to
+`#get`. The original goal (Symbol name → String `#name`) is closed. Suite green
+(59).

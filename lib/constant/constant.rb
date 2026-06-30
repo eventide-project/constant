@@ -10,22 +10,10 @@ module Constant
     inherit ||= false
 
     if name_or_module.is_a?(::Module)
-      Constant::Module.new(name_or_module)
+      Constant::Module.build(name_or_module)
     else
       namespace_constant = build(namespace_name_or_module)
-      namespace = namespace_constant.value
-
-      if not namespace.const_defined?(name_or_module, inherit)
-        raise Error, "#{name_or_module} is not defined in #{namespace}"
-      end
-
-      value = namespace.const_get(name_or_module, inherit)
-
-      if value.is_a?(::Module)
-        Constant::Module.new(value)
-      else
-        Constant::Literal.new(name_or_module, value, namespace_constant)
-      end
+      namespace_constant.get(name_or_module, inherit: inherit)
     end
   end
 

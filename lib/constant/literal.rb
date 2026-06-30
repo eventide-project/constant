@@ -6,7 +6,7 @@ module Constant
     initializer :name, :value, :namespace
 
     def self.build(name, value, namespace)
-      new(name, value, namespace)
+      new(name.to_s, value, namespace)
     end
 
     def full_name
@@ -23,6 +23,10 @@ module Constant
 
     def constants(inherit: false)
       []
+    end
+
+    def get(name, inherit: false)
+      raise Constant::Error, "#{name} is not defined in #{full_name}"
     end
 
     def defined?(name_or_module, inherit: false)
