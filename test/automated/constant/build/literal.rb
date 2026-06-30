@@ -6,16 +6,20 @@ context "Constant" do
     control_value = "some string"
     control_namespace = Controls::Constant.example(inner_constants: { control_constant_name => control_value })
 
-    comment "Name: #{control_constant_name.inspect}"
-    comment "Namespace: #{control_namespace.inspect}"
-    comment "Value: #{control_value.inspect}"
+    constant = Constant.build(control_constant_name, control_namespace)
 
-    context "Raises when the name resolves to a non-module value" do
-      test do
-        assert_raises(Constant::Error) do
-          Constant.build(control_constant_name, control_namespace)
-        end
-      end
+    control_literal = Constant::Literal.new(control_constant_name, control_value, Constant::Module.new(control_namespace))
+
+    comment "Control Constant Name: #{control_constant_name.inspect}"
+    comment "Control Value: #{control_value.inspect}"
+    comment "Constant: #{constant.inspect}"
+
+    test "Is the literal constant the name resolves to" do
+      assert(constant == control_literal)
+    end
+
+    test "Is the value the name resolves to" do
+      assert(constant.value == control_value)
     end
   end
 end

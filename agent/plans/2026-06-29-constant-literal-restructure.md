@@ -104,7 +104,7 @@ conforms.
 
 ## Task 5: `Constant.build` becomes the universal factory
 
-- [ ] `build` dispatches a resolved value to the right subtype. Given a module it
+- [x] `build` dispatches a resolved value to the right subtype. Given a module it
   returns a `Constant::Module`. Given a name and namespace it resolves the name
   and returns a `Constant::Module` when the value is a module or a
   `Constant::Literal` when the value is a literal — supplying the literal its

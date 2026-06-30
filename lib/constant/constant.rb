@@ -12,19 +12,20 @@ module Constant
     if name_or_module.is_a?(::Module)
       Constant::Module.new(name_or_module)
     else
-      namespace = build(namespace_name_or_module).value
+      namespace_constant = build(namespace_name_or_module)
+      namespace = namespace_constant.value
 
       if not namespace.const_defined?(name_or_module, inherit)
         raise Error, "#{name_or_module} is not defined in #{namespace}"
       end
 
-      mod = namespace.const_get(name_or_module, inherit)
+      value = namespace.const_get(name_or_module, inherit)
 
-      if not mod.is_a?(::Module)
-        raise Error, "#{name_or_module} in #{namespace} is not a module or class"
+      if value.is_a?(::Module)
+        Constant::Module.new(value)
+      else
+        Constant::Literal.new(name_or_module, value, namespace_constant)
       end
-
-      Constant::Module.new(mod)
     end
   end
 
