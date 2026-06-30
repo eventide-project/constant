@@ -5,7 +5,8 @@ context "Constant" do
     context "Get" do
       control_name = "SomeConstant"
       control_value = "some string"
-      control_namespace = Constant::Module.new(Controls::Constant.example)
+      control_namespace_module = Controls::Constant.example
+      control_namespace = Constant::Module.new(control_namespace_module)
 
       constant = Constant::Literal.new("OtherConstant", control_value, control_namespace)
 

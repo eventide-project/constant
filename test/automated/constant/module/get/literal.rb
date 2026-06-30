@@ -11,7 +11,8 @@ context "Constant" do
 
       inner = constant.get(control_inner_name)
 
-      control_literal = Constant::Literal.new(control_inner_name, control_value, Constant::Module.new(control_namespace))
+      control_literal_namespace = Constant::Module.new(control_namespace)
+      control_literal = Constant::Literal.new(control_inner_name, control_value, control_literal_namespace)
 
       comment "Inner: #{inner.inspect}"
 

@@ -6,7 +6,9 @@ module Constant
     initializer :name, :value, :namespace
 
     def self.build(name, value, namespace)
-      new(name.to_s, value, Constant::Module.build(namespace))
+      name = name.to_s
+      namespace = Constant::Module.build(namespace)
+      new(name, value, namespace)
     end
 
     def full_name

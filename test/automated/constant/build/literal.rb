@@ -8,7 +8,8 @@ context "Constant" do
 
     constant = Constant.build(control_constant_name, control_namespace)
 
-    control_literal = Constant::Literal.new(control_constant_name, control_value, Constant::Module.new(control_namespace))
+    control_literal_namespace = Constant::Module.new(control_namespace)
+    control_literal = Constant::Literal.new(control_constant_name, control_value, control_literal_namespace)
 
     comment "Control Constant Name: #{control_constant_name.inspect}"
     comment "Control Value: #{control_value.inspect}"
