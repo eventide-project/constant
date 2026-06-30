@@ -1,0 +1,1 @@
+# An assert_raises test block is named exactly "Is an error"; the condition (the "when ..." clause) is promoted to a context wrapping it (e.g. context "When the name is not defined" do test "Is an error" ...). Amends the test-name-is-prefix error example; existing "Raises when ..." error tests conform in a deferred pass
