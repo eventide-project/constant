@@ -23,15 +23,15 @@ module Constant
       full_name
     end
 
-    def constants(inherit: false)
+    def constants(inherit: nil)
       []
     end
 
-    def get(name, inherit: false)
+    def get(name, inherit: nil)
       raise Constant::Error, "Literal constants are primitive values. They don't support inner constants. #{name} is not defined in #{full_name}."
     end
 
-    def defined?(name_or_module, inherit: false)
+    def defined?(name_or_module, inherit: nil)
       false
     end
   end

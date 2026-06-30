@@ -5,6 +5,18 @@ module Constant
 
     initializer :value
 
+    def name
+      Constant.name(value)
+    end
+
+    def full_name
+      value.name
+    end
+
+    def namespace
+      Constant.namespace(value)
+    end
+
     def self.build(mod)
       if mod.is_a?(Constant)
         mod
@@ -13,11 +25,9 @@ module Constant
       end
     end
 
-    def name
-      Constant.name(value)
-    end
+    def get(name, inherit: nil)
+      inherit ||= false
 
-    def get(name, inherit: false)
       if not value.const_defined?(name, inherit)
         raise Constant::Error, "#{name} is not defined in #{value}"
       end
@@ -31,15 +41,9 @@ module Constant
       end
     end
 
-    def full_name
-      value.name
-    end
+    def defined?(name_or_module, inherit: nil)
+      inherit ||= false
 
-    def namespace
-      Constant.namespace(value)
-    end
-
-    def defined?(name_or_module, inherit: false)
       if name_or_module.is_a?(::Module)
         value.constants(inherit).any? do |constant_name|
           value.const_get(constant_name, inherit).equal?(name_or_module)
