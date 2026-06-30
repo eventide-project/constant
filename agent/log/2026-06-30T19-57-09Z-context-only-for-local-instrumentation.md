@@ -1,0 +1,1 @@
+# A context wrapping a test is justified only when the outcome needs local instrumentation (an explaining variable derived for it, or a comment/detail specific to it); a single assertion over in-scope values is a directly-named test (test "..." do) with no context. Existing over-wrapped Constant-class single-assertion tests to be conformed in a deferred pass
