@@ -5,8 +5,26 @@ module Constant
 
     initializer :value
 
+    def self.build(mod)
+      new(mod)
+    end
+
     def name
       Constant.name(value)
+    end
+
+    def get(name, inherit: false)
+      if not value.const_defined?(name, inherit)
+        raise Constant::Error, "#{name} is not defined in #{value}"
+      end
+
+      resolved = value.const_get(name, inherit)
+
+      if resolved.is_a?(::Module)
+        Constant::Module.build(resolved)
+      else
+        Constant::Literal.build(name, resolved, self)
+      end
     end
 
     def full_name

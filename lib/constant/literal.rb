@@ -5,6 +5,10 @@ module Constant
 
     initializer :name, :value, :namespace
 
+    def self.build(name, value, namespace)
+      new(name, value, namespace)
+    end
+
     def full_name
       if namespace.value.equal?(Object)
         name
