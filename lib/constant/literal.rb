@@ -26,7 +26,7 @@ module Constant
     end
 
     def get(name, inherit: false)
-      raise Constant::Error, "#{name} is not defined in #{full_name}"
+      raise Constant::Error, "Literal constants are primitive values. They don't support inner constants. #{name} is not defined in #{full_name}."
     end
 
     def defined?(name_or_module, inherit: false)
