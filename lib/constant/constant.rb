@@ -7,7 +7,6 @@ module Constant
 
   def self.build(name_or_module, namespace_name_or_module=nil, inherit: nil)
     namespace_name_or_module ||= Object
-    inherit ||= false
 
     if name_or_module.is_a?(::Module)
       Constant::Module.build(name_or_module)

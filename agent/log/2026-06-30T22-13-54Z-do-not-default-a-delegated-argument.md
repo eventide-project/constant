@@ -1,0 +1,1 @@
+# Optional-params refinement: don't coalesce an argument you only delegate — pass it raw and let the receiver (responsible for its default) coalesce; coalesce only at the point of use. Fixed Constant.build (forwards inherit to #get — no coalesce) and Constant::Module#defined? (coalesces inherit only in the direct-use branch, delegates raw to Constant.defined?)

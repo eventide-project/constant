@@ -42,9 +42,9 @@ module Constant
     end
 
     def defined?(name_or_module, inherit: nil)
-      inherit ||= false
-
       if name_or_module.is_a?(::Module)
+        inherit ||= false
+
         value.constants(inherit).any? do |constant_name|
           value.const_get(constant_name, inherit).equal?(name_or_module)
         end
