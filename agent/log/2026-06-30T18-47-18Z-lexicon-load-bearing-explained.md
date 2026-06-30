@@ -1,0 +1,1 @@
+# TDD lexicon gains a full "Load-bearing, explained" section (beyond the table gloss) — the construction metaphor, the spread/stick properties, the cheap-now/costly-later asymmetry that justifies the gate, how to recognize it, and why both marks (subtle + load-bearing) are required — so the term can be taught to others
