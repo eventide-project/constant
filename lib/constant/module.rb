@@ -6,7 +6,11 @@ module Constant
     initializer :value
 
     def self.build(mod)
-      new(mod)
+      if mod.is_a?(Constant)
+        mod
+      else
+        new(mod)
+      end
     end
 
     def name
