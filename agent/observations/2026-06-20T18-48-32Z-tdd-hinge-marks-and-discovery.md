@@ -6,7 +6,7 @@
 
 ## Why this is recorded as an observation, not a rule
 
-The hinges are the essence of human-in-the-loop TDD (see the human-in-the-loop rule and `agent/design/2026-06-20-human-in-the-loop-tdd-design.md`). Two hinges are known by intuition — the efferent call (setting the cradle) and solubility — but the rule that *produced* them was never stated, and more hinges are suspected but unclear. This records the marks that identify a hinge and the method for finding the rest. It is mid-discovery, so it is held as an observation rather than canonized.
+The hinges are the essence of human-in-the-loop TDD (see the human-in-the-loop rule and `agent/design/2026-06-20T18-50-55Z-human-in-the-loop-tdd-design.md`). Two hinges are known by intuition — the efferent call (setting the cradle) and solubility — but the rule that *produced* them was never stated, and more hinges are suspected but unclear. This records the marks that identify a hinge and the method for finding the rest. It is mid-discovery, so it is held as an observation rather than canonized.
 
 ## The marks of a hinge
 

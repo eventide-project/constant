@@ -6,10 +6,10 @@ into a **mixin module** (`Constant`) included by two concrete subtypes —
 and reshape `#constants`/`#constant_names` to optionally include literal
 constants. This realizes the direction settled in the design doc.
 
-**Source design:** `agent/design/2026-05-22-constant-class-design.md`, **Section 5
+**Source design:** `agent/design/2026-05-22T18-59-14Z-constant-class-design.md`, **Section 5
 — Intended Direction** (and the settled resolutions therein).
 
-**Supersedes:** the pending Tasks 10–11 of `agent/plans/2026-05-29-constant-class.md`
+**Supersedes:** the pending Tasks 10–11 of `agent/plans/2026-05-29T17-39-17Z-constant-class.md`
 (both are reshaped here around the new type model). That plan's Task 12 (README)
 is folded into Task 8 below. Tasks 1–9 of that plan remain as completed history.
 

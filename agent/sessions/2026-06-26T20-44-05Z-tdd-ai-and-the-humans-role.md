@@ -347,7 +347,7 @@ The run played out as a sequence of human corrections, each one a data point.
 Mid-run, the human asked "are you recording all of this?" — and the honest answer
 was no: the run's data was being narrated in chat but not persisted. That gap was
 closed by writing an experiment-run log
-(`agent/experiments/2026-06-26-name-feature-run-1.md`) capturing forecast vs.
+(`agent/experiments/2026-06-26T21-19-51Z-name-feature-run-1.md`) capturing forecast vs.
 actual and ratify-vs-correct per gate.
 
 ## 15. The most informative miss — caught after integration
@@ -437,7 +437,7 @@ the "Is"-prefix naming rule and the context-nesting rule.)
 - Decision log: `agent/log/` — one line per decision, in commit order.
 - The Name feature (the experiment's product): `lib/constant/constant.rb`
   (`#name`) and `test/automated/constant/name/{nested,top_level}.rb`, on `master`.
-- The experiment run: `agent/experiments/2026-06-26-name-feature-run-1.md` —
+- The experiment run: `agent/experiments/2026-06-26T21-19-51Z-name-feature-run-1.md` —
   forecast vs. actual, ratify-vs-correct per gate, findings (run 1 integrated to
   `master`; the experiment is closed). The git scaffolding (branch, checkpoint
   tag) is incidental and not load-bearing now that the run is recorded here.

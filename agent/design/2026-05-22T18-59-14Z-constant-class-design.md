@@ -500,7 +500,7 @@ The following appear in `notes.md` but are deliberately excluded from this incre
   universal class-level accessor (module → construct, name → resolve). The
   class-level `Constant.build` was **dropped** as a duplicate of `Constant.get(mod)`.
   Shipped; see the Public API migration note above and the loop record
-  `agent/loops/2026-07-01-get-universal-class-accessor.md`.
+  `agent/loops/2026-07-01T17-58-39Z-get-universal-class-accessor.md`.
 - Nested-path strings (`"Foo::Bar::Baz"`) for any name argument. **Queued**
   (`agent/deferred/2026-07-01T17-30-00Z-nested-path-strings.md`) — resolve the
   split through `#get` so every entry point inherits it.

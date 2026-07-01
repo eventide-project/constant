@@ -23,7 +23,7 @@ The use-site perspective is always **efferent** (efferent side / reference / vie
 Actuate once at the top of the feature context; assert each outcome in its own inner context. Explaining variables carry the assertion (never assert an inline expression); narration is layered (`comment` scenario-wide, `detail` context-local); one assertion per `test`, one outcome per `context`. → rule `…18-13-51Z-tdd-test-structure.md`.
 
 ### Human-in-the-loop: gate on the call and on solubility, never on pass/fail
-Relocate the human's attention to where design judgment lives — setting the cradle (the efferent call) and judging solubility — and let the AI generate straight through between. Never gate on red/green. The human owns the call and the solubility verdict; the AI owns generation. → rule `…18-36-39Z-tdd-human-in-the-loop.md`, design doc `agent/design/2026-06-20-human-in-the-loop-tdd-design.md`.
+Relocate the human's attention to where design judgment lives — setting the cradle (the efferent call) and judging solubility — and let the AI generate straight through between. Never gate on red/green. The human owns the call and the solubility verdict; the AI owns generation. → rule `…18-36-39Z-tdd-human-in-the-loop.md`, design doc `agent/design/2026-06-20T18-50-55Z-human-in-the-loop-tdd-design.md`.
 
 ### The pivot: "the definition of the gates is essential"
 The gates *are* the essence; some are still missing and unclear. The move: recover the **discriminator** that detects gates, then discover the rest together.

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Ruby, TestBench (test framework), bundler standalone.
 
-**Source design:** `agent/design/2026-05-22-constant-class-design.md`
+**Source design:** `agent/design/2026-05-22T18-59-14Z-constant-class-design.md`
 
 **Process notes:**
 - Code is not specified in this plan. Each task states the intended behavior; the code is generated interactively, on command, in the increments chosen at the time.
@@ -102,7 +102,7 @@ This supports the next two tasks, which must distinguish inner constants that ar
 
 - [x] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
 
-  **Superseded** by the `Constant::Literal` restructure, Task 6 (`agent/plans/2026-06-29-constant-literal-restructure.md`): `Constant::Module#constants` returns the module inners as `Constant::Module`, and — via `include_literal_constants: true` — the literal inners as `Constant::Literal`. Implemented and shipped.
+  **Superseded** by the `Constant::Literal` restructure, Task 6 (`agent/plans/2026-06-29T19-49-18Z-constant-literal-restructure.md`): `Constant::Module#constants` returns the module inners as `Constant::Module`, and — via `include_literal_constants: true` — the literal inners as `Constant::Literal`. Implemented and shipped.
 
 ---
 
