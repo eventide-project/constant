@@ -119,7 +119,7 @@ context "Import Constant" do
 
           comment "Control Inner Constant Name: #{control_inner_constant_name.inspect}"
 
-          test "Not defined" do
+          test "Is an error" do
             assert_raises(NameError, "uninitialized constant #{control_inner_constant_name}") do
               receiver_constant.const_get(inner_constant_name, inherit=false)
             end

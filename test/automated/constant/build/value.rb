@@ -10,10 +10,8 @@ context "Constant" do
     comment "Raw Constant: #{control_value.inspect}"
     comment "Constant: #{constant.inspect}"
 
-    context "Is a Constant for the value" do
-      test do
-        assert(constant == control_constant)
-      end
+    test "Is a Constant for the value" do
+      assert(constant == control_constant)
     end
   end
 end

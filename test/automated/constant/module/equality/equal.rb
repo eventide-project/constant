@@ -12,10 +12,8 @@ context "Constant" do
 
       comment "Module: #{control_module.inspect}"
 
-      context "Equal when mediating the same module" do
-        test do
-          assert(equal)
-        end
+      test "Equal when mediating the same module" do
+        assert(equal)
       end
     end
   end

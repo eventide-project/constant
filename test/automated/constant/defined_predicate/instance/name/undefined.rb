@@ -14,10 +14,8 @@ context "Constant" do
         comment "Control Constant Name: #{control_constant_name.inspect}"
         comment "Defined: #{defined.inspect}"
 
-        context "Refutes a constant not defined in the mediated module by name" do
-          test do
-            refute(defined)
-          end
+        test "Refutes a constant not defined in the mediated module by name" do
+          refute(defined)
         end
       end
     end

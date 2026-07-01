@@ -14,10 +14,8 @@ context "Constant" do
       comment "Module: #{control_module.inspect}"
       comment "Other Module: #{control_other_module.inspect}"
 
-      context "Unequal when mediating different modules" do
-        test do
-          refute(equal)
-        end
+      test "Unequal when mediating different modules" do
+        refute(equal)
       end
     end
   end

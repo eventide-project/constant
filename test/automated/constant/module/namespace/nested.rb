@@ -15,10 +15,8 @@ context "Constant" do
       comment "Raw Constant: #{control_value.inspect}"
       comment "Namespace: #{namespace.inspect}"
 
-      context "Is the constant that contains the value" do
-        test do
-          assert(namespace == control_namespace_constant)
-        end
+      test "Is the constant that contains the value" do
+        assert(namespace == control_namespace_constant)
       end
     end
   end

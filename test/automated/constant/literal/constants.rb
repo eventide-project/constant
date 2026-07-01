@@ -15,10 +15,8 @@ context "Constant" do
       comment "Literal: #{literal.inspect}"
       comment "Constants: #{constants.inspect}"
 
-      context "Has no inner constants" do
-        test do
-          assert(constants == [])
-        end
+      test "Has no inner constants" do
+        assert(constants == [])
       end
     end
   end

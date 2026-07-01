@@ -16,10 +16,8 @@ context "Constant" do
       comment "Control Value: #{control_value.inspect}"
       comment "Full Name: #{full_name.inspect}"
 
-      context "Is the name alone for a top-level constant" do
-        test do
-          assert(full_name == control_name)
-        end
+      test "Is the name alone for a top-level constant" do
+        assert(full_name == control_name)
       end
     end
   end

@@ -14,10 +14,8 @@ context "Constant" do
       comment "Module: #{control_module.inspect}"
       comment "Name: #{name.inspect}"
 
-      context "Is the final segment of the qualified name as a String" do
-        test do
-          assert(name == control_module_name)
-        end
+      test "Is the final segment of the qualified name as a String" do
+        assert(name == control_module_name)
       end
     end
   end

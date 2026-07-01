@@ -1,0 +1,1 @@
+# Conformed over-wrapped single-assertion tests to directly-named tests — 25 Constant-class files flattened from `context "X" do test do … end end` to `test "X" do … end` (per the context-only-for-local-instrumentation rule); the deferred item is carried out and removed. Behavior-neutral (suite green, 64)

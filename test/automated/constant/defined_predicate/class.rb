@@ -10,10 +10,8 @@ context "Constant" do
     comment "Namespace: #{control_namespace.inspect}"
     comment "Defined: #{defined.inspect}"
 
-    context "Affirms the constant name is defined in the namespace" do
-      test do
-        assert(defined)
-      end
+    test "Affirms the constant name is defined in the namespace" do
+      assert(defined)
     end
   end
 end

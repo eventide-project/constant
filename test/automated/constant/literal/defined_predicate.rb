@@ -17,10 +17,8 @@ context "Constant" do
       comment "Queried Name: #{control_queried_name.inspect}"
       comment "Defined: #{defined.inspect}"
 
-      context "Refutes that any constant is defined within it" do
-        test do
-          refute(defined)
-        end
+      test "Refutes that any constant is defined within it" do
+        refute(defined)
       end
     end
   end

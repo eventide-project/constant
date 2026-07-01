@@ -17,10 +17,8 @@ context "Constant" do
       comment "Literal: #{literal.inspect}"
       comment "Other Literal: #{other_literal.inspect}"
 
-      context "Unequal when the binding locations differ" do
-        test do
-          refute(equal)
-        end
+      test "Unequal when the binding locations differ" do
+        refute(equal)
       end
     end
   end

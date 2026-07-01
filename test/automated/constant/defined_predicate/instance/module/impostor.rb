@@ -17,10 +17,8 @@ context "Constant" do
         comment "Control Impostor: #{control_impostor.inspect}"
         comment "Defined: #{defined.inspect}"
 
-        context "Refutes a module not defined in the mediated module" do
-          test do
-            refute(defined)
-          end
+        test "Refutes a module not defined in the mediated module" do
+          refute(defined)
         end
       end
     end

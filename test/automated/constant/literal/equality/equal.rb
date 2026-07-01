@@ -17,10 +17,8 @@ context "Constant" do
       comment "Literal: #{literal.inspect}"
       comment "Other Literal: #{other_literal.inspect}"
 
-      context "Equal when the namespace and name match, regardless of value" do
-        test do
-          assert(equal)
-        end
+      test "Equal when the namespace and name match, regardless of value" do
+        assert(equal)
       end
     end
   end

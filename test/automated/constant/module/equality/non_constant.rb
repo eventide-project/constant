@@ -11,10 +11,8 @@ context "Constant" do
 
       comment "Module: #{control_module.inspect}"
 
-      context "Unequal when the other is not a Constant" do
-        test do
-          refute(equal)
-        end
+      test "Unequal when the other is not a Constant" do
+        refute(equal)
       end
     end
   end

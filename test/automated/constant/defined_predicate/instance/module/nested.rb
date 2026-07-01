@@ -16,10 +16,8 @@ context "Constant" do
         comment "Control Inner Module: #{control_inner_module.inspect}"
         comment "Defined: #{defined.inspect}"
 
-        context "Affirms a module nested in the mediated module" do
-          test do
-            assert(defined)
-          end
+        test "Affirms a module nested in the mediated module" do
+          assert(defined)
         end
       end
     end

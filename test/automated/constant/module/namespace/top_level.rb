@@ -13,10 +13,8 @@ context "Constant" do
       comment "Raw Constant: #{control_value.inspect}"
       comment "Namespace: #{namespace.inspect}"
 
-      context "Is Object for a top-level constant" do
-        test do
-          assert(namespace == control_namespace_constant)
-        end
+      test "Is Object for a top-level constant" do
+        assert(namespace == control_namespace_constant)
       end
     end
   end

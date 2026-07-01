@@ -14,10 +14,8 @@ context "Constant" do
 
       comment "Literal: #{literal.inspect}"
 
-      context "Unequal when the other is not a Constant" do
-        test do
-          refute(equal)
-        end
+      test "Unequal when the other is not a Constant" do
+        refute(equal)
       end
     end
   end

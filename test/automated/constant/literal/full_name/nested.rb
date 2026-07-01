@@ -18,10 +18,8 @@ context "Constant" do
       comment "Control Value: #{control_value.inspect}"
       comment "Full Name: #{full_name.inspect}"
 
-      context "Is the namespace-qualified name as a String" do
-        test do
-          assert(full_name == control_full_name)
-        end
+      test "Is the namespace-qualified name as a String" do
+        assert(full_name == control_full_name)
       end
     end
   end

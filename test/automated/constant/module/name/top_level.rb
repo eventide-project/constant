@@ -12,10 +12,8 @@ context "Constant" do
       comment "Module: #{control_module.inspect}"
       comment "Name: #{name.inspect}"
 
-      context "Is the whole name as a String" do
-        test do
-          assert(name == control_module.name)
-        end
+      test "Is the whole name as a String" do
+        assert(name == control_module.name)
       end
     end
   end

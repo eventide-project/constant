@@ -16,7 +16,7 @@ context "Import Constant" do
     comment "Receiver Ancestors: #{receiver_constant.ancestors.inspect}"
     comment "Receiver Constants: #{receiver_constant.constants(false).inspect}"
 
-    test "Raises error" do
+    test "Is an error" do
       assert_raises(Constant::Import::Error) do
         Constant::Import.(source_constant, receiver_constant)
       end

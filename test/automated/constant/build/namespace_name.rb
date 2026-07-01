@@ -14,10 +14,8 @@ context "Constant" do
     comment "Namespace Name: #{control_namespace_name.inspect}"
     comment "Namespace: #{namespace.inspect}"
 
-    context "Resolves the namespace given as a name" do
-      test do
-        assert(namespace == control_namespace_constant)
-      end
+    test "Resolves the namespace given as a name" do
+      assert(namespace == control_namespace_constant)
     end
   end
 end

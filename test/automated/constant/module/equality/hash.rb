@@ -12,10 +12,8 @@ context "Constant" do
 
       comment "Module: #{control_module.inspect}"
 
-      context "Equal hash when mediating the same module" do
-        test do
-          assert(equal_hashes)
-        end
+      test "Equal hash when mediating the same module" do
+        assert(equal_hashes)
       end
     end
   end

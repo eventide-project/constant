@@ -13,10 +13,8 @@ context "Constant" do
     comment "Namespace: #{control_namespace.inspect}"
     comment "Constant: #{constant.inspect}"
 
-    context "Is the Constant the name resolves to" do
-      test do
-        assert(constant == control_constant)
-      end
+    test "Is the Constant the name resolves to" do
+      assert(constant == control_constant)
     end
   end
 end

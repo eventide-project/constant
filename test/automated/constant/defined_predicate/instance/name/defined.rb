@@ -16,10 +16,8 @@ context "Constant" do
         comment "Control Value: #{control_value.inspect}"
         comment "Defined: #{defined.inspect}"
 
-        context "Affirms a constant defined in the mediated module by name" do
-          test do
-            assert(defined)
-          end
+        test "Affirms a constant defined in the mediated module by name" do
+          assert(defined)
         end
       end
     end
