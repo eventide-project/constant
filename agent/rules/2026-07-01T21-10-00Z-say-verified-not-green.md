@@ -1,9 +1,12 @@
 # Say "verified", not "green"
 
-Do not describe a passing test suite (or a passing test) as **"green"** — it is
-slang. Say **"verified"** instead: "the suite is verified," "75 tests verified,"
-"keep the suite verified." The compound "green-on-arrival" likewise becomes
-**"verified-on-arrival"**.
+Do not describe passing tests as **"green"** — it is slang. Say **"verified"**
+instead. The standard report form is **"Verified: N tests"** (e.g. "Verified: 75
+tests"). The compound "green-on-arrival" likewise becomes **"verified-on-arrival"**.
+
+**Do not say "The suite is verified at 75."** The word "suite" is technically
+correct, but that phrasing is technobabble — it reads as jargon rather than plain
+report. Prefer the direct **"Verified: 75 tests."**
 
 **Why:** "green" is an oblique, tooling-flavored metaphor — the color of a passing
 CI indicator — that the reader has to map back to the actual meaning: the tests
