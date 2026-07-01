@@ -1,10 +1,10 @@
 require_relative "../../automated_init"
 
 context "Constant" do
-  context "Build" do
+  context "Get" do
     control_value = Controls::Constant.example
 
-    constant = Constant.build(control_value)
+    constant = Constant.get(control_value)
     control_constant = Constant::Module.new(control_value)
 
     comment "Control Raw Constant: #{control_value.inspect}"

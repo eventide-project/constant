@@ -28,4 +28,4 @@ Coalescing before delegating **double-defaults**: it makes the receiver's own `|
 
 Examples:
 - `Constant::Module#defined?` forwards `inherit` to `Constant.defined?` (which defaults it) in its delegating branch — passing `inherit` raw there — but coalesces `inherit ||= false` in the branch that uses it directly with Ruby's `const_get` / `constants`.
-- `Constant.build` forwards `inherit` only to `#get` (which defaults it), so it does **not** coalesce `inherit` at all. (It still coalesces `namespace_name_or_module ||= Object`, because that default is `build`'s own.)
+- `Constant.get` forwards `inherit` only to the instance `#get` (which defaults it), so it does **not** coalesce `inherit` at all. (It still coalesces `namespace ||= Object`, because that default is `get`'s own.)

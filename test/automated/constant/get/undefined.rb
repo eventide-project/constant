@@ -1,7 +1,7 @@
 require_relative "../../automated_init"
 
 context "Constant" do
-  context "Build" do
+  context "Get" do
     control_namespace = Controls::Constant.example
     control_constant_name = "SomeConstant"
 
@@ -11,7 +11,7 @@ context "Constant" do
     context "When the name is not defined in the namespace" do
       test "Is an error" do
         assert_raises(Constant::Error) do
-          Constant.build(control_constant_name, control_namespace)
+          Constant.get(control_constant_name, control_namespace)
         end
       end
     end

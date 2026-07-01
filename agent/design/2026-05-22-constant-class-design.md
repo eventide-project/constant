@@ -432,6 +432,16 @@ instantiated). The current class-level surface is rehomed:
   a `Constant::Error`; it is a valid `Constant::Literal` result. The
   **undefined-name** error remains. (`build/non_module.rb` is re-scoped from
   asserting `Constant::Error` to asserting a `Constant::Literal`.)
+  **Superseded (2026-07-01):** once the `Constant()` coercion took over the
+  single-front-door role, the class-level factory collapsed into a single
+  accessor. **`Constant.get(value, namespace=Object, inherit:)`** takes a module
+  (construct) or a name (resolve) — the class-level form of the instance `#get`.
+  The class-level **`Constant.build` was dropped**: `Constant.get(mod)` does
+  exactly what `Constant.build(mod)` did, so it was a duplicate entry point, not
+  a distinct operation. Construction from a value in hand is the subtype
+  constructors `Constant::Module.build` / `Constant::Literal.build`. The coercion
+  is a thin veneer over `get` (idempotence + type guard only). See
+  `agent/log/2026-07-01T18-00-00Z-get-universal-class-accessor.md`.
 - Direct construction is `Constant::Module.new(mod)` /
   `Constant::Literal.new(name, value, namespace)`.
 - `Constant::Module` shadows Ruby's `Module` inside the namespace, so code that
@@ -484,10 +494,12 @@ The following appear in `notes.md` but are deliberately excluded from this incre
   `#import` are the mutating siblings — **queued**
   (`agent/deferred/2026-07-01T17-31-00Z-instance-define-import.md`).
 - Class-level resolution helper — the older `notes.md` names it `Constant::Get` /
-  `Constant.resolve`. **Naming under discussion (2026-07-01):** those names
-  predate the instance `#get` primitive; a class-level counterpart should mirror
-  it as **`Constant.get`**, not a second verb. Open whether one is needed at all,
-  given `Constant.build(name, namespace)` already resolves.
+  `Constant.resolve`. **Settled and built (2026-07-01):** it is **`Constant.get`**
+  — mirroring the instance `#get`, not a second verb — and it is the sole
+  universal class-level accessor (module → construct, name → resolve). The
+  class-level `Constant.build` was **dropped** as a duplicate of `Constant.get(mod)`.
+  Shipped; see the Public API migration note above and the loop record
+  `agent/loops/2026-07-01-get-universal-class-accessor.md`.
 - Nested-path strings (`"Foo::Bar::Baz"`) for any name argument. **Queued**
   (`agent/deferred/2026-07-01T17-30-00Z-nested-path-strings.md`) — resolve the
   split through `#get` so every entry point inherits it.

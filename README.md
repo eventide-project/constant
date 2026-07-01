@@ -22,28 +22,28 @@ module SomeNamespace
 end
 ```
 
-### Construction
+### Getting a Constant
 
-`Constant.build` is the factory. Given a module or class, it returns a `Constant::Module`. Given a name and a namespace, it resolves the name and returns whichever subtype the resolved value calls for.
+`Constant.get` is the class-level accessor. Hand it a module (or class) and it returns the `Constant::Module` that mediates it; hand it a name and a namespace and it resolves the name, returning whichever subtype the resolved value calls for:
 
 ```ruby
-Constant.build(SomeNamespace)
+Constant.get(SomeNamespace)
 # => #<Constant::Module value=SomeNamespace>
 
-Constant.build(:SomeInnerModule, SomeNamespace)
+Constant.get(:SomeInnerModule, SomeNamespace)
 # => #<Constant::Module value=SomeNamespace::SomeInnerModule>
 
-Constant.build(:SomeLiteralConstant, SomeNamespace)
+Constant.get(:SomeLiteralConstant, SomeNamespace)
 # => #<Constant::Literal SomeNamespace::SomeLiteralConstant = "some value">
 ```
 
-The namespace defaults to the top level, and an `inherit:` keyword (default `false`) governs whether name resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
+It is the class-level form of the instance `#get` primitive — the namespace, implicit as `self` on an instance, is passed as an argument. The namespace defaults to the top level and may itself be given as a name; an `inherit:` keyword (default `false`) governs whether resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
 
-`build` is the forgiving constructor: it normalizes its inputs (e.g. a Symbol name becomes a String, a raw module namespace is wrapped) and delegates to `new`, the strict initializer. Each subtype carries both — `Constant::Module.build` / `Constant::Literal.build` — and `Constant.build` routes through them.
+Direct construction from a value you already hold goes to the subtype constructors — `Constant::Module.build` / `Constant::Literal.build` — which normalize their inputs and delegate to `new`, the strict initializer.
 
 ### Coercion
 
-`Constant()` is the coercion form — Ruby's `Integer()` / `Array()` idiom — an idempotent front door over `build`. It is a **refinement**, activated per file with `using Constant::Coerce`, so it never touches global scope unless a file opts in:
+`Constant()` is the coercion form — Ruby's `Integer()` / `Array()` idiom — an idempotent front door over `get`. It is a **refinement**, activated per file with `using Constant::Coerce`, so it never touches global scope unless a file opts in:
 
 ```ruby
 using Constant::Coerce
@@ -57,17 +57,17 @@ Constant(existing).equal?(existing)          # => true   (already a Constant —
 Constant(nil)                                # => TypeError: can't convert nil into Constant
 ```
 
-It forwards its arguments to `Constant.build` (taking the same name/namespace/`inherit:`), with two additions that make it a coercion: an already-`Constant` value is returned unchanged — the idempotency that is the point of a coercion — and a value that is neither a module, a name, nor a `Constant` raises `TypeError`, mirroring `Integer(nil)`. An un-*resolvable* name still raises `Constant::Error`, exactly as `build` does.
+It delegates the real work to `Constant.get` (taking the same namespace/`inherit:`) and adds only its own three concerns as a coercion: an already-`Constant` value is returned unchanged — the idempotency that is the point of a coercion — and a value that is neither a module, a name, nor a `Constant` raises `TypeError`, mirroring `Integer(nil)`. An un-*resolvable* name still raises `Constant::Error`, exactly as `get` does.
 
 ### Queries
 
 ```ruby
-constant = Constant.build(SomeNamespace)
+constant = Constant.get(SomeNamespace)
 
 constant.value        # => SomeNamespace          (the mediated Ruby value)
 constant.name         # => "SomeNamespace"        (the final segment, a String)
 constant.full_name    # => "SomeNamespace"        (the ::-qualified name, a String)
-constant.namespace    # => the containing Constant (Constant.build(Object) at the top level)
+constant.namespace    # => the containing Constant (Constant.get(Object) at the top level)
 ```
 
 `#get` resolves an inner constant to the `Constant` that mediates it (raising `Constant::Error` if the name is not defined):

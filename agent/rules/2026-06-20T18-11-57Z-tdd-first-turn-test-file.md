@@ -11,15 +11,20 @@ The file is still nested to mirror its folder path (per the folder-mirroring rul
 
 ```ruby
 context "Constant" do
-  context "Namespace" do
-    control_value = Controls::Constant.example
+  context "Module" do
+    context "Namespace" do
+      control_value = Controls::Constant.example
 
-    namespace = Constant.new(control_value).namespace
+      constant = Constant::Module.new(control_value)
 
-    comment "Namespace: #{namespace.inspect}"
+      namespace = constant.namespace
+      control_namespace_constant = Constant::Module.new(Object)
 
-    test do
-      assert(namespace == Object)
+      comment "Namespace: #{namespace.inspect}"
+
+      test do
+        assert(namespace == control_namespace_constant)
+      end
     end
   end
 end

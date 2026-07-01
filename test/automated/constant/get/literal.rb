@@ -1,12 +1,12 @@
 require_relative "../../automated_init"
 
 context "Constant" do
-  context "Build" do
+  context "Get" do
     control_constant_name = "SomeConstant"
     control_value = "some string"
     control_namespace = Controls::Constant.example(inner_constants: { control_constant_name => control_value })
 
-    constant = Constant.build(control_constant_name, control_namespace)
+    constant = Constant.get(control_constant_name, control_namespace)
 
     control_literal_namespace = Constant::Module.new(control_namespace)
     control_literal = Constant::Literal.new(control_constant_name, control_value, control_literal_namespace)

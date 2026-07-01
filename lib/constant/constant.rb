@@ -5,14 +5,19 @@ module Constant
     alias __name name
   end
 
-  def self.build(name_or_module, namespace_name_or_module=nil, inherit: nil)
-    namespace_name_or_module ||= Object
+  def self.get(value, namespace=nil, inherit: nil)
+    namespace ||= Object
 
-    if name_or_module.is_a?(::Module)
-      Constant::Module.build(name_or_module)
+    if value.is_a?(::Module)
+      Constant::Module.build(value)
     else
-      namespace_constant = build(namespace_name_or_module)
-      namespace_constant.get(name_or_module, inherit: inherit)
+      if namespace.is_a?(::Module) || namespace.is_a?(Constant)
+        namespace_constant = Constant::Module.build(namespace)
+      else
+        namespace_constant = get(namespace)
+      end
+
+      namespace_constant.get(value, inherit: inherit)
     end
   end
 
@@ -35,7 +40,7 @@ module Constant
     namespace_name_or_module ||= Object
     inherit ||= false
 
-    namespace = build(namespace_name_or_module).value
+    namespace = get(namespace_name_or_module).value
     namespace.const_defined?(name, inherit)
   end
 

@@ -19,10 +19,15 @@ the inputs so callers don't have to match `new`'s strictness. Examples:
 - `Constant::Module.build` is near-passthrough (a module is already a module) but
   exists for symmetry, so the construction surface is uniform across subtypes.
 
-The top-level **`Constant.build` is the universal factory**: it resolves a
-name-or-module, then **delegates to the right subtype's `build`** — so
+The `build`/`new` distinction lives on the **subtypes** (`Constant::Module`,
+`Constant::Literal`) — the abstract `Constant` module has no class-level `build`
+of its own. The class-level universal accessor is **`Constant.get`**: it takes a
+name-or-module and **delegates to the right subtype's `build`** (constructing a
+module directly, or resolving a name and building the mediating subtype) — so
 normalization flows through every construction path, including callers that build
-constants on their own (e.g. `#constants`).
+constants on their own (e.g. `#constants`). (The former class-level
+`Constant.build` was dropped as a duplicate of `Constant.get(mod)`; a value in
+hand is constructed through the subtype `build`s.)
 
 **Why:** separating a strict initializer from a forgiving constructor keeps `new`
 simple and predictable (just records state) while giving callers a lenient,
@@ -31,7 +36,7 @@ not scattered across call sites, so it can't be forgotten by a path that bypasse
 the factory.
 
 **How to apply:** give each domain class a `build` that normalizes its inputs and
-delegates to `new`; keep `new` strict. Construct through `build` (or the
-`Constant.build` factory, which routes to the subtype builds); reserve `new` for
-the internal, strict primitive. Related: the design doc (Section 2 — `new` as
-mechanical state-recording) and Section 5 (the factory).
+delegates to `new`; keep `new` strict. Construct through the subtype `build`s (or
+`Constant.get`, the universal class-level accessor, which routes to them); reserve
+`new` for the internal, strict primitive. Related: the design doc (Section 2 —
+`new` as mechanical state-recording) and Section 5 (the accessor).
