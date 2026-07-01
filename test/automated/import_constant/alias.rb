@@ -74,7 +74,7 @@ context "Import Constant" do
 
           resolved_constant = eval(control_inner_constant_name)
 
-          comment "Constant Path: #{control_inner_constant_name.inspect}"
+          comment "Control Constant Path: #{control_inner_constant_name.inspect}"
           comment "Imported Constant: #{resolved_constant}"
 
           resolved = not resolved_constant.nil?

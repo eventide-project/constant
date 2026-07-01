@@ -10,7 +10,7 @@ context "Constant" do
       namespace = constant.namespace
       control_namespace_constant = Constant::Module.new(Object)
 
-      comment "Raw Constant: #{control_value.inspect}"
+      comment "Control Raw Constant: #{control_value.inspect}"
       comment "Namespace: #{namespace.inspect}"
 
       test "Is Object for a top-level constant" do

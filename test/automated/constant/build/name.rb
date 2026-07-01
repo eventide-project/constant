@@ -9,8 +9,8 @@ context "Constant" do
     constant = Constant.build(control_constant_name, control_namespace)
     control_constant = Constant::Module.new(control_value)
 
-    comment "Name: #{control_constant_name.inspect}"
-    comment "Namespace: #{control_namespace.inspect}"
+    comment "Control Name: #{control_constant_name.inspect}"
+    comment "Control Namespace: #{control_namespace.inspect}"
     comment "Constant: #{constant.inspect}"
 
     test "Is the Constant the name resolves to" do

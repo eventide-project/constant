@@ -9,7 +9,7 @@ context "Constant" do
 
       equal = constant == control_module
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
 
       test "Unequal when the other is not a Constant" do
         refute(equal)

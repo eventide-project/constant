@@ -10,8 +10,8 @@ context "Constant" do
     namespace = constant.namespace
     control_namespace_constant = Constant::Module.new(control_namespace)
 
-    comment "Constant Name: #{control_constant_name.inspect}"
-    comment "Namespace Name: #{control_namespace_name.inspect}"
+    comment "Control Constant Name: #{control_constant_name.inspect}"
+    comment "Control Namespace Name: #{control_namespace_name.inspect}"
     comment "Namespace: #{namespace.inspect}"
 
     test "Resolves the namespace given as a name" do

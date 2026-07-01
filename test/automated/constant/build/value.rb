@@ -7,7 +7,7 @@ context "Constant" do
     constant = Constant.build(control_value)
     control_constant = Constant::Module.new(control_value)
 
-    comment "Raw Constant: #{control_value.inspect}"
+    comment "Control Raw Constant: #{control_value.inspect}"
     comment "Constant: #{constant.inspect}"
 
     test "Is a Constant for the value" do

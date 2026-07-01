@@ -10,7 +10,7 @@ context "Constant" do
 
       eql = constant.eql?(control_module_constant)
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
 
       test "Eql? when mediating the same module" do
         assert(eql)

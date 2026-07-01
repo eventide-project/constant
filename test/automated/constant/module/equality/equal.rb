@@ -10,7 +10,7 @@ context "Constant" do
 
       equal = constant == control_module_constant
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
 
       test "Equal when mediating the same module" do
         assert(equal)

@@ -10,7 +10,7 @@ context "Constant" do
 
       equal_hashes = constant.hash == control_module_constant.hash
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
 
       test "Equal hash when mediating the same module" do
         assert(equal_hashes)

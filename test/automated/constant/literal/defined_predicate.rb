@@ -14,7 +14,7 @@ context "Constant" do
       defined = literal.defined?(control_queried_name)
 
       comment "Literal: #{literal.inspect}"
-      comment "Queried Name: #{control_queried_name.inspect}"
+      comment "Control Queried Name: #{control_queried_name.inspect}"
       comment "Defined: #{defined.inspect}"
 
       test "Refutes that any constant is defined within it" do

@@ -11,7 +11,7 @@ context "Constant" do
 
       full_name = constant.full_name
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
       comment "Full Name: #{full_name.inspect}"
 
       test "Is the whole qualified name as a String" do

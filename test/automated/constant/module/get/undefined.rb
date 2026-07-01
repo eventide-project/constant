@@ -9,7 +9,7 @@ context "Constant" do
       constant = Constant::Module.new(control_namespace)
 
       comment "Control Inner Name: #{control_inner_name.inspect}"
-      comment "Namespace: #{control_namespace.inspect}"
+      comment "Control Namespace: #{control_namespace.inspect}"
 
       context "When the name is not defined" do
         test "Is an error" do

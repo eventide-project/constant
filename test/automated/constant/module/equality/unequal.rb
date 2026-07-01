@@ -11,8 +11,8 @@ context "Constant" do
 
       equal = constant == control_other_module_constant
 
-      comment "Module: #{control_module.inspect}"
-      comment "Other Module: #{control_other_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
+      comment "Control Other Module: #{control_other_module.inspect}"
 
       test "Unequal when mediating different modules" do
         refute(equal)

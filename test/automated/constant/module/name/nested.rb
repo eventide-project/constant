@@ -11,7 +11,7 @@ context "Constant" do
 
       name = constant.name
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
       comment "Name: #{name.inspect}"
 
       test "Is the final segment of the qualified name as a String" do

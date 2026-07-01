@@ -9,7 +9,7 @@ context "Constant" do
 
       name = constant.name
 
-      comment "Module: #{control_module.inspect}"
+      comment "Control Module: #{control_module.inspect}"
       comment "Name: #{name.inspect}"
 
       test "Is the whole name as a String" do

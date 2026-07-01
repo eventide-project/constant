@@ -5,8 +5,8 @@ context "Constant" do
     control_namespace = Controls::Constant.example
     control_constant_name = "SomeConstant"
 
-    comment "Name: #{control_constant_name.inspect}"
-    comment "Namespace: #{control_namespace.inspect}"
+    comment "Control Name: #{control_constant_name.inspect}"
+    comment "Control Namespace: #{control_namespace.inspect}"
 
     context "When the name is not defined in the namespace" do
       test "Is an error" do
