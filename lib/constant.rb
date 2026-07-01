@@ -1,11 +1,9 @@
 require "initializer"
-require "log"
 
 require "constant/constant"
 require "constant/module"
 require "constant/literal"
 require "constant/coerce"
-require "constant/log"
 require "constant/define"
 require "constant/import"
 require "constant/import/macro"

@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 4"
 
   s.add_runtime_dependency "evt-initializer"
-  s.add_runtime_dependency "evt-log"
 
   s.add_development_dependency "test_bench"
 end
