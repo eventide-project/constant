@@ -267,7 +267,7 @@ self.call(constant_name, receiver_constant)
 ```
 
 ```ruby
-Constant::Define.(:SomeConstant, SomeReceiver)
+Constant::Define.("SomeConstant", SomeReceiver)
 ```
 
 A new module is created and assigned to `constant_name` in the receiver constant's namespace.
