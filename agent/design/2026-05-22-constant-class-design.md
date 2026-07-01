@@ -487,3 +487,7 @@ The following appear in `notes.md` but are deliberately excluded from this incre
   `.call`-style actuators; `Constant` is a stateful object, not an actuator.
   This can be revisited later.
 - Refactoring `Import` / `Define` to delegate to the `Constant` class.
+  **Settled (2026-07-01):** `Constant::Import` will **not** negotiate in
+  `Constant` instances — it takes and returns **raw Ruby constants**, the way a
+  native Ruby `import` would if the language had one. `Import` stays in Ruby's
+  own currency (modules/classes), independent of the `Constant` domain object.
