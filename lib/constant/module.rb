@@ -41,6 +41,23 @@ module Constant
       end
     end
 
+    def constants(include_literal_constants: nil, inherit: nil)
+      include_literal_constants ||= false
+      inherit ||= false
+
+      constant_names = value.constants(inherit)
+
+      constant_names.filter_map do |constant_name|
+        resolved = value.const_get(constant_name, inherit)
+
+        if resolved.is_a?(::Module)
+          Constant::Module.build(resolved)
+        elsif include_literal_constants
+          Constant::Literal.build(constant_name, resolved, self)
+        end
+      end
+    end
+
     def defined?(name_or_module, inherit: nil)
       if name_or_module.is_a?(::Module)
         inherit ||= false

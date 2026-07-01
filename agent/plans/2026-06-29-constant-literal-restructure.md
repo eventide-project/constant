@@ -117,7 +117,7 @@ conforms.
 
 ## Task 6: `#constants` with `include_literal_constants`
 
-- [ ] `Constant::Module#constants` reports its own inner constants as `Constant`
+- [x] `Constant::Module#constants` reports its own inner constants as `Constant`
   objects. By default it returns only the module-valued inners, each as a
   `Constant::Module`. With `include_literal_constants: true` it also includes the
   literal-valued inners, each as a `Constant::Literal` carrying its name and this
