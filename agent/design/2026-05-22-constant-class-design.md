@@ -491,8 +491,9 @@ and `Constant::Literal#defined?` returns `false`. Section 3 is to be conformed.
 The following appear in `notes.md` but are deliberately excluded from this increment:
 
 - Instance commands. `#get` **shipped** (the resolution primitive). `#define` /
-  `#import` are the mutating siblings — **queued**
-  (`agent/deferred/2026-07-01T17-31-00Z-instance-define-import.md`).
+  `#import` (the mutating siblings) were considered and **dropped (2026-07-01)** —
+  the `Constant` object is not being extended into a mutation handle on its
+  module. See `agent/log/2026-07-01T18-40-00Z-drop-instance-define-import.md`.
 - Class-level resolution helper — the older `notes.md` names it `Constant::Get` /
   `Constant.resolve`. **Settled and built (2026-07-01):** it is **`Constant.get`**
   — mirroring the instance `#get`, not a second verb — and it is the sole
