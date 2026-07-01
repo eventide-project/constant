@@ -139,7 +139,14 @@ conforms.
 
 ## Task 8: Documentation and design-doc conformance
 
-- [ ] Document the `Constant` mixin and the `Constant::Module` / `Constant::Literal`
+- [x] Document the `Constant` mixin and the `Constant::Module` / `Constant::Literal`
   subtypes in the `README`. Conform the design doc's Sections 2–4 and its
   Vocabulary to the settled shape (Section 5), and mark the predecessor plan's
   Tasks 10–11 superseded by this plan.
+
+  Done: the `README` gains a "The Constant Class" section (mixin + subtypes,
+  `build`/`new`, queries, `#get`, `#constants`/`#constant_names`, equality). The
+  design doc gains a status banner marking it implemented and Sections 2–4
+  superseded by Section 5 (kept as the design record, not rewritten), and the
+  Vocabulary's `"value"` retirement is corrected (reintroduced as `#value`). The
+  predecessor plan's Tasks 10–12 are marked superseded/done.

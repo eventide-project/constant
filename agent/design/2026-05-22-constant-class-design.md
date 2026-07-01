@@ -2,6 +2,16 @@
 
 Date: 2026-05-22
 
+> **Status (2026-07-01): implemented, and evolved past this document.** The
+> `Constant` domain object shipped and then morphed from a single class into a
+> **mixin module** included by `Constant::Module` (a module constant) and
+> `Constant::Literal` (a literal constant) — the direction recorded in
+> **Section 5**, now built (`build`/`new`/`#get`, `#constants`/`#constant_names`
+> with `include_literal_constants`, equality by identity/binding-location).
+> **Sections 2–4 below describe the initial single-class design and are
+> superseded by Section 5**; the `README` and the code are the authoritative
+> current reference. This document is kept as the design record.
+
 ## Summary
 
 Add a `Constant` class to the `constant` library: a stateful object that
@@ -30,9 +40,12 @@ for this increment are listed under "Out of Scope" below.
 Precise terms, used consistently throughout this document:
 
 - **module** — a Ruby `Module` or `Class` (`Class` is a subclass of `Module`;
-  "module/class" means exactly this). The raw Ruby object a `Constant`
-  mediates, and — in this library's domain — the only kind of thing it ever
-  mediates. ("value" and "raw constant" are retired in favor of "module".)
+  "module/class" means exactly this). The raw Ruby object a `Constant::Module`
+  mediates. (Under the initial single-class design a `Constant` mediated *only* a
+  module; the mixin/subtype design of Section 5 adds `Constant::Literal`, which
+  mediates a **literal** value. "raw constant" is retired in favor of "module".
+  "value" was retired here too but is **reintroduced** as the bound-value
+  accessor `#value` — see Section 5.)
 - **mod** — the variable spelling of a bare module. `module` is a Ruby reserved
   word, so an identifier that would otherwise be the bare word `module` is
   written `mod`.

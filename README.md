@@ -4,6 +4,83 @@ Utilities for working with constants.
 
 Avoid the unintended effects of including constants by aliasing their inner constants instead of accessing them via Ruby mixin.
 
+## The Constant Class
+
+A `Constant` is a stateful domain object that mediates a resolved Ruby constant and answers questions about it — its name, its namespace, its value, whether a name is defined within it, and what inner constants it contains — so that callers work through the domain object rather than reaching into Ruby's low-level constant methods (`const_get`, `const_set`, `const_defined?`, `constants`).
+
+`Constant` is a mixin module included by two subtypes:
+
+- **`Constant::Module`** mediates a module or class.
+- **`Constant::Literal`** mediates a constant bound to a non-module ("literal") value.
+
+Both answer the same interface; a `Constant::Literal` answers the container-style queries degenerately (it has no inner constants).
+
+```ruby
+module SomeNamespace
+  SomeInnerModule = Module.new
+  SomeLiteralConstant = "some value"
+end
+```
+
+### Construction
+
+`Constant.build` is the factory. Given a module or class, it returns a `Constant::Module`. Given a name and a namespace, it resolves the name and returns whichever subtype the resolved value calls for.
+
+```ruby
+Constant.build(SomeNamespace)
+# => #<Constant::Module value=SomeNamespace>
+
+Constant.build(:SomeInnerModule, SomeNamespace)
+# => #<Constant::Module value=SomeNamespace::SomeInnerModule>
+
+Constant.build(:SomeLiteralConstant, SomeNamespace)
+# => #<Constant::Literal SomeNamespace::SomeLiteralConstant = "some value">
+```
+
+The namespace defaults to the top level, and an `inherit:` keyword (default `false`) governs whether name resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
+
+`build` is the forgiving constructor: it normalizes its inputs (e.g. a Symbol name becomes a String, a raw module namespace is wrapped) and delegates to `new`, the strict initializer. Each subtype carries both — `Constant::Module.build` / `Constant::Literal.build` — and `Constant.build` routes through them.
+
+### Queries
+
+```ruby
+constant = Constant.build(SomeNamespace)
+
+constant.value        # => SomeNamespace          (the mediated Ruby value)
+constant.name         # => "SomeNamespace"        (the final segment, a String)
+constant.full_name    # => "SomeNamespace"        (the ::-qualified name, a String)
+constant.namespace    # => the containing Constant (Constant.build(Object) at the top level)
+```
+
+`#get` resolves an inner constant to the `Constant` that mediates it (raising `Constant::Error` if the name is not defined):
+
+```ruby
+constant.get(:SomeInnerModule)      # => #<Constant::Module value=SomeNamespace::SomeInnerModule>
+constant.get(:SomeLiteralConstant)  # => #<Constant::Literal …>
+```
+
+`#constants` and `#constant_names` list a module's inner constants — as `Constant` objects and as name Strings, respectively. By default they include only the module-valued inners; `include_literal_constants: true` also includes the literal-valued ones.
+
+```ruby
+constant.constants
+# => [#<Constant::Module value=SomeNamespace::SomeInnerModule>]
+
+constant.constant_names
+# => ["SomeInnerModule"]
+
+constant.constant_names(include_literal_constants: true)
+# => ["SomeInnerModule", "SomeLiteralConstant"]
+```
+
+`#defined?` reports whether a name or module is defined within the mediated module (a `Constant::Literal` always answers `false`). The class-level `Constant.defined?(name, namespace = Object, inherit: false)` is a name-existence predicate that never raises.
+
+```ruby
+constant.defined?(:SomeInnerModule)   # => true
+Constant.defined?(:SomeNamespace)     # => true
+```
+
+Two `Constant`s are equal when they identify the same constant: a `Constant::Module` by the module it mediates, a `Constant::Literal` by its binding location (namespace and name), so equal `Constant`s dedupe in a `Set` and interchange as `Hash` keys.
+
 ## Constant::Import
 
 Ruby's `include` statement is often used as an `import` statement common to other languages. An `import` is used to provide a shortcut for accessing constants without having to fully qualify the namespace.

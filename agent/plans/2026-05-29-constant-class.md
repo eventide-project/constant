@@ -98,18 +98,24 @@ This supports the next two tasks, which must distinguish inner constants that ar
 
 ---
 
-## Task 10: Inner constants
+## Task 10: Inner constants — **superseded**
 
-- [ ] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
+- [x] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
 
----
-
-## Task 11: Inner constant names
-
-- [ ] A `Constant` reports the names of its own inner constants that are themselves modules, as Strings. The selection matches the inner-constants query; the difference is that name Strings are returned rather than the mediating `Constant`s. (Ruby's `Module#constants` returns Symbols; normalize to Strings on the way out, per the String-outputs convention.)
+  **Superseded** by the `Constant::Literal` restructure, Task 6 (`agent/plans/2026-06-29-constant-literal-restructure.md`): `Constant::Module#constants` returns the module inners as `Constant::Module`, and — via `include_literal_constants: true` — the literal inners as `Constant::Literal`. Implemented and shipped.
 
 ---
 
-## Task 12: Documentation
+## Task 11: Inner constant names — **superseded**
 
-- [ ] Document the `Constant` class in the `README`.
+- [x] A `Constant` reports the names of its own inner constants that are themselves modules, as Strings. The selection matches the inner-constants query; the difference is that name Strings are returned rather than the mediating `Constant`s. (Ruby's `Module#constants` returns Symbols; normalize to Strings on the way out, per the String-outputs convention.)
+
+  **Superseded** by the restructure's Task 7: `Constant::Module#constant_names` returns the names as Strings, 1:1 with `#constants`, with the same `include_literal_constants` keyword. Implemented and shipped.
+
+---
+
+## Task 12: Documentation — **done via the restructure**
+
+- [x] Document the `Constant` class in the `README`.
+
+  Fulfilled by the restructure's Task 8: the `README` gains a "The Constant Class" section covering the `Constant` mixin and the `Constant::Module` / `Constant::Literal` subtypes (`build`/`new`, `#value`/`#name`/`#full_name`/`#namespace`, `#get`, `#constants`/`#constant_names`, `#defined?`, equality).
