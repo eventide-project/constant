@@ -243,7 +243,45 @@ Two `Constant`s are equal when they identify the same constant: a `Constant::Mod
 
 ## Defining a Constant
 
-To Do
+`Constant::Define` creates a new module and assigns it to a constant name within a receiver constant's namespace, returning the newly-defined constant. It is the mechanism `Constant::Import` uses to create an alias target, and can be used directly to define a constant.
+
+### Example
+
+```ruby
+module SomeReceiver
+end
+
+some_constant = Constant::Define.(:SomeConstant, SomeReceiver)
+
+SomeReceiver.const_defined?(:SomeConstant)
+# => true
+
+SomeReceiver::SomeConstant.equal?(some_constant)
+# => true
+```
+
+### API
+
+```ruby
+self.call(constant_name, receiver_constant)
+```
+
+```ruby
+Constant::Define.(:SomeConstant, SomeReceiver)
+```
+
+A new module is created and assigned to `constant_name` in the receiver constant's namespace.
+
+**Returns**
+
+The newly-defined constant — the module that was created and assigned.
+
+**Parameters**
+
+| Name | Description | Type |
+| --- | --- | --- |
+| constant_name | The name the new constant is assigned to in the receiver constant's namespace | String or Symbol |
+| receiver_constant | The constant whose namespace the new constant is defined in | Module or Class |
 
 ## License
 
