@@ -38,10 +38,11 @@ module Constant
 
   def self.defined?(name, namespace_name_or_module=nil, inherit: nil)
     namespace_name_or_module ||= Object
-    inherit ||= false
 
-    namespace = get(namespace_name_or_module).value
-    namespace.const_defined?(name, inherit)
+    get(namespace_name_or_module).get(name, inherit: inherit)
+    true
+  rescue Constant::Error # #get raises when the name is undefined, or its path runs through a literal
+    false
   end
 
   def ==(other)

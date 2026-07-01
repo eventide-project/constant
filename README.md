@@ -99,7 +99,7 @@ constant.constant_names(include_literal_constants: true)
 # => ["SomeInnerModule", "SomeLiteralConstant"]
 ```
 
-`#defined?` reports whether a name or module is defined within the mediated module (a `Constant::Literal` always answers `false`). The class-level `Constant.defined?(name, namespace = Object, inherit: false)` is a name-existence predicate that never raises.
+`#defined?` reports whether a name or module is defined within the mediated module (a `Constant::Literal` always answers `false`). The class-level `Constant.defined?(name, namespace = Object, inherit: false)` is a name-existence predicate that never raises. The name may be a `::`-path; a path that runs through a literal is simply not defined (`false`), never an error.
 
 ```ruby
 constant.defined?(:SomeInnerModule)   # => true
