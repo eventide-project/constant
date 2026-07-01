@@ -7,10 +7,8 @@ context "Constant" do
       control_leaf_name  = "SomeLiteral"
       control_leaf_value = "some string"
 
-      control_namespace = Controls::Constant::Nested.example(
-        inner_name: control_inner_name,
-        leaf_name: control_leaf_name,
-        leaf_value: control_leaf_value)
+      control_namespace = Controls::Constant.example(
+        inner_constants: { control_inner_name => { control_leaf_name => control_leaf_value } })
 
       control_inner_module = control_namespace.const_get(control_inner_name)
       control_path = "#{control_inner_name}::#{control_leaf_name}"

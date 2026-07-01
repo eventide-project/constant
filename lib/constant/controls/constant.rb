@@ -24,7 +24,13 @@ module Constant
       def self.add_inner_constants(mod, inner_constants)
         if inner_constants.is_a?(Hash)
           inner_constants.each do |inner_constant_name, inner_constant_value|
-            mod.const_set(inner_constant_name, inner_constant_value)
+            if inner_constant_value.is_a?(Hash)
+              inner_mod = ::Module.new
+              mod.const_set(inner_constant_name, inner_mod)
+              add_inner_constants(inner_mod, inner_constant_value)
+            else
+              mod.const_set(inner_constant_name, inner_constant_value)
+            end
           end
         else
           inner_constants.each do |inner_constant_name|

@@ -7,10 +7,8 @@ context "Constant" do
       control_deep_name  = "SomeDeepNamespace"
       control_deep_module = ::Module.new
 
-      control_namespace = Controls::Constant::Nested.example(
-        inner_name: control_inner_name,
-        leaf_name: control_deep_name,
-        leaf_value: control_deep_module)
+      control_namespace = Controls::Constant.example(
+        inner_constants: { control_inner_name => { control_deep_name => control_deep_module } })
 
       control_path = "#{control_inner_name}::#{control_deep_name}"
 
