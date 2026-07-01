@@ -41,6 +41,24 @@ The namespace defaults to the top level, and an `inherit:` keyword (default `fal
 
 `build` is the forgiving constructor: it normalizes its inputs (e.g. a Symbol name becomes a String, a raw module namespace is wrapped) and delegates to `new`, the strict initializer. Each subtype carries both — `Constant::Module.build` / `Constant::Literal.build` — and `Constant.build` routes through them.
 
+### Coercion
+
+`Constant()` is the coercion form — Ruby's `Integer()` / `Array()` idiom — an idempotent front door over `build`. It is a **refinement**, activated per file with `using Constant::Coerce`, so it never touches global scope unless a file opts in:
+
+```ruby
+using Constant::Coerce
+
+Constant(SomeModule)                         # => #<Constant::Module value=SomeModule>
+Constant("SomeInnerModule", SomeNamespace)   # => resolves the name in the namespace
+
+existing = Constant(SomeModule)
+Constant(existing).equal?(existing)          # => true   (already a Constant — returned unchanged)
+
+Constant(nil)                                # => TypeError: can't convert nil into Constant
+```
+
+It forwards its arguments to `Constant.build` (taking the same name/namespace/`inherit:`), with two additions that make it a coercion: an already-`Constant` value is returned unchanged — the idempotency that is the point of a coercion — and a value that is neither a module, a name, nor a `Constant` raises `TypeError`, mirroring `Integer(nil)`. An un-*resolvable* name still raises `Constant::Error`, exactly as `build` does.
+
 ### Queries
 
 ```ruby
