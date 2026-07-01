@@ -58,6 +58,21 @@ module Constant
       end
     end
 
+    def constant_names(include_literal_constants: nil, inherit: nil)
+      include_literal_constants ||= false
+      inherit ||= false
+
+      constant_symbols = value.constants(inherit)
+
+      constant_symbols.filter_map do |constant_symbol|
+        resolved = value.const_get(constant_symbol, inherit)
+
+        if resolved.is_a?(::Module) || include_literal_constants
+          constant_symbol.to_s
+        end
+      end
+    end
+
     def defined?(name_or_module, inherit: nil)
       if name_or_module.is_a?(::Module)
         inherit ||= false

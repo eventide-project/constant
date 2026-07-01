@@ -128,7 +128,7 @@ conforms.
 
 ## Task 7: `#constant_names` with `include_literal_constants`
 
-- [ ] `Constant::Module#constant_names` reports the names, as Strings, of the same
+- [x] `Constant::Module#constant_names` reports the names, as Strings, of the same
   inner constants `#constants` reports — module-valued by default, plus
   literal-valued when `include_literal_constants: true` — staying 1:1 with
   `#constants`. (Ruby's `Module#constants` returns Symbols; normalize to Strings
