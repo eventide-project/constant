@@ -28,6 +28,14 @@ module Constant
     def get(name, inherit: nil)
       inherit ||= false
 
+      name = name.to_s
+      head, _, rest = name.partition("::")
+
+      if not rest.empty?
+        head_constant = get(head, inherit: inherit)
+        return head_constant.get(rest, inherit: inherit)
+      end
+
       if not value.const_defined?(name, inherit)
         raise Constant::Error, "#{name} is not defined in #{value}"
       end

@@ -39,6 +39,15 @@ Constant.get(:SomeLiteralConstant, SomeNamespace)
 
 It is the class-level form of the instance `#get` primitive — the namespace, implicit as `self` on an instance, is passed as an argument. The namespace defaults to the top level and may itself be given as a name; an `inherit:` keyword (default `false`) governs whether resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
 
+A name may be a `::`-qualified **path**, resolved segment by segment:
+
+```ruby
+Constant.get("SomeInnerModule::SomeNestedConstant", SomeNamespace)
+# => the Constant for SomeNamespace::SomeInnerModule::SomeNestedConstant
+```
+
+The instance `#get` does the path resolution by recursing on itself, so each segment resolves against its true parent — a terminal literal is bound with its real enclosing namespace, not the whole path. Traversing *into* a literal (a non-final segment that resolves to a literal) raises `Constant::Error`, since a literal has no inner constants.
+
 Direct construction from a value you already hold goes to the subtype constructors — `Constant::Module.build` / `Constant::Literal.build` — which normalize their inputs and delegate to `new`, the strict initializer.
 
 ### Coercion
