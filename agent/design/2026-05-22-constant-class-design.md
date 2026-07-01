@@ -480,9 +480,17 @@ and `Constant::Literal#defined?` returns `false`. Section 3 is to be conformed.
 
 The following appear in `notes.md` but are deliberately excluded from this increment:
 
-- Instance commands — `#get`, `#define`, `#import`.
-- Class-level resolution helpers — `Constant::Get`, `Constant.resolve`.
-- Nested-path strings (`"Foo::Bar::Baz"`) for any name argument.
+- Instance commands. `#get` **shipped** (the resolution primitive). `#define` /
+  `#import` are the mutating siblings — **queued**
+  (`agent/deferred/2026-07-01T17-31-00Z-instance-define-import.md`).
+- Class-level resolution helper — the older `notes.md` names it `Constant::Get` /
+  `Constant.resolve`. **Naming under discussion (2026-07-01):** those names
+  predate the instance `#get` primitive; a class-level counterpart should mirror
+  it as **`Constant.get`**, not a second verb. Open whether one is needed at all,
+  given `Constant.build(name, namespace)` already resolves.
+- Nested-path strings (`"Foo::Bar::Baz"`) for any name argument. **Queued**
+  (`agent/deferred/2026-07-01T17-30-00Z-nested-path-strings.md`) — resolve the
+  split through `#get` so every entry point inherits it.
 - Logging for the `Constant` class. The library's logging guidance targets
   `.call`-style actuators; `Constant` is a stateful object, not an actuator.
   This can be revisited later.
