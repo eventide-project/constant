@@ -67,7 +67,7 @@ context "Import Constant" do
         context inner_constant_name.inspect do
           control_inner_constant_name = "#{destination_constant.name}::#{alias_constant.name.split("::").last}::#{inner_constant_name}"
 
-          resolved_constant = eval(control_inner_constant_name)
+          resolved_constant = Object.const_get(control_inner_constant_name)
 
           comment "Control Constant Path: #{control_inner_constant_name.inspect}"
           comment "Resolved Constant: #{resolved_constant}"
