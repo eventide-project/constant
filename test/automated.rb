@@ -2,5 +2,5 @@ require_relative './test_init'
 
 TestBench::Run.(
   'test/automated',
-  exclude: '**/{_*,*sketch*,*_init,*_tests}.rb'
+  exclude: '**/{_*,*sketch*,*_init,*_tests,tree}.rb'
 ) or exit(false)

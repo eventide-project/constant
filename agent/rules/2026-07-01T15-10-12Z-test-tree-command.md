@@ -11,23 +11,31 @@ repeats those headings per file. The normalized tree merges them: `Constant`
 appears once, `Module` once beneath it, then each sub-feature once, with the
 individual tests as leaves.
 
-**How to produce it:**
-- Run the suite first and report the pass/fail line.
-- Build one merged tree across all `test/automated/**/*.rb` files (excluding
-  `*_init` and `automated.rb`): parse each `context "…" do` and `test "…" do`
-  (indentation gives depth), and merge into a shared tree keyed by name so
-  identical paths de-duplicate. Render each context path once, tests marked as
-  leaves (e.g. a `•` prefix).
-- Represent what the source can't name literally: a bare `test do` as
-  `(unnamed)`, and a dynamic `context <expr> do` (e.g. a loop variable) as
-  `<expr>`. These surface the legacy `Import`/`Define` tests that aren't yet
-  named — a useful signal, not an error.
+**How to produce it:** run the durable script —
+
+```
+ruby test/automated/tree.rb
+```
+
+`test/automated/tree.rb` **runs** the suite (with `comment`/`detail` output
+suppressed), captures the run's output, and parses **that output** — not the
+source code — merging every file's `context`/`test` hierarchy into one tree keyed
+by name so identical paths de-duplicate. Tests are the leaves (a `•` prefix); it
+prints the pass/fail summary line at the end. The script is excluded from the
+default suite run via the exclude pattern in `test/automated.rb` (`…,tree}.rb`).
+
+**Parse the output, not the source.** Because the tree comes from the *run*, a
+dynamic `context <expr> do` (e.g. a loop variable) shows its **expanded real
+value** (e.g. `"SomeInnerConstant"`), not the placeholder `<expr>` the source
+would give. A bare unnamed `test do` produces no output line, so its enclosing
+context becomes the leaf and is shown by that context's name.
 
 **Why:** the de-duped tree is the readable, whole-suite view — it shows the
-feature/outcome structure at a glance without the per-file repetition, and it
-surfaces unnamed/dynamic legacy tests. Fixing the command's shape makes it a
-repeatable request.
+feature/outcome structure at a glance without the per-file repetition, and (via
+the expanded dynamic names) surfaces the legacy `Import`/`Define` tests. A durable
+script makes the command reproducible across sessions rather than a rebuilt
+throwaway.
 
-**How to apply:** on a "test tree" request, run the suite and render the merged,
-de-duplicated `context`/`test` tree as above. Related: the status-report and
-test-report commands (which include a shallower two-level context tree).
+**How to apply:** on a "test tree" request, run `ruby test/automated/tree.rb` and
+present its output. Related: the status-report and test-report commands (which
+include a shallower two-level context tree).
