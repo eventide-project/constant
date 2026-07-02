@@ -42,17 +42,17 @@ context "Import Constant" do
     end
   end
 
-  context "Imported constant resolution via destination" do
+  context "Imported constants are resolvable via destination" do
     control_inner_constant_names.each do |inner_constant_name|
       context inner_constant_name.inspect do
         control_inner_constant_name = "#{destination_constant.name}::#{inner_constant_name}"
 
-        resolved_constant = Object.const_get(control_inner_constant_name)
+        imported_constant = Object.const_get(control_inner_constant_name)
 
         comment "Control Constant Path: #{control_inner_constant_name.inspect}"
-        comment "Resolved Constant: #{resolved_constant}"
+        comment "Imported Constant: #{imported_constant}"
 
-        resolved = not resolved_constant.nil?
+        resolved = not imported_constant.nil?
 
         test do
           assert(resolved)
