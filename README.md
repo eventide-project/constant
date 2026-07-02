@@ -17,55 +17,55 @@ The `Constant::Import` utility effects the exact outcome sought by using `includ
 ### Example
 
 ```ruby
-module SomeModule
+module SomeOrigin
   module SomeInnerModule
     class SomeNestedClass
     end
   end
 end
 
-module SomeReceiver
+module SomeDestination
   include Constant::Import
 
-  import SomeModule
-  import SomeModule::SomeInnerModule, alias: :Something
+  import SomeOrigin
+  import SomeOrigin::SomeInnerModule, alias: :Something
 end
 
-SomeReceiver.const_defined?(SomeModule)
+SomeDestination.const_defined?(SomeOrigin)
 # => true
 
-SomeReceiver.const_defined?(Something)
+SomeDestination.const_defined?(Something)
 # => true
 
-SomeReceiver::Something
-# => SomeModule::SomeInnerModule
+SomeDestination::Something
+# => SomeOrigin::SomeInnerModule
 
-SomeReceiver::Something::SomeNestedClass
-# => SomeModule::SomeInnerModule::SomeNestedClass
+SomeDestination::Something::SomeNestedClass
+# => SomeOrigin::SomeInnerModule::SomeNestedClass
 
-SomeReceiver.const_defined?(SomeInnerModule)
+SomeDestination.const_defined?(SomeInnerModule)
 # => false
 ```
 
 Because classes are also constants, the `import` macro can be used with a class, as well, which will also the class to be accessed without fully-qualifying its namespace, or by giving it an aliased name using the `as` argument.
 
 ```ruby
-module SomeModule
+module SomeOrigin
   class SomeInnerClass
   end
 end
 
-module SomeReceiver
+module SomeDestination
   include Constant::Import
 
-  import SomeModule::SomeInnerClass, alias: :SomeClass
+  import SomeOrigin::SomeInnerClass, alias: :SomeClass
 end
 
-SomeReceiver.const_defined?(SomeClass)
+SomeDestination.const_defined?(SomeClass)
 # => true
 
-SomeReceiver::SomeClass.new
-# => #<SomeReceiver::SomeClass:0x...>
+SomeDestination::SomeClass.new
+# => #<SomeDestination::SomeClass:0x...>
 ```
 
 ### Importing a Constant
@@ -73,35 +73,35 @@ SomeReceiver::SomeClass.new
 #### Macro
 
 ```ruby
-self.import(source_constant, alias: nil)
+self.import(origin_constant, alias: nil)
 ```
 
 ```ruby
 include Constant::Import
 
-import SomeModule::SomeInnerClass
+import SomeOrigin::SomeInnerClass
 ```
 
 The `import` macro is activated by including the `Constant::Import` module.
 
-The nested constants in the source constant will be accessible to the receiver constant without the receiver constant having to use the source constant's namespace.
+The nested constants in the origin constant will be accessible to the destination constant without the destination constant having to use the origin constant's namespace.
 
-If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
+If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the origin constant name with another constant name.
 
 ```ruby
-import SomeModule::SomeInnerClass, alias: :SomeClass
+import SomeOrigin::SomeInnerClass, alias: :SomeClass
 ```
 
 **Returns**
 
-The list of constants nested in the source constant that have been made available to the receiver constant's namespace.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
 
 **Parameters**
 
 | Name | Description | Type |
 | --- | --- | --- |
-| source_constant | The constant whose inner constants will be made accessible without having to specify the source constant's name | Module or Class |
-| alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
+| origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
+| alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
 ##### Alias
 
@@ -110,32 +110,32 @@ The `import` macro is a convenience alias for `__import_constant`. The `__import
 #### API
 
 ```ruby
-self.call(source_constant, receiver_constant, alias: nil)
+self.call(origin_constant, destination_constant, alias: nil)
 ```
 
 ```ruby
-Constant::Import.(SomeModule::SomeInnerClass, self)
+Constant::Import.(SomeOrigin::SomeInnerClass, self)
 ```
 
-The nested constants in the source constant will be accessible to the receiver constant without the receiver constant having to use the source constant's namespace.
+The nested constants in the origin constant will be accessible to the destination constant without the destination constant having to use the origin constant's namespace.
 
-If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the source constant name with another constant name.
+If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name effectively acts to replace the origin constant name with another constant name.
 
 ```ruby
-Constant::Import.(SomeModule::SomeInnerClass, self, alias: :SomeClass)
+Constant::Import.(SomeOrigin::SomeInnerClass, self, alias: :SomeClass)
 ```
 
 **Returns**
 
-The list of constants nested in the source constant that have been made available to the receiver constant's namespace.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
 
 **Parameters**
 
 | Name | Description | Type |
 | --- | --- | --- |
-| source_constant | The constant whose inner constants will be made accessible without having to specify the source constant's name | Module or Class |
-| receiver_constant | The constant whose namespace will be able to access the imported source constant's namespace without fully qualifying it | Module or Class |
-| alias | Optional constant name to use in the receiver constant's namespace to access the source constant's inner constants | Symbol |
+| origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
+| destination_constant | The constant whose namespace will be able to access the imported origin constant's namespace without fully qualifying it | Module or Class |
+| alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
 ## The Constant Class
 
@@ -260,34 +260,34 @@ Two `Constant`s are equal when they identify the same constant: a `Constant::Mod
 
 ## Defining a Constant
 
-`Constant::Define` creates a new module and assigns it to a constant name within a receiver constant's namespace, returning the newly-defined constant. It is the mechanism `Constant::Import` uses to create an alias target, and can be used directly to define a constant.
+`Constant::Define` creates a new module and assigns it to a constant name within a destination constant's namespace, returning the newly-defined constant. It is the mechanism `Constant::Import` uses to create an alias target, and can be used directly to define a constant.
 
 ### Example
 
 ```ruby
-module SomeReceiver
+module SomeDestination
 end
 
-some_constant = Constant::Define.(:SomeConstant, SomeReceiver)
+some_constant = Constant::Define.(:SomeConstant, SomeDestination)
 
-SomeReceiver.const_defined?(:SomeConstant)
+SomeDestination.const_defined?(:SomeConstant)
 # => true
 
-SomeReceiver::SomeConstant.equal?(some_constant)
+SomeDestination::SomeConstant.equal?(some_constant)
 # => true
 ```
 
 ### API
 
 ```ruby
-self.call(constant_name, receiver_constant)
+self.call(constant_name, destination_constant)
 ```
 
 ```ruby
-Constant::Define.("SomeConstant", SomeReceiver)
+Constant::Define.("SomeConstant", SomeDestination)
 ```
 
-A new module is created and assigned to `constant_name` in the receiver constant's namespace.
+A new module is created and assigned to `constant_name` in the destination constant's namespace.
 
 **Returns**
 
@@ -297,8 +297,8 @@ The newly-defined constant — the module that was created and assigned.
 
 | Name | Description | Type |
 | --- | --- | --- |
-| constant_name | The name the new constant is assigned to in the receiver constant's namespace | String or Symbol |
-| receiver_constant | The constant whose namespace the new constant is defined in | Module or Class |
+| constant_name | The name the new constant is assigned to in the destination constant's namespace | String or Symbol |
+| destination_constant | The constant whose namespace the new constant is defined in | Module or Class |
 
 ## License
 

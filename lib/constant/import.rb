@@ -6,25 +6,25 @@ module Constant
       base.extend(Macro)
     end
 
-    def self.call(source_constant, receiver_constant, **kwargs)
+    def self.call(origin_constant, destination_constant, **kwargs)
       alias_name = kwargs[:alias]
 
-      if alias_name.nil? && receiver_constant.ancestors.include?(source_constant)
-        raise Error, "#{receiver_constant} already includes #{source_constant}"
+      if alias_name.nil? && destination_constant.ancestors.include?(origin_constant)
+        raise Error, "#{destination_constant} already includes #{origin_constant}"
       end
 
-      target = receiver_constant
+      target = destination_constant
 
       if not alias_name.nil?
-        target = Define.(alias_name, receiver_constant)
+        target = Define.(alias_name, destination_constant)
       end
 
       inherit = false
 
-      import_constant_names = source_constant.constants(inherit)
+      import_constant_names = origin_constant.constants(inherit)
 
       imported_constants = import_constant_names.map do |import_constant_name|
-        import_constant = source_constant.const_get(import_constant_name, inherit)
+        import_constant = origin_constant.const_get(import_constant_name, inherit)
         target.const_set(import_constant_name, import_constant)
         import_constant
       end

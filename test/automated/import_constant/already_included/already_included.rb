@@ -2,23 +2,23 @@ require_relative "../../automated_init"
 
 context "Import Constant" do
   context "Already Included" do
-    source_constant = Controls::Constant.example(
-      name: "Source",
+    origin_constant = Controls::Constant.example(
+      name: "Origin",
       inner_constants: %w(SomeInnerConstant)
     )
 
-    receiver_constant = Controls::Constant.example(name: "Receiver")
+    destination_constant = Controls::Constant.example(name: "Destination")
 
-    receiver_constant.include(source_constant)
+    destination_constant.include(origin_constant)
 
-    comment "Source Constant: #{source_constant.inspect}"
-    comment "Receiver Constant: #{receiver_constant.inspect}"
-    comment "Receiver Ancestors: #{receiver_constant.ancestors.inspect}"
-    comment "Receiver Constants: #{receiver_constant.constants(false).inspect}"
+    comment "Origin Constant: #{origin_constant.inspect}"
+    comment "Destination Constant: #{destination_constant.inspect}"
+    comment "Destination Ancestors: #{destination_constant.ancestors.inspect}"
+    comment "Destination Constants: #{destination_constant.constants(false).inspect}"
 
     test "Is an error" do
       assert_raises(Constant::Import::Error) do
-        Constant::Import.(source_constant, receiver_constant)
+        Constant::Import.(origin_constant, destination_constant)
       end
     end
   end

@@ -7,25 +7,25 @@ context "Import Constant" do
       SomeOtherInnerConstant
     )
 
-    source_constant = Controls::Constant.example(
-      name: "Source",
+    origin_constant = Controls::Constant.example(
+      name: "Origin",
       inner_constants: control_inner_constant_names
     )
 
-    receiver_constant = Controls::Constant.example(name: "Receiver")
+    destination_constant = Controls::Constant.example(name: "Destination")
 
-    receiver_constant.class_eval do
+    destination_constant.class_eval do
       include Constant::Import
-      import source_constant
+      import origin_constant
     end
 
-    comment "Source Constant: #{source_constant.inspect}"
-    comment "Receiver Constant: #{receiver_constant.inspect}"
+    comment "Origin Constant: #{origin_constant.inspect}"
+    comment "Destination Constant: #{destination_constant.inspect}"
 
-    context "Imported constants are accessible via receiver" do
+    context "Imported constants are accessible via destination" do
       control_inner_constant_names.each do |inner_constant_name|
         context inner_constant_name.inspect do
-          defined = receiver_constant.const_defined?(inner_constant_name, false)
+          defined = destination_constant.const_defined?(inner_constant_name, false)
 
           detail "Defined: #{defined.inspect}"
 
