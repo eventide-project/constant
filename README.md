@@ -190,13 +190,17 @@ Direct construction from a value you already hold goes to the subtype constructo
 ```ruby
 using Constant::Coerce
 
-Constant(SomeModule)                         # => #<Constant::Module value=SomeModule>
-Constant("SomeInnerModule", SomeNamespace)   # => resolves the name in the namespace
+Constant(SomeModule)
+# => #<Constant::Module value=SomeModule>
+Constant("SomeInnerModule", SomeNamespace)
+# => resolves the name in the namespace
 
 existing = Constant(SomeModule)
-Constant(existing).equal?(existing)          # => true   (already a Constant — returned unchanged)
+Constant(existing).equal?(existing)
+# => true (already a Constant — returned unchanged)
 
-Constant(nil)                                # => TypeError: can't convert nil into Constant
+Constant(nil)
+# => TypeError: can't convert nil into Constant
 ```
 
 It delegates the real work to `Constant.get` (taking the same namespace/`inherit:`) and adds only its own three concerns as a coercion: an already-`Constant` value is returned unchanged — the idempotency that is the point of a coercion — and a value that is neither a module, a name, nor a `Constant` raises `TypeError`, mirroring `Integer(nil)`. An un-*resolvable* name still raises `Constant::Error`, exactly as `get` does.
@@ -206,17 +210,27 @@ It delegates the real work to `Constant.get` (taking the same namespace/`inherit
 ```ruby
 constant = Constant.get(SomeNamespace)
 
-constant.value        # => SomeNamespace          (the mediated Ruby value)
-constant.name         # => "SomeNamespace"        (the final segment, a String)
-constant.full_name    # => "SomeNamespace"        (the ::-qualified name, a String)
-constant.namespace    # => the containing Constant (Constant.get(Object) at the top level)
+constant.value
+# => SomeNamespace (the mediated Ruby value)
+
+constant.name
+# => "SomeNamespace" (the final segment, a String)
+
+constant.full_name
+# => "SomeNamespace" (the ::-qualified name, a String)
+
+constant.namespace
+# => the containing Constant (Constant.get(Object) at the top level)
 ```
 
 `#get` resolves an inner constant to the `Constant` that mediates it (raising `Constant::Error` if the name is not defined):
 
 ```ruby
-constant.get(:SomeInnerModule)      # => #<Constant::Module value=SomeNamespace::SomeInnerModule>
-constant.get(:SomeLiteralConstant)  # => #<Constant::Literal …>
+constant.get(:SomeInnerModule)
+# => #<Constant::Module value=SomeNamespace::SomeInnerModule>
+
+constant.get(:SomeLiteralConstant)
+# => #<Constant::Literal …>
 ```
 
 `#constants` and `#constant_names` list a module's inner constants — as `Constant` objects and as name Strings, respectively. By default they include only the module-valued inners; `include_literal_constants: true` also includes the literal-valued ones.
@@ -235,8 +249,11 @@ constant.constant_names(include_literal_constants: true)
 `#defined?` reports whether a name or module is defined within the mediated module (a `Constant::Literal` always answers `false`). The class-level `Constant.defined?(name, namespace = Object, inherit: false)` is a name-existence predicate that never raises. The name may be a `::`-path; a path that runs through a literal is simply not defined (`false`), never an error.
 
 ```ruby
-constant.defined?(:SomeInnerModule)   # => true
-Constant.defined?(:SomeNamespace)     # => true
+constant.defined?(:SomeInnerModule)
+# => true
+
+Constant.defined?(:SomeNamespace)
+# => true
 ```
 
 Two `Constant`s are equal when they identify the same constant: a `Constant::Module` by the module it mediates, a `Constant::Literal` by its binding location (namespace and name), so equal `Constant`s dedupe in a `Set` and interchange as `Hash` keys.
@@ -285,4 +302,4 @@ The newly-defined constant — the module that was created and assigned.
 
 ## License
 
-The `Constant` library is released under the [MIT License](https://github.com/eventide-project/env_var/blob/master/MIT-License.txt).
+The `Constant` library is released under the [MIT License](https://github.com/eventide-project/constant/blob/master/MIT-License.txt).
