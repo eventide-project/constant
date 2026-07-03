@@ -59,8 +59,10 @@ conventions); this queues *new* tests to close discrimination gaps.
 
 ## Tier 3 — depth and edge cases
 
-7. **Only 2-segment paths are tested.** Every nested-path test uses `"A::B"`. Add a
-   3+-segment path (`"A::B::C"`) so a mis-recursion beyond one level is caught.
+7. **3+-segment paths — RESOLVED** (2026-07-03). Added
+   `constant/get/deeply_nested.rb` — a 3-segment path (`A::B::C`) forces two recursion
+   steps (`get("A").get("B::C")` → `get("B").get("C")`), so a recursion that only
+   splits one `::` would be caught. Green-on-arrival.
 8. **Redefinition in `Define`.** Defining an already-defined name is untested —
    pin the intended overwrite-vs-error behavior once decided.
 
