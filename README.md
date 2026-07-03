@@ -262,7 +262,7 @@ Two `Constant`s are equal when they identify the same constant: a `Constant::Mod
 
 ## Defining a Constant
 
-`Constant::Define` creates a new module and assigns it to a constant name within a destination constant's namespace, returning the newly-defined constant. It is the mechanism `Constant::Import` uses to create an alias target, and can be used directly to define a constant.
+`Constant::Define` assigns a value to a constant name within a destination constant's namespace, returning the newly-defined constant. Given no value, it creates a new module — a fresh namespace — which is how `Constant::Import` uses it to create an alias target; given a value, it assigns that value (for example, a literal). It can be used directly to define a constant.
 
 ### Example
 
@@ -279,21 +279,32 @@ SomeDestination::SomeConstant.equal?(some_constant)
 # => true
 ```
 
+Giving a value assigns that value rather than creating a module:
+
+```ruby
+some_literal = Constant::Define.(:SomeLiteral, SomeDestination, "some value")
+# => "some value"
+
+SomeDestination::SomeLiteral
+# => "some value"
+```
+
 ### API
 
 ```ruby
-self.call(constant_name, destination_constant)
+self.call(constant_name, destination_constant, constant_value=nil)
 ```
 
 ```ruby
 Constant::Define.("SomeConstant", SomeDestination)
+Constant::Define.("SomeLiteral", SomeDestination, "some value")
 ```
 
-A new module is created and assigned to `constant_name` in the destination constant's namespace.
+`constant_value` is assigned to `constant_name` in the destination constant's namespace. When it is omitted (or `nil`), a new module is created and assigned.
 
 **Returns**
 
-The newly-defined constant — the module that was created and assigned.
+The newly-defined constant — the assigned `constant_value`, or the new module created when no value is given.
 
 **Parameters**
 
@@ -301,6 +312,7 @@ The newly-defined constant — the module that was created and assigned.
 | --- | --- | --- |
 | constant_name | The name the new constant is assigned to in the destination constant's namespace | String or Symbol |
 | destination_constant | The constant whose namespace the new constant is defined in | Module or Class |
+| constant_value | The value assigned to the constant name; when omitted, a new module is created and assigned | Object |
 
 ## License
 
