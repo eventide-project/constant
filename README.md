@@ -150,8 +150,10 @@ Both answer the same interface; a `Constant::Literal` answers the container-styl
 
 ```ruby
 module SomeNamespace
-  SomeInnerModule = Module.new
-  SomeLiteralConstant = "some value"
+  module SomeModule
+    SomeInnerModule = Module.new
+    SomeInnerLiteral = "some value"
+  end
 end
 ```
 
@@ -160,14 +162,14 @@ end
 `Constant.get` is the class-level accessor. Hand it a module (or class) and it returns the `Constant::Module` that mediates it; hand it a name and a namespace and it resolves the name, returning whichever subtype the resolved value calls for:
 
 ```ruby
-Constant.get(SomeNamespace)
-# => #<Constant::Module value=SomeNamespace>
+Constant.get(SomeNamespace::SomeModule)
+# => #<Constant::Module value=SomeNamespace::SomeModule>
 
-Constant.get(:SomeInnerModule, SomeNamespace)
-# => #<Constant::Module value=SomeNamespace::SomeInnerModule>
+Constant.get(:SomeInnerModule, SomeNamespace::SomeModule)
+# => #<Constant::Module value=SomeNamespace::SomeModule::SomeInnerModule>
 
-Constant.get(:SomeLiteralConstant, SomeNamespace)
-# => #<Constant::Literal SomeNamespace::SomeLiteralConstant = "some value">
+Constant.get(:SomeInnerLiteral, SomeNamespace::SomeModule)
+# => #<Constant::Literal SomeNamespace::SomeModule::SomeInnerLiteral = "some value">
 ```
 
 It is the class-level form of the instance `#get` primitive — the namespace, implicit as `self` on an instance, is passed as an argument. The namespace defaults to the top level and may itself be given as a name; an `inherit:` keyword (default `false`) governs whether resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
@@ -175,8 +177,8 @@ It is the class-level form of the instance `#get` primitive — the namespace, i
 A name may be a `::`-qualified **path**, resolved segment by segment:
 
 ```ruby
-Constant.get("SomeInnerModule::SomeNestedConstant", SomeNamespace)
-# => the Constant for SomeNamespace::SomeInnerModule::SomeNestedConstant
+Constant.get("SomeModule::SomeInnerModule", SomeNamespace)
+# => the Constant for SomeNamespace::SomeModule::SomeInnerModule
 ```
 
 The instance `#get` does the path resolution by recursing on itself, so each segment resolves against its true parent — a terminal literal is bound with its real enclosing namespace, not the whole path. Traversing *into* a literal (a non-final segment that resolves to a literal) raises `Constant::Error`, since a literal has no inner constants.
@@ -190,12 +192,12 @@ Direct construction from a value you already hold goes to the subtype constructo
 ```ruby
 using Constant::Coerce
 
-Constant(SomeModule)
-# => #<Constant::Module value=SomeModule>
-Constant("SomeInnerModule", SomeNamespace)
+Constant(SomeNamespace::SomeModule)
+# => #<Constant::Module value=SomeNamespace::SomeModule>
+Constant("SomeInnerModule", SomeNamespace::SomeModule)
 # => resolves the name in the namespace
 
-existing = Constant(SomeModule)
+existing = Constant(SomeNamespace::SomeModule)
 Constant(existing).equal?(existing)
 # => true (already a Constant — returned unchanged)
 
@@ -229,8 +231,8 @@ constant.namespace
 constant.get(:SomeInnerModule)
 # => #<Constant::Module value=SomeNamespace::SomeModule::SomeInnerModule>
 
-constant.get(:SomeLiteralConstant)
-# => #<Constant::Literal …>
+constant.get(:SomeInnerLiteral)
+# => #<Constant::Literal SomeNamespace::SomeModule::SomeInnerLiteral = "some value">
 ```
 
 `#constants` and `#constant_names` list a module's inner constants — as `Constant` objects and as name Strings, respectively. By default they include only the module-valued inners; `include_literal_constants: true` also includes the literal-valued ones.
@@ -243,7 +245,7 @@ constant.constant_names
 # => ["SomeInnerModule"]
 
 constant.constant_names(include_literal_constants: true)
-# => ["SomeInnerModule", "SomeLiteralConstant"]
+# => ["SomeInnerModule", "SomeInnerLiteral"]
 ```
 
 `#defined?` reports whether a name or module is defined within the mediated module (a `Constant::Literal` always answers `false`). The class-level `Constant.defined?(name, namespace = Object, inherit: false)` is a name-existence predicate that never raises. The name may be a `::`-path; a path that runs through a literal is simply not defined (`false`), never an error.
