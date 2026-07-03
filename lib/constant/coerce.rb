@@ -4,7 +4,7 @@ module Constant
       def Constant(value, namespace=nil, inherit: nil)
         if value.is_a?(Constant)
           value
-        elsif value.is_a?(::Module) || value.is_a?(::String)
+        elsif value.is_a?(::Module) || value.is_a?(::String) || value.is_a?(::Symbol)
           Constant.get(value, namespace, inherit: inherit)
         else
           type_name = value.nil? ? "nil" : value.class
