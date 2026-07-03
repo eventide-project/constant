@@ -10,12 +10,13 @@ conventions); this queues *new* tests to close discrimination gaps.
 
 ## Tier 1 — whole behaviors unverified
 
-1. **`inherit` is completely untested.** No test passes `inherit:` at all. Ignoring
-   it (hard-coding `false` or `true`), deleting the `inherit ||= false` coalescing,
-   or not threading it through the nested-path recursion — all pass. Add a
-   discriminating ancestor-resolution test (a constant reachable only via
-   ancestry): default `false` does **not** resolve it, `inherit: true` does — for
-   `#get` / `Constant.get`, `defined?`, `#constants`, and instance `#defined?`.
+1. **`inherit` — RESOLVED** (2026-07-03). Added `When inherit is true`/`false`
+   discrimination pairs via a new `ancestor:` control on `Controls::Constant.example`
+   (a constant reachable only via ancestry: resolvable/visible with `inherit: true`,
+   absent with `inherit: false`), covering `Constant.get`, `Constant::Module#constants`,
+   `#constant_names`, class-level `Constant.defined?`, and instance `#defined?`
+   (module form). Green-on-arrival coverage. Log:
+   `agent/log/2026-07-03T17-00-00Z-covered-inherit-conveyance-across-all-surfaces.md`.
 2. **Error messages are untested.** All 8 `assert_raises` check only the exception
    *class*. Add assertions on message content where it matters: the
    `Constant::Error` "not defined in …" messages (naming the correct segment /
