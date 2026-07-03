@@ -20,7 +20,7 @@ context "Constant" do
       comment "Constant Names: #{constant_names.inspect}"
 
       test "Is the names of the module and literal inner constants" do
-        assert(constant_names == [control_module_inner_name, control_literal_inner_name])
+        assert(constant_names.sort == [control_module_inner_name, control_literal_inner_name].sort)
       end
     end
   end

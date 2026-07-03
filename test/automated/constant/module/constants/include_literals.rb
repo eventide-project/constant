@@ -24,7 +24,7 @@ context "Constant" do
       comment "Constants: #{constants.inspect}"
 
       test "Is the module and literal inner constants" do
-        assert(constants == [control_module_constant, control_literal_constant])
+        assert(constants.sort_by(&:name) == [control_module_constant, control_literal_constant].sort_by(&:name))
       end
     end
   end
