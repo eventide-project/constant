@@ -1,7 +1,7 @@
 module Constant
   module Controls
     module Constant
-      def self.example(name: nil, randomize_name: nil, inner_constants: nil)
+      def self.example(name: nil, randomize_name: nil, inner_constants: nil, ancestor: nil)
         inner_constants ||= []
 
         mod = ::Module.new
@@ -18,7 +18,18 @@ module Constant
           add_inner_constants(mod, inner_constants)
         end
 
+        if not ancestor.nil?
+          add_ancestors(mod, ancestor)
+        end
+
         mod
+      end
+
+      def self.add_ancestors(mod, ancestors)
+        ancestors.each do |ancestor_name, ancestor_inner_constants|
+          ancestor_module = example(name: ancestor_name, inner_constants: ancestor_inner_constants)
+          mod.include(ancestor_module)
+        end
       end
 
       def self.add_inner_constants(mod, inner_constants)
