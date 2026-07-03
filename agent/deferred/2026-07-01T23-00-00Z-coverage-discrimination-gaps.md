@@ -37,12 +37,13 @@ conventions); this queues *new* tests to close discrimination gaps.
 
 ## Tier 2 — input and branch gaps
 
-4. **Symbol name inputs** are unexercised for `get` / `defined?` / `Define` (see the
-   sibling note in the string-outputs-permissive-inputs discussion). Add
-   Symbol-input cases so a guard/coercion that broke Symbols would be caught.
-   *(Partial, 2026-07-03: the coercion's Symbol path is now covered and fixed —
-   `coerce/namespace_name/symbol.rb`, commit `83e92be` — which exercises `get` with a
-   Symbol transitively. Direct Symbol cases for `get` / `defined?` / `Define` remain.)*
+4. **Symbol name inputs — RESOLVED** (2026-07-03). The only Symbol-rejecting guard in
+   the library was the coercion's (fixed under item 5 / commit `83e92be`); `get` /
+   `defined?` / `Define` otherwise normalize names via `name.to_s` (`module.rb`,
+   `literal.rb`) or hand them straight to `const_set`, with no Symbol-specific branch.
+   Coverage: `get` is exercised with a Symbol directly (`coerce/namespace_name/symbol.rb`
+   → `Constant.get(:sym, ns)`); `defined?` transitively through the same `Module#get`
+   `to_s` path; `Define` directly (`define_constant/symbol_name.rb`). Green-on-arrival.
 5. **Non-nil un-coercible values — RESOLVED** (2026-07-03). Reconsidered: `Constant(42)`
    is behaviorally identical to `Constant(nil)` (same `else` branch), and its only
    distinct effect — the message's class-name arm — is a single-site `TypeError`, so
