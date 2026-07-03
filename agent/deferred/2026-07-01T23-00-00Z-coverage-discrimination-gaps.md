@@ -22,10 +22,14 @@ conventions); this queues *new* tests to close discrimination gaps.
    `Constant::Error` "not defined in …" messages (naming the correct segment /
    namespace), and the coercion `TypeError` `"can't convert nil into Constant"`
    (and the class-name form, `"can't convert Integer into Constant"`).
-3. **`Constant::Define` need not create a module.** `define_constant.rb` only
-   asserts the name is defined and the return `==` `const_get`. Since `const_set`
-   accepts any value, `Define` could assign a String and still pass. Assert the
-   result **is a module** (`instance_of?(::Module)` / `is_a?(::Module)`).
+3. **`Constant::Define` — RESOLVED** (2026-07-03). Reconsidered rather than closed as
+   written: instead of asserting `Define` is module-only, made `Define`
+   **type-agnostic** — it takes an optional `constant_value` (default: a new module,
+   preserving the `Import` alias-target path), so a literal can be defined. Tests
+   reorganized into `define_constant/{module,literal}.rb`; the module-default case
+   now asserts the result is a module (`instance_of?(::Module)`), closing the
+   original gap. Log:
+   `agent/log/2026-07-03T17-30-00Z-define-made-type-agnostic.md`.
 
 ## Tier 2 — input and branch gaps
 
