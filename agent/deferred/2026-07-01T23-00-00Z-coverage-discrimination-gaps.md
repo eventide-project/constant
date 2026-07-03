@@ -17,11 +17,15 @@ conventions); this queues *new* tests to close discrimination gaps.
    `#constant_names`, class-level `Constant.defined?`, and instance `#defined?`
    (module form). Green-on-arrival coverage. Log:
    `agent/log/2026-07-03T17-00-00Z-covered-inherit-conveyance-across-all-surfaces.md`.
-2. **Error messages are untested.** All 8 `assert_raises` check only the exception
-   *class*. Add assertions on message content where it matters: the
-   `Constant::Error` "not defined in …" messages (naming the correct segment /
-   namespace), and the coercion `TypeError` `"can't convert nil into Constant"`
-   (and the class-name form, `"can't convert Integer into Constant"`).
+2. **Error messages — RESOLVED** (2026-07-03). Reconsidered via a new
+   sole-discriminator rule (assert message content only where the same error class is
+   reachable from multiple sites in one execution path): reduced to the two `::`-path
+   cases — `nested_undefined` (`Constant::Error` at the head vs the tail segment) and
+   `nested_into_literal` (the module "not defined" site vs the literal "primitive
+   value" `#get`) — where the message is the sole discriminator (commit `e8c651f`).
+   The single-site coercion `TypeError` and `Literal#get` errors keep class-only
+   assertions. Rule:
+   `agent/rules/2026-07-03T18-00-00Z-assert-error-message-only-as-sole-discriminator.md`.
 3. **`Constant::Define` — RESOLVED** (2026-07-03). Reconsidered rather than closed as
    written: instead of asserting `Define` is module-only, made `Define`
    **type-agnostic** — it takes an optional `constant_value` (default: a new module,
@@ -36,9 +40,17 @@ conventions); this queues *new* tests to close discrimination gaps.
 4. **Symbol name inputs** are unexercised for `get` / `defined?` / `Define` (see the
    sibling note in the string-outputs-permissive-inputs discussion). Add
    Symbol-input cases so a guard/coercion that broke Symbols would be caught.
-5. **Non-nil un-coercible values.** `coerce/uncoercible.rb` tests only
-   `Constant(nil)`. Add `Constant(42)` / `Constant(:sym)` — this also exercises the
-   type guard's class-name message branch (never run today).
+   *(Partial, 2026-07-03: the coercion's Symbol path is now covered and fixed —
+   `coerce/namespace_name/symbol.rb`, commit `83e92be` — which exercises `get` with a
+   Symbol transitively. Direct Symbol cases for `get` / `defined?` / `Define` remain.)*
+5. **Non-nil un-coercible values — RESOLVED** (2026-07-03). Reconsidered: `Constant(42)`
+   is behaviorally identical to `Constant(nil)` (same `else` branch), and its only
+   distinct effect — the message's class-name arm — is a single-site `TypeError`, so
+   per the sole-discriminator rule it is not worth asserting; no test added. The
+   `Constant(:sym)` half instead surfaced a **defect**: the coercion accepted only
+   Module/String, so `Constant(:sym, ns)` raised `TypeError` though `Constant.get`
+   resolves Symbol names. Fixed (Symbol added to the guard), test-first, commit
+   `83e92be` — see also item 4.
 6. **`Constant.get` with a `Constant` as the namespace.** The
    `namespace.is_a?(Constant)` branch in `Constant.get` isn't exercised (tests pass
    a module or a name string). Add a case passing a `Constant` as the namespace.
