@@ -16,8 +16,11 @@ context "Constant" do
       comment "Control Path: #{control_path.inspect}"
 
       context "When a mid-path segment is a literal constant" do
+        control_literal = constant.get(control_literal_name)
+        control_error_message = "Literal constants are primitive values. They don't support inner constants. #{control_beyond_name} is not defined in #{control_literal.full_name}."
+
         test "Is an error" do
-          assert_raises(Constant::Error) do
+          assert_raises(Constant::Error, control_error_message) do
             constant.get(control_path)
           end
         end

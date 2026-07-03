@@ -14,8 +14,11 @@ context "Constant" do
       comment "Control Path: #{control_path.inspect}"
 
       context "When the final segment is not defined" do
+        control_inner_module = control_namespace.const_get(control_inner_name)
+        control_error_message = "#{control_missing_name} is not defined in #{control_inner_module}"
+
         test "Is an error" do
-          assert_raises(Constant::Error) do
+          assert_raises(Constant::Error, control_error_message) do
             constant.get(control_path)
           end
         end
