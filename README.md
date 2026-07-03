@@ -208,26 +208,26 @@ It delegates the real work to `Constant.get` (taking the same namespace/`inherit
 ### Queries
 
 ```ruby
-constant = Constant.get(SomeNamespace)
+constant = Constant.get(SomeNamespace::SomeModule)
 
 constant.value
-# => SomeNamespace (the mediated Ruby value)
+# => SomeNamespace::SomeModule (the mediated Ruby value)
 
 constant.name
-# => "SomeNamespace" (the final segment, a String)
+# => "SomeModule" (the final segment, a String)
 
 constant.full_name
-# => "SomeNamespace" (the ::-qualified name, a String)
+# => "SomeNamespace::SomeModule" (the ::-qualified name, a String)
 
 constant.namespace
-# => the containing Constant (Constant.get(Object) at the top level)
+# => the containing Constant (Constant.get(SomeNamespace))
 ```
 
 `#get` resolves an inner constant to the `Constant` that mediates it (raising `Constant::Error` if the name is not defined):
 
 ```ruby
 constant.get(:SomeInnerModule)
-# => #<Constant::Module value=SomeNamespace::SomeInnerModule>
+# => #<Constant::Module value=SomeNamespace::SomeModule::SomeInnerModule>
 
 constant.get(:SomeLiteralConstant)
 # => #<Constant::Literal …>
@@ -237,7 +237,7 @@ constant.get(:SomeLiteralConstant)
 
 ```ruby
 constant.constants
-# => [#<Constant::Module value=SomeNamespace::SomeInnerModule>]
+# => [#<Constant::Module value=SomeNamespace::SomeModule::SomeInnerModule>]
 
 constant.constant_names
 # => ["SomeInnerModule"]
@@ -252,7 +252,7 @@ constant.constant_names(include_literal_constants: true)
 constant.defined?(:SomeInnerModule)
 # => true
 
-Constant.defined?(:SomeNamespace)
+Constant.defined?("SomeNamespace::SomeModule")
 # => true
 ```
 
