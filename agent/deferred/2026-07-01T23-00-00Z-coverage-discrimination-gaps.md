@@ -52,9 +52,10 @@ conventions); this queues *new* tests to close discrimination gaps.
    Module/String, so `Constant(:sym, ns)` raised `TypeError` though `Constant.get`
    resolves Symbol names. Fixed (Symbol added to the guard), test-first, commit
    `83e92be` — see also item 4.
-6. **`Constant.get` with a `Constant` as the namespace.** The
-   `namespace.is_a?(Constant)` branch in `Constant.get` isn't exercised (tests pass
-   a module or a name string). Add a case passing a `Constant` as the namespace.
+6. **`Constant` as namespace — RESOLVED** (2026-07-03). Added
+   `constant/get/constant_namespace.rb` — passing a `Constant` as the namespace arg
+   exercises the `namespace.is_a?(Constant)` branch (which `build`s it as-is rather
+   than resolving it as a name). Green-on-arrival.
 
 ## Tier 3 — depth and edge cases
 
