@@ -22,11 +22,23 @@ module Constant
   end
 
   def self.name(mod)
-    mod.name.rpartition("::").last
+    name = mod.name
+
+    if name.nil?
+      return nil
+    end
+
+    name.rpartition("::").last
   end
 
   def self.namespace(mod)
-    namespace_name = mod.name.rpartition("::").first
+    name = mod.name
+
+    if name.nil?
+      return nil
+    end
+
+    namespace_name = name.rpartition("::").first
 
     if namespace_name.empty?
       Constant::Module.new(Object)
