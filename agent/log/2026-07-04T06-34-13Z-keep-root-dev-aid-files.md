@@ -1,0 +1,1 @@
+# Decided to keep the root developer-aid files as-is (review finding #6): `demo.rb`, `proof.rb`, `notes.md`, `scratch.rb`, and `git-file-history.sh` stay in place, none removed or gitignored — closing the last open thread of the whole-project code review with no action.
