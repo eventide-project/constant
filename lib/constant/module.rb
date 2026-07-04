@@ -53,9 +53,9 @@ module Constant
       include_literal_constants ||= false
       inherit ||= false
 
-      constant_names = value.constants(inherit)
+      constant_symbols = value.constants(inherit)
 
-      constant_names.filter_map do |constant_name|
+      constant_symbols.filter_map do |constant_name|
         resolved = value.const_get(constant_name, inherit)
 
         if resolved.is_a?(::Module)
