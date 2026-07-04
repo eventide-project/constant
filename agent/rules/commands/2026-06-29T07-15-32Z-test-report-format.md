@@ -14,7 +14,7 @@ Produce these sections, in order:
 
 5. **Other factors** — topology pairs (`top_level` vs `nested` for the same method), normal-path vs error outcomes (e.g. within `build/`), and controls usage (`Controls::Constant.example`, currently module-valued inner constants only).
 
-6. **Context hierarchy, two levels deep** — the same hierarchical tree as the status report's test-suite part: each distinct top-level context with its distinct second-level contexts nested beneath, rendered as an indented tree (`├─`/`└─`). See `agent/rules/2026-06-29T06-41-55Z-status-report-format.md` for the rendering. Stop at two levels.
+6. **Context hierarchy, two levels deep** — the same hierarchical tree as the status report's test-suite part: each distinct top-level context with its distinct second-level contexts nested beneath, rendered as an indented tree (`├─`/`└─`). See `agent/rules/commands/2026-06-29T06-41-55Z-status-report-format.md` for the rendering. Stop at two levels.
 
 Keep each section tight.
 

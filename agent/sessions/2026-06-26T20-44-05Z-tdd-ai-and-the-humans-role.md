@@ -285,7 +285,7 @@ real-world analogies, no opaque codes, no academic jargon.** A metaphor is itsel
 jargon (the reader must memorize the mapping); a code carries no meaning;
 academic words read as preachy. The test: *can the reader understand it without
 being taught a mapping?* This was promoted from observation to a binding rule
-(`agent/rules/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`).
+(`agent/rules/terminology/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`).
 
 In practice during the session this retired: "anchoring" → mean-bias;
 "recall/precision" → miss/false alarm; "A1/A2" and a "menu" metaphor → the

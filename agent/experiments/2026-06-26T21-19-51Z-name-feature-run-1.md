@@ -88,7 +88,7 @@ After run 1 was integrated, the human caught that the test **context nesting**
 was wrong: a flattened `context "Constant Name"` instead of `"Constant"` →
 `"Name"` mirroring the `constant/name/` folders (the existing
 `import_constant/macro` convention). Fixed in `fe86b56`; convention recorded as
-a rule (`agent/rules/2026-06-26T21-38-52Z-test-context-nesting-mirrors-folders.md`).
+a rule (`agent/rules/test-writing/2026-06-26T21-38-52Z-test-context-nesting-mirrors-folders.md`).
 
 Why it matters for the experiment: this is a **true miss** — it escaped the
 forecast, every gate, the human's live deliberations, *and* integration. The
