@@ -12,7 +12,7 @@ context "Constant" do
       comment "Control Raw Constant: #{control_value.inspect}"
       comment "Namespace: #{namespace.inspect}"
 
-      test "Has no name when anonymous" do
+      test "Has no namespace when anonymous" do
         assert(namespace.nil?)
       end
     end
