@@ -12,7 +12,7 @@ context "Constant" do
       comment "Control Module: #{control_module.inspect}"
       comment "Full Name: #{full_name.inspect}"
 
-      test "Has no name when anonymous" do
+      test "Has no full name when anonymous" do
         assert(full_name.nil?)
       end
     end
