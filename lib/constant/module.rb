@@ -86,7 +86,8 @@ module Constant
         inherit ||= false
 
         value.constants(inherit).any? do |constant_name|
-          value.const_get(constant_name, inherit).equal?(name_or_module)
+          resolved = value.const_get(constant_name, inherit)
+          resolved.equal?(name_or_module)
         end
       else
         Constant.defined?(name_or_module, value, inherit: inherit)
