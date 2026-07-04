@@ -29,3 +29,21 @@ Coalescing before delegating **double-defaults**: it makes the receiver's own `|
 Examples:
 - `Constant::Module#defined?` forwards `inherit` to `Constant.defined?` (which defaults it) in its delegating branch — passing `inherit` raw there — but coalesces `inherit ||= false` in the branch that uses it directly with Ruby's `const_get` / `constants`.
 - `Constant.get` forwards `inherit` only to the instance `#get` (which defaults it), so it does **not** coalesce `inherit` at all. (It still coalesces `namespace ||= Object`, because that default is `get`'s own.)
+
+## Default with `.nil?`, not `||=`, when the parameter carries a settable value that may be legitimately falsy
+
+`||=` is the right tool **only when `nil` and the real default are the sole falsy possibilities** — as they are for a namespace (`namespace ||= Object`) or a boolean flag (`inherit ||= false`, which intentionally normalizes only `nil → false`). But when an optional parameter carries a **value the method will store or set as-is** — and that value may legitimately be `false`, `nil`, or another falsy object — `||=` is **wrong**: it clobbers a caller's deliberate falsy value. Default such a parameter explicitly on `nil` instead:
+
+```ruby
+# Yes — only a truly-omitted value is defaulted; a settable false/nil literal passes through
+def self.call(constant_name, destination_constant, constant_value=nil)
+  constant_value = ::Module.new if constant_value.nil?
+  ...
+end
+```
+
+`Constant::Define.call` is the example: its `constant_value` becomes the value bound to a constant, and a caller may legitimately define a constant whose value is `false`. `constant_value ||= ::Module.new` would replace that `false` with a module; `constant_value = ::Module.new if constant_value.nil?` defaults only the genuinely-omitted case. This is not a violation of the `||=` convention — it is the convention's boundary. The distinction: `||=` when the parameter is a **selector/flag** (its own falsy default is the only falsy meaning); `if .nil?` when the parameter is a **settable payload** (falsy is a real value the caller may intend).
+
+**Why:** `||=` conflates "omitted" with "any falsy value." That conflation is harmless — even desirable — for flags and selectors, where the falsy default *is* the meaning. It is a defect for a payload the method records verbatim, because it silently rewrites a caller's intended `false`/`nil`. Robustness (the whole point of defaulting in the body) means honoring an explicit falsy value, which only the `.nil?` test does.
+
+**How to apply:** ask what the parameter *is*. If it selects behavior or defaults to its own falsy value, use `||=`. If the method stores or forwards it as a value the caller could legitimately want falsy, default it with `if param.nil?` (or an equivalent `nil`-only test). Related: the build/new-strict rule (`build` normalizes; a settable payload is normalized only for the omitted case).
