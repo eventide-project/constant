@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = "evt-constant"
   s.summary = ""
-  s.version = "0.0.0.0"
+  s.version = "2.1.0.0"
   s.description = "Utilities for working with constants"
 
   s.authors = ["The Eventide Project"]
