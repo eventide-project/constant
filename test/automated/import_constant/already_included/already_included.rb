@@ -17,7 +17,7 @@ context "Import Constant" do
     comment "Destination Constants: #{destination_constant.constants(false).inspect}"
 
     test "Is an error" do
-      assert_raises(Constant::Import::Error) do
+      assert_raises(Constant::Error, "#{destination_constant} already includes #{origin_constant}") do
         Constant::Import.(origin_constant, destination_constant)
       end
     end
