@@ -1,6 +1,6 @@
 # Constant
 
-Utilities for working with constants.
+Utilities for importing constants and inspecting constants.
 
 Avoid the unintended effects of including constants by aliasing their inner constants instead of accessing them via Ruby mixin.
 
