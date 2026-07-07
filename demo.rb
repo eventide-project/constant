@@ -12,10 +12,11 @@ module SomeModule
   include Extension
 end
 
-pp "SomeModule Includes Extension"
-pp "Ancestors: #{SomeModule.ancestors}"
-pp "Inner Constants: #{SomeModule.constants}"
-pp "some_method Defined: #{SomeModule.method_defined?(:some_method)}"
+puts "Via Include"
+puts "> SomeModule include Extension"
+puts "SomeModule Ancestors: #{SomeModule.ancestors}"
+puts "SomeModule Inner Constants: #{SomeModule.constants}"
+puts "SomeModule some_method Defined: #{SomeModule.method_defined?(:some_method)}"
 
 
 # Macro
@@ -25,10 +26,12 @@ module SomeOtherModule
   import Extension
 end
 
-pp "SomeOtherModule Imports Extension"
-pp "Ancestors: #{SomeOtherModule.ancestors}"
-pp "Inner Constants: #{SomeOtherModule.constants}"
-pp "some_method Defined: #{SomeOtherModule.method_defined?(:some_method)}"
+puts
+puts "Via import Macro"
+puts "> SomeOtherModule import Extension"
+puts "SomeOtherModule Ancestors: #{SomeOtherModule.ancestors}"
+puts "SomeOtherModule Inner Constants: #{SomeOtherModule.constants}"
+puts "SomeOtherModule some_method Defined: #{SomeOtherModule.method_defined?(:some_method)}"
 
 
 # API
@@ -36,7 +39,9 @@ module YetAnotherModule
   Constant::Import.(Extension, self)
 end
 
-pp "YetAnotherModule Imports Extension"
-pp "Ancestors: #{YetAnotherModule.ancestors}"
-pp "Inner Constants: #{YetAnotherModule.constants}"
-pp "some_method Defined: #{YetAnotherModule.method_defined?(:some_method)}"
+puts
+puts "Via Constant::Import API"
+puts "> YetAnotherModule Constant::Import.(Extension, self)"
+puts "YetAnotherModule Ancestors: #{YetAnotherModule.ancestors}"
+puts "YetAnotherModule Inner Constants: #{YetAnotherModule.constants}"
+puts "YetAnotherModule some_method Defined: #{YetAnotherModule.method_defined?(:some_method)}"
