@@ -1,7 +1,5 @@
 module Constant
   module Import
-    Error = Class.new(RuntimeError)
-
     def self.included(base)
       base.extend(Macro)
     end
@@ -10,7 +8,7 @@ module Constant
       alias_name = kwargs[:alias]
 
       if alias_name.nil? && destination_constant.ancestors.include?(origin_constant)
-        raise Error, "#{destination_constant} already includes #{origin_constant}"
+        raise Constant::Error, "#{destination_constant} already includes #{origin_constant}"
       end
 
       target = destination_constant
