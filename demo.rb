@@ -68,3 +68,51 @@ puts
 puts "YetAnotherModule Ancestors: #{YetAnotherModule.ancestors}"
 puts "YetAnotherModule Inner Constants: #{YetAnotherModule.constants}"
 puts "YetAnotherModule some_method Defined: #{YetAnotherModule.method_defined?(:some_method)}"
+
+__END__
+
+Output:
+
+Via Include
+- - -
+
+module Extension
+  def some_method
+  end
+
+  module InnerModule
+  end
+end
+
+module SomeModule
+  include Extension
+end
+
+SomeModule Ancestors: [SomeModule, Extension]
+SomeModule Inner Constants: [:InnerModule]
+SomeModule some_method Defined: true
+
+Via Macro
+- - -
+
+module SomeOtherModule
+  include Constant::Import
+
+  import Extension
+end
+
+SomeOtherModule Ancestors: [SomeOtherModule, Constant::Import]
+SomeOtherModule Inner Constants: [:InnerModule, :Macro]
+SomeOtherModule some_method Defined: false
+
+Via API
+- - -
+
+module YetAnotherModule
+  Constant::Import.(Extension, self)
+end
+
+YetAnotherModule Ancestors: [YetAnotherModule]
+YetAnotherModule Inner Constants: [:InnerModule]
+YetAnotherModule some_method Defined: false
+
