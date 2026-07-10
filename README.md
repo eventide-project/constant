@@ -75,7 +75,7 @@ self.import(origin_constant, alias: nil)
 ```ruby
 include Constant::Import
 
-import SomeOrigin::SomeInnerClass
+import SomeOrigin::SomeInnerModule
 ```
 
 The `import` macro is activated by including the `Constant::Import` module.
@@ -85,7 +85,7 @@ The nested constants in the origin constant will be accessible to the destinatio
 If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name replaces the origin constant name.
 
 ```ruby
-import SomeOrigin::SomeInnerClass, alias: :SomeClass
+import SomeOrigin::SomeInnerModule, alias: :SomeModule
 ```
 
 **Returns**
@@ -110,7 +110,7 @@ self.call(origin_constant, destination_constant, alias: nil)
 ```
 
 ```ruby
-Constant::Import.(SomeOrigin::SomeInnerClass, self)
+Constant::Import.(SomeOrigin::SomeInnerModule, self)
 ```
 
 The nested constants in the origin constant will be accessible to the destination constant without the destination constant having to use the origin constant's namespace.
@@ -118,7 +118,7 @@ The nested constants in the origin constant will be accessible to the destinatio
 If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name replaces the origin constant name.
 
 ```ruby
-Constant::Import.(SomeOrigin::SomeInnerClass, self, alias: :SomeClass)
+Constant::Import.(SomeOrigin::SomeInnerModule, self, alias: :SomeModule)
 ```
 
 **Returns**
