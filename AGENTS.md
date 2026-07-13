@@ -64,6 +64,7 @@ When working with Superpowers `brainstorming` artifacts, use the word **design**
 `agent/rules/` holds the project's binding rules — naming conventions, terminology, plan-writing norms, commit conventions, and the like — one rule per file.
 
 - **Read every file in `agent/rules/` at the start of a session and follow them.** They override default behavior where they conflict (explicit user instructions still win).
+- **A rule's purpose may cut across its category.** Folder names (`terminology/`, `methodology/`, `git/`, …) name the *surface* a rule acts on, not the purpose it serves; many rules exist to install a *mental stance*, not to standardize a mechanic. Judge such a rule by the mindset it installs, not by surface conformance, and reconcile seemingly-conflicting rules at the level of purpose rather than surface. See `agent/rules/methodology/2026-07-13T21-22-51Z-rules-install-a-mindset-purpose-over-category.md`.
 - **Format:** frontmatter-free markdown — a `# <title>` stating the rule, the rule in prose, then short `**Why:**` and `**How to apply:**` lines. Filename is `YYYY-MM-DDTHH-MM-SSZ-<kebab-slug>.md` — UTC, same as the decision log, with the timestamp synced to the file's creation time.
 - **Recording a new rule:** when the user states a rule, or a decision sets a rule for future work, add it here as a new file, and add a matching one-line entry to `agent/log/`.
 
