@@ -1,6 +1,6 @@
 # Write subject-first commit messages
 
-Commit messages are **subject-first**: the subject of the change leads, described in **passive voice** and **indicative mood** — the message states *what changed about the code*, not what the developer did to it. Reference: https://github.com/aaronjensen/software-development/blob/master/commit-messages.md
+Commit messages are **subject-first**: the subject of the change leads, described in **passive voice** and **indicative mood** — the message states *what changed about the code*, not what the developer did. We write about the code, not the developer; centering the developer reinforces anthropocentrism in the mindset.
 
 Commit logs are **scanned, not read**, so the most important thing — the subject of the change — comes first. Describe the change as a fact about the code's new state, not as an imperative instruction to the reader.
 
