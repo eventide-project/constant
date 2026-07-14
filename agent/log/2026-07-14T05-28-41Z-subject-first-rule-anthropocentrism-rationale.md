@@ -1,0 +1,1 @@
+# Refined the subject-first commit-message rule (`agent/rules/methodology/2026-07-13T20-54-39Z-subject-first-commit-messages.md`): its rationale is stated as writing about the code, not the developer — centering the developer reinforces anthropocentrism in the mindset — sharpening the earlier "what changed about the code, not what the developer did" phrasing.
