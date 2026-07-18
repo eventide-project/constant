@@ -1,7 +1,7 @@
 # The first implementation may run a contained red/green loop
 
-When you reach the implementation of a unit **for the first time** (efferent-oriented
-design — new behavior being designed, not coverage of shipped behavior), a red/green
+When you reach the implementation of a unit **for the first time** (Design By
+Efferent — new behavior being designed, not coverage of shipped behavior), a red/green
 loop is permitted as two hinges around the real implementation:
 
 - **Red (optional hinge).** Write the implementation so the new test **fails** — the
