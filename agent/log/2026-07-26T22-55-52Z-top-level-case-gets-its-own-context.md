@@ -1,0 +1,1 @@
+# The top-level macro test nests three deep — `Import Constant` / `Macro` / `Top Level` — giving the case its own context rather than carrying it only in the outcome name, matching the sibling `macro/alias.rb`

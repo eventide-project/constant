@@ -1,0 +1,1 @@
+# The instance-destination macro test is `macro/instance.rb` under a `Instance` case context, wired through `include Constant::Import::Macro` in a class body — the form the README documents — rather than `macro/extend.rb` extending a lone object's singleton, which named the wiring keyword instead of the case

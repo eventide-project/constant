@@ -1,0 +1,1 @@
+# `Constant::Import`'s top-level idiom is extend-based (`extend Constant::Import::Macro; import Origin`), not include-based, to avoid installing `import` as a public instance method on every object in the process

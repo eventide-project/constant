@@ -99,6 +99,37 @@ The list of constants nested in the origin constant that have been made availabl
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
+##### Top Level
+
+At the top level of a script — outside any class or module body, where `self` is the main object — the macro is activated the same way:
+
+```ruby
+include Constant::Import
+
+import SomeOrigin
+```
+
+The destination is `Object`, the main object's class, which is where Ruby puts constants defined at the top level. The imported constants are resolvable without qualification from anywhere in the process, including from inside unrelated classes. That reach is the ordinary consequence of defining a constant at the top level, and it is broader than any other destination's.
+
+##### Instance Destinations
+
+Including `Constant::Import::Macro` instead of `Constant::Import` makes `import` an instance method. An instance's import destination is its class:
+
+```ruby
+class SomeDestination
+  include Constant::Import::Macro
+end
+
+some_destination = SomeDestination.new
+
+some_destination.import(SomeOrigin)
+
+SomeDestination.const_defined?(:SomeInnerModule)
+# => true
+```
+
+The constants are set on the class rather than on the receiver, so every instance of the class accesses them, not only the instance that imported them.
+
 ##### Method Alias
 
 The `import` macro is a convenience alias for `__import_constant`. The `__import_constant` method is the concrete implementation. This mechanism helps protect against a naming conflict with another library that implements a method name as common as "import".

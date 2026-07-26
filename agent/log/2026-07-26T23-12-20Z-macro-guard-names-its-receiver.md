@@ -1,0 +1,1 @@
+# `Constant::Import::Macro#__import_constant`'s destination guard names its receiver (`destination.is_a?`, `destination.class`) rather than reaching back to `self`, leaving no explicit-`self` receiver anywhere in `lib/` outside `def self.`
