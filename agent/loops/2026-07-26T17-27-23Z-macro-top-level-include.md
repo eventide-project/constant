@@ -1,4 +1,4 @@
-# Loop record — Macro's top-level idiom (`extend Constant::Import::Macro`)
+# Loop record — Macro's top-level idiom (`include Constant::Import`)
 
 Recorded live. `Constant::Import`'s macro form (`include Constant::Import; import
 SomeOrigin`) doesn't work at the top level of a plain script — `self` there is
