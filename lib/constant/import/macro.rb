@@ -4,8 +4,8 @@ module Constant
       def __import_constant(origin_constant, **kwargs)
         destination = self
 
-        if not self.is_a?(::Module)
-          destination = self.class
+        if not destination.is_a?(::Module)
+          destination = destination.class
         end
 
         Import.(origin_constant, destination, **kwargs)
