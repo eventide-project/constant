@@ -65,8 +65,123 @@ actuation-gate rule, ahead of hinge 1):
 
 ---
 
-**Outcome:** `Constant::Import::Macro#__import_constant`
-(`lib/constant/import/macro.rb`) falls back to `self.class` when `self` isn't a
-`Module`/`Class`, so `extend Constant::Import::Macro; import SomeOrigin` now
-works at the top level of a plain script. New test:
-`test/automated/import_constant/macro/extend.rb`. Verified: 97 tests, 0 failed.
+## Pass 3 — Review reopens the direction *(chat)*
+
+**Hinge:** the review of the pass-1/pass-2 work surfaced that the implementation
+was broader than what was documented and logged — the fallback fires for *any*
+non-module receiver, not only the top level — and that the README's idiom had no
+test behind it (the test stood in an anonymous object for `main`).
+
+**Chat:** the developer supplied the missing use case: this is done in a
+`test_init` file, where the library-under-test's root namespace is imported so
+every test file can reach it — written as `include Constant::Import; import
+EnvVar`. That named the *include* form as the intended idiom, which pass 1 had
+rejected.
+
+**Decision:** reopen pass 1's direction on the strength of the use case.
+
+## Pass 4 — Direction, revisited: the include form *(options)*
+
+**Hinge:** pass 1 disqualified the include form because making it work at top
+level would install `import` as a public instance method on every object. That
+premise turned out to be incomplete: a third path exists — when
+`Import.included` receives `Object` as the base, extend the *top-level
+receiver's singleton*. Probed empirically: `include Constant::Import; import
+SomeOrigin` then works at top level, and `Object.new.respond_to?(:import, true)`
+is `false`. None of the blast radius that decided pass 1 applies. Also verified
+that `self` at the top level of a `require_relative`'d file is the same `main` as
+`TOPLEVEL_BINDING.receiver`, so it holds in a `test_init` file.
+
+**Decision:** the include form, reversing pass 1.
+
+## Pass 5 — The test hinges
+
+- **Actuation** (options, revisited twice): a real top-level script in a
+  subprocess, over reaching `main` in-process. The in-process route was
+  recommended first, on the finding that `self` inside a TestBench context body
+  *is* `main` — so the literal idiom could be written verbatim in a test.
+  Probing the consequence killed it: two files run in one process showed that a
+  single `include` leaks into every later file — bare `import` callable in every
+  subsequent context, `Constant::Import` permanently in `Object.ancestors`, and
+  the imported constants resolving unqualified suite-wide, including inside
+  unrelated classes. Randomizing the inner constant names would have narrowed
+  only the collision risk. There is no teardown: a module cannot be un-included
+  from `Object`. The subprocess is the only form that leaves the suite unaltered.
+- **Assertion** (options): the script references each imported constant bare and
+  prints its full name; the test asserts those against the origin's paths. Since
+  an imported module keeps the name it was first assigned, this establishes both
+  that the constant is reachable unqualified *and* that it is the origin's — over
+  asserting the macro's return value, and over asserting only that the script ran
+  without failing.
+- **Controls** (options, placement folded in): `Controls::Script.top_level_import`
+  generates the script source and runs it with `ruby -e`, passing the parent's
+  `$LOAD_PATH` through as `-I` options — over a script committed under `test/` or
+  under `lib/constant/controls/`. The developer raised the placement question
+  directly; that the placement was contested is itself the argument for
+  generating the source, since then there is no script file to home, and
+  `lib/constant/controls/script.rb` is an ordinary control module beside
+  `controls/constant.rb`.
+- **Red confirmed contained:** the assembled test aborted on exactly the
+  diagnosed failure — `-e:10:in '<main>': undefined method 'import' for main
+  (NoMethodError)` — isolated to the new file.
+
+## Pass 6 — Scope, reopened by a second use case *(chat, then options)*
+
+**Hinge:** with the include form settled, the destination question was settled
+narrowly — resolve to `::Object` only when the receiver is the top-level object —
+on the argument that `self.class` is principled for `main` (Ruby's own rule for
+where top-level constants live) but arbitrary for any other object.
+
+**Chat:** the developer asked what happens if someone wants to include the import
+module into `Object` to give everything the macro. The premise needed correcting:
+`Constant::Import` has no instance methods, so including it into `Object` gives
+no object the macro — it only fires the hook. The spelling for "everything gets
+the macro" is `include Constant::Import::Macro`, and on the pass-2 code it
+already worked: an instance's import lands on its class.
+
+**Decision:** that idiom is supported, so the general `self.class` destination
+stays — reversing the narrow decision, and making the top-level object an
+ordinary case of one rule rather than a special case. `macro.rb` therefore stands
+as pass 2 wrote it, and the whole of the include-form support lives in
+`Import.included`. The implementation options that had been put up for the narrow
+reading (a main-keyed conditional in `Macro`, versus a `TopLevelMacro` module
+specialized for `main`) were both dropped with it.
+
+## Pass 7 — Naming *(options)*
+
+**Hinge:** the outcome's name. Recommended "Imported constants are accessible at
+the top level of a script," reasoning that the outcome name is the only slot
+carrying the case, since all three files in `macro/` open the same two
+folder-mirroring contexts.
+
+**Decision:** "Are the origin's inner constants" — literal about the value
+comparison the assertion makes, which the is-prefix rule reserves for exactly
+that shape. The recommendation's reasoning was overstated: TestBench prints the
+file path before each file in a suite run, so the case was never hidden.
+
+## Pass 8 — Test structure *(dictated)*
+
+**Hinge:** the case name. Pass 7 settled the outcome name on the reasoning that
+it was the only slot carrying the case, leaving the file two contexts deep.
+
+**Decision (dictated):** nest three deep — `Import Constant` / `Macro` / `Top
+Level` — so the case has its own context, matching the sibling `macro/alias.rb`.
+This puts the case in the indented output and makes the pass-7 naming reasoning
+moot from the other direction. Note that it also runs against the
+test-context-nesting-mirrors-folders rule, which says leaf files within a feature
+folder are distinguished by outcome-context titles and not by an extra per-file
+context layer — `alias.rb` already diverged from that text, and now `top_level.rb`
+does too. The rule's text needs reconciling with the practice.
+
+---
+
+**Outcome:** `Constant::Import.included` (`lib/constant/import.rb`) extends the
+top-level receiver's singleton with `Macro` when the base is `Object`, so
+`include Constant::Import; import SomeOrigin` works at the top level of a script
+and in a `test_init` file. `Constant::Import::Macro#__import_constant`
+(`lib/constant/import/macro.rb`) keeps the general `self.class` destination for
+any non-module receiver, which covers both the top-level object and an instance
+of a class that includes `Macro`. New control:
+`lib/constant/controls/script.rb`. New test:
+`test/automated/import_constant/macro/top_level.rb`. Verified: 98 tests, 0
+failed. Pass-1 and pass-2 commit: `afcbae8`.

@@ -2,6 +2,10 @@ module Constant
   module Import
     def self.included(base)
       base.extend(Macro)
+
+      if base.equal?(::Object)
+        TOPLEVEL_BINDING.receiver.extend(Macro)
+      end
     end
 
     def self.call(origin_constant, destination_constant, **kwargs)

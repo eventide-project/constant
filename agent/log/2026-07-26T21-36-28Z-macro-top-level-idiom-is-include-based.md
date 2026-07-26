@@ -1,0 +1,1 @@
+# `Constant::Import`'s top-level idiom is include-based after all (`include Constant::Import; import Origin`), reversing the extend-based decision — `Import.included` extends the top-level receiver's singleton when the base is `Object`, which carries none of the every-object blast radius that had disqualified the include form

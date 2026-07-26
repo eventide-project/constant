@@ -1,0 +1,1 @@
+# `include Constant::Import::Macro` giving a class's instances an `import` that targets the class is a supported idiom, so `Macro#__import_constant`'s destination stays general (`self.class` for any non-module receiver) — reversing the resolve-only-for-main decision, and making the top-level object an ordinary case of the general rule rather than a special case

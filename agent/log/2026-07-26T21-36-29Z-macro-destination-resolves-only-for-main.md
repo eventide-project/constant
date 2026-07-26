@@ -1,0 +1,1 @@
+# `Constant::Import::Macro#__import_constant` resolves the destination to `::Object` only when the receiver is the top-level object, rather than falling back to `self.class` for any non-module receiver
