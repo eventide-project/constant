@@ -80,6 +80,16 @@ import SomeOrigin::SomeInnerModule
 
 The `import` macro is activated by including the `Constant::Import` module.
 
+At the top level of a script (outside any class or module body, where `self` is the main object), Ruby's top-level `include` redirects to `Object.include` rather than acting on `self`, so `include Constant::Import` does not make `import` callable there. Extend `Constant::Import::Macro` directly instead:
+
+```ruby
+extend Constant::Import::Macro
+
+import SomeOrigin
+```
+
+At the top level, the imported constants become accessible via `Object` — the main object's class — the same as they would via any other destination constant.
+
 The nested constants in the origin constant will be accessible to the destination constant without the destination constant having to use the origin constant's namespace.
 
 If an optional alias is used, the imported constants will be accessed via the alias constant name. The alias name replaces the origin constant name.
