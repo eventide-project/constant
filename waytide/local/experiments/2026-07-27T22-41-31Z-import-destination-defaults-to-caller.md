@@ -412,7 +412,10 @@ reduction came from probing an assumption rather than reasoning from it.
 
 - Gate 1 negative (caller binding impracticable); gates 1b–1f positive.
 - Implementation complete, **103 tests pass**, committed as `d9795d0`.
-- **Integrated to `master`.**
+- **Integrated to `master`** by a `--no-ff` merge, so the branch topology survives.
+- **Branch deleted** on user confirmation (2026-07-27, selection UI), local only —
+  the branch was never pushed, so there was no remote to clean up, and no worktree
+  existed to remove.
 
 ---
 
