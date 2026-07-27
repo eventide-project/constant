@@ -1,0 +1,1 @@
+# `macro/instance.rb` is circumscribed to a cursory proof that the macro's passthrough is in place — one inner constant, one assertion — rather than reproving the destination rule, which `import_constant/instance.rb` establishes at the API now that the check lives in `Import.call`
