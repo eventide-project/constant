@@ -1,0 +1,1 @@
+# `Constant::Import::Macro` is unpublished, and is now enforced as such with `private_constant :Macro` — it was only ever unpublished by convention, and documenting it in the README's Instance Destinations section had wrongly treated it as published surface. A module that includes `Constant::Import` no longer sees `Macro` in its constants
