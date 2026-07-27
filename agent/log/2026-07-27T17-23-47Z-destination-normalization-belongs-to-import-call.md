@@ -1,0 +1,1 @@
+# The non-module destination check belongs to `Constant::Import.call`, not to `Macro#__import_constant`, so that the macro and the API cannot deviate — `Import.(origin, some_object)` had raised `NoMethodError` on `ancestors` while `some_object.import(origin)` succeeded, and `Macro#__import_constant` returns to being a transparent pass-through of `self`

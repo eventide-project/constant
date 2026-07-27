@@ -9,6 +9,10 @@ module Constant
     end
 
     def self.call(origin_constant, destination_constant, **kwargs)
+      if not destination_constant.is_a?(::Module)
+        destination_constant = destination_constant.class
+      end
+
       alias_name = kwargs[:alias]
 
       if alias_name.nil? && destination_constant.ancestors.include?(origin_constant)

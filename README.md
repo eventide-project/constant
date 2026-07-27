@@ -161,7 +161,7 @@ The list of constants nested in the origin constant that have been made availabl
 | Name | Description | Type |
 | --- | --- | --- |
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
-| destination_constant | The constant whose namespace will be able to access the imported origin constant's namespace without fully qualifying it | Module or Class |
+| destination_constant | The constant whose namespace will be able to access the imported origin constant's namespace without fully qualifying it. An object that is not a module or class imports into its class | Module, Class, or Object |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
 ## The Constant Class
