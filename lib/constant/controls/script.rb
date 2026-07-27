@@ -73,19 +73,33 @@ module Constant
         initializer :source
 
         def run
-          load_path_options = $LOAD_PATH.map do |load_path_entry|
-            "-I#{load_path_entry}"
-          end
-
-          command = ["ruby", *load_path_options, "-e", source]
-
-          output, error_output, status = Open3.capture3(*command)
+          output, error_output, status = execute
 
           if not status.success?
             raise "Script failed\n\n#{source}\n#{error_output}"
           end
 
           output.split("\n")
+        end
+
+        def error
+          _, error_output, status = execute
+
+          if status.success?
+            raise "Script succeeded\n\n#{source}"
+          end
+
+          error_output
+        end
+
+        def execute
+          load_path_options = $LOAD_PATH.map do |load_path_entry|
+            "-I#{load_path_entry}"
+          end
+
+          command = ["ruby", *load_path_options, "-e", source]
+
+          Open3.capture3(*command)
         end
       end
     end

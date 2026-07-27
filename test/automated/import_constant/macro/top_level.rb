@@ -3,30 +3,22 @@ require_relative "../../automated_init"
 context "Import Constant" do
   context "Macro" do
     context "Top Level" do
-      control_inner_constant_names = %w(
-        SomeInnerConstant
-        SomeOtherInnerConstant
-      )
+      control_script = Controls::Script.top_level_import
 
-      control_origin_name = "SomeOrigin"
+      error_output = control_script.error
 
-      control_script = Controls::Script.top_level_import(
-        origin_name: control_origin_name,
-        inner_constants: control_inner_constant_names
-      )
+      comment "Error Output: #{error_output.lines.first&.strip.inspect}"
 
-      imported_constant_full_names = control_script.run
-
-      control_constant_full_names =
-        control_inner_constant_names.map do |inner_constant_name|
-          "#{control_origin_name}::#{inner_constant_name}"
+      context "Inclusion at the top level is refused" do
+        test do
+          assert(error_output.include?("Constant::Import cannot be included at the top level"))
         end
+      end
 
-      comment "Imported Constant Full Names: #{imported_constant_full_names.inspect}"
-      comment "Control Constant Full Names: #{control_constant_full_names.inspect}"
-
-      test "Are the origin's inner constants" do
-        assert(imported_constant_full_names == control_constant_full_names)
+      context "The refinement is named as the remedy" do
+        test do
+          assert(error_output.include?("using Constant::Import"))
+        end
       end
     end
   end

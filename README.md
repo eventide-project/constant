@@ -101,13 +101,15 @@ The list of constants nested in the origin constant that have been made availabl
 
 ##### Top Level
 
-At the top level of a script — outside any class or module body, where `self` is the main object — the macro is activated the same way:
+At the top level of a script — outside any class or module body, where `self` is the main object — the macro is activated by the refinement rather than by inclusion:
 
 ```ruby
-include Constant::Import
+using Constant::Import
 
 import SomeOrigin
 ```
+
+Including `Constant::Import` at the top level includes it into `Object`, which would install `import` on every class in the process. That is refused, with an error directing the refinement.
 
 The destination is `Object`, the main object's class, which is where Ruby puts constants defined at the top level. The imported constants are resolvable without qualification from anywhere in the process, including from inside unrelated classes. That reach is the ordinary consequence of defining a constant at the top level, and it is broader than any other destination's.
 

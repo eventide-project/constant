@@ -1,11 +1,11 @@
 module Constant
   module Import
     def self.included(base)
-      base.extend(Macro)
-
       if base.equal?(::Object)
-        TOPLEVEL_BINDING.receiver.extend(Macro)
+        raise Constant::Error, "Constant::Import cannot be included at the top level, where the destination is Object. Activate the refinement instead: using Constant::Import"
       end
+
+      base.extend(Macro)
     end
 
     refine ::Object do
