@@ -1,0 +1,1 @@
+# The three rules the Waytide framework does not carry — `namespace-variable-suffix`, `literal-constants-terminology`, and `string-outputs-permissive-inputs` — are restored as local rules under `waytide/rules/`, each keeping its original ISO-8601-UTC filename prefix and gaining a provenance footer recording its original authorship
