@@ -1,6 +1,10 @@
 # Experiment — Name feature, Run 1 (gate forecasting, "AI-proposes" baseline)
 
+**State:** Affirmed
+**Upstream branch:** `master`.
 **Branch:** `name-experiment-1` (from tag `pre-name-experiment`).
+**Working location:** single tree (reconstructed at conclusion — this record predates
+the working-location choice, and no worktree was ever created).
 **Question:** does gate forecasting help — and where does the human actually
 interject? Per the framework, every interjection is a hinge announcing itself;
 the observable is **ratify vs. correct** per gate. Run 1 is the *AI-proposes*
@@ -106,3 +110,40 @@ Findings:
   kind of thing that slips. Writing it as a rule converts it from an unwritten
   convention (a recurring miss) into conditioner output (the AI can now apply it
   and forecast it).
+
+## Conclusion — Affirmed
+
+**User confirmation:** Scott Bellware declared the experiment **affirmed** on
+2026-07-27, through the selection UI.
+
+The question held. Gate forecasting located the deliberation: both substantive
+corrections (return type, outcome set) landed at GATE 1 where the forecast put
+them, and no predicted gate went unfired except where the design had already
+settled it. The two refinements the run produced — naming/vocabulary consistency
+belongs in tier 2, and the step-local partition must enumerate test-structure
+conventions — are the forecast method correcting itself, which is the method
+working rather than failing.
+
+**Run structure:** the planned *originate-blind* run 2 was never run, so this
+experiment stands on run 1 alone. The mean-bias question the comparison would
+have isolated is therefore **not** part of what is affirmed here — the record
+already says run 1 is not a clean test of it. Anyone wanting that answer starts
+a new experiment.
+
+**Merge:** none required. The implementation was integrated to `master` during
+the run, with 28 tests passing. The branch `name-experiment-1` and the tag
+`pre-name-experiment` no longer exist, and no worktree was created, so no branch
+deletion or worktree removal confirmation applies.
+
+**Log copy:** the run's code decisions were already logged during the run —
+`2026-06-26T21-04-46Z-name-returns-string`, `2026-06-26T21-24-32Z-name-test-case-per-file`,
+and `2026-06-26T21-24-32Z-name-uses-rpartition`. The affirmation copies the
+**methodological** findings, which had no entries: gate forecasting locates the
+deliberation; the exposed proceed-pile is what catches mechanical-tier
+corrections; and the partition must enumerate test-structure conventions or they
+sit unaudited.
+
+---
+
+Authored by Scott Bellware on Fri Jun 26 2026 at 2:19:51 PM PT
+Changed by Scott Bellware on Mon Jul 27 2026 at 3:23:32 PM PT
