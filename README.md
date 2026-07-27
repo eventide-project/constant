@@ -113,11 +113,12 @@ The destination is `Object`, the main object's class, which is where Ruby puts c
 
 ##### Instance Destinations
 
-Including `Constant::Import::Macro` instead of `Constant::Import` makes `import` an instance method. An instance's import destination is its class:
+Activating the refinement with `using Constant::Import` makes `import` available on any object. An instance's import destination is its class:
 
 ```ruby
+using Constant::Import
+
 class SomeDestination
-  include Constant::Import::Macro
 end
 
 some_destination = SomeDestination.new

@@ -7,5 +7,7 @@ module Constant
 
       alias import __import_constant
     end
+
+    private_constant :Macro
   end
 end

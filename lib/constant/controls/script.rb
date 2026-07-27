@@ -35,6 +35,38 @@ module Constant
         Example.new(source)
       end
 
+      def self.top_level_refinement_import(origin_name: nil, inner_constants: nil)
+        origin_name ||= "SomeOrigin"
+        inner_constants ||= ["SomeInnerConstant"]
+
+        inner_constant_definitions = inner_constants.map do |inner_constant_name|
+          "#{inner_constant_name} = ::Module.new"
+        end
+
+        inner_constant_resolutions = inner_constants.map do |inner_constant_name|
+          "puts #{inner_constant_name}.name"
+        end
+
+        definitions = inner_constant_definitions.join("\n")
+        resolutions = inner_constant_resolutions.join("\n")
+
+        source = <<~RUBY
+          require "constant"
+
+          module #{origin_name}
+          #{definitions}
+          end
+
+          using Constant::Import
+
+          import #{origin_name}
+
+          #{resolutions}
+        RUBY
+
+        Example.new(source)
+      end
+
       class Example
         include Initializer
 

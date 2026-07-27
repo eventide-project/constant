@@ -8,6 +8,14 @@ module Constant
       end
     end
 
+    refine ::Object do
+      def __import_constant(origin_constant, **kwargs)
+        Import.(origin_constant, self, **kwargs)
+      end
+
+      alias import __import_constant
+    end
+
     def self.call(origin_constant, destination_constant, **kwargs)
       if not destination_constant.is_a?(::Module)
         destination_constant = destination_constant.class

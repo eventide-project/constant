@@ -1,7 +1,7 @@
 require_relative "../../automated_init"
 
 context "Import Constant" do
-  context "Macro" do
+  context "Refinement" do
     context "Instance" do
       control_inner_constant_name = "SomeInnerConstant"
 
@@ -10,11 +10,11 @@ context "Import Constant" do
         inner_constants: [control_inner_constant_name]
       )
 
-      control_destination_class = ::Class.new do
-        include Constant::Import::Macro
-      end
+      control_destination_class = ::Class.new
 
       control_destination_object = control_destination_class.new
+
+      using Constant::Import
 
       control_destination_object.import(origin_constant)
 
