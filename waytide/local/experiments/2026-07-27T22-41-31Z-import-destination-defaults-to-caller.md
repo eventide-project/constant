@@ -1,5 +1,6 @@
 # Experiment — Import destination defaults to the caller
 
+**State:** Affirmed
 **Upstream branch:** `master`.
 **Experiment branch:** `experiment/import-destination-defaults-to-caller`.
 **Base:** `4f2367549b7b4d77cbac2ed9ebc1d92984db3e3e` (from `master`, "Migration file
@@ -370,13 +371,51 @@ them superseding earlier entries that the change invalidated.
   actuation gate. Origination bypassed the option-set entirely, which is the
   mechanism working as intended and not something the tier partition models.
 
+## Conclusion — Affirmed
+
+**User confirmation:** Scott Bellware declared the experiment **affirmed** on
+2026-07-27.
+
+**The affirmation is qualified, and the qualification is the point: the solution
+does not leverage the caller's binding.** That mechanism — the one the experiment
+was initiated to test — is **impracticable**, and gate 1 establishes it as such:
+
+- `TracePoint` yields the **callee's** binding, not the caller's (probes A, E)
+- a trace armed inside the method cannot see the already-entered caller frame (B)
+- the one pure-Ruby recovery that works fires **after the call has returned**, and
+  imports into the **wrong destination silently** when the import is the last
+  statement in a module body (C)
+- the sound alternative — a globally-armed shadow stack — costs **8.8×** on every
+  method call in the host process (D)
+
+What is affirmed is the **motivating question**, not the mechanism: the destination
+*can* be omitted at the use site. It is omitted by a `refine ::Object` on
+`Constant::Import`, activated with `using Constant::Import` — the caller supplies
+its own `self` as the refined method's receiver, so nothing is derived from the
+stack at all. The caller is not *inspected*; it is simply the receiver.
+
+Anyone reading this record for the caller-binding technique should stop at gate 1.
+It does not work, and the feature that shipped does not use it.
+
+**Implementation merged.** The experiment produced code, the suite passes (**103
+tests, 0 failed**, from 99 at the base), so the branch merges to `master` under the
+test gate — no untested-code confirmation was required.
+
+**Log copy.** The decisions were logged as they were made — `macro-is-unpublished`,
+`instance-import-idiom-is-the-refinement`,
+`instance-destination-test-moves-to-refinement`, and `import-refinement-on-object`.
+The affirmation adds the two **methodological** findings, which had no entries: that
+declining a recommended verdict is what produced the feature, and that each
+reduction came from probing an assumption rather than reasoning from it.
+
 ## Final state
 
-_In flight — the implementation is complete and green on
-`experiment/import-destination-defaults-to-caller`, uncommitted. No `**State:**`
-line yet; the verdict has not been declared._
+- Gate 1 negative (caller binding impracticable); gates 1b–1f positive.
+- Implementation complete, **103 tests pass**, committed as `d9795d0`.
+- **Integrated to `master`.**
 
 ---
 
 Authored by Scott Bellware on Mon Jul 27 2026 at 3:41:31 PM PT
 Changed by Scott Bellware on Mon Jul 27 2026 at 4:28:56 PM PT
+Changed by Scott Bellware on Mon Jul 27 2026 at 4:40:44 PM PT
