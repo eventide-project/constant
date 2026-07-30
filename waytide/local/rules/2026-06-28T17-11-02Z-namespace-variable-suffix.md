@@ -15,6 +15,16 @@ A variable for a module — and by extension any module-ish control, e.g. one pl
 
 So the three forms of one namespace are `control_namespace` (the module), `control_namespace_name` (its name), `control_namespace_constant` (the `Constant` that mediates it). The bare name is the module itself; the suffix marks the name or the mediating `Constant`.
 
+**The rule governs test controls, not implementation locals.** Every form it names is a
+form a *control* holds, and the disambiguation it buys is the one a test needs — the same
+module standing as a module, a name, and a `Constant` within a single test. A local inside
+a library method is not a control and is not covered: `Constant::Import.call`'s
+`import_constant`, holding whatever `const_get` returned for the name at hand, is outside
+the rule, and so is the method's own parameter list. This matters beyond scope-drawing,
+because such a local may hold a **literal constant** as readily as a module (see the
+literal-constants-terminology rule) — a form this rule does not name, and would have to
+name if it reached the implementation.
+
 **Bare `module` is a Ruby keyword — spell it `mod`.** `module = …` is a SyntaxError, so any variable whose bare name would be `module` is spelled **`mod`** instead (e.g. the unprefixed under-test result for a raw module, or a reader accessed bare). "module" is only illegal standing *alone* — decorated forms (`control_module`, `module_name`) are legal and keep the full word. `mod` is the keyword-safe spelling of the bare slot only.
 
 **Expected operands are controls.** A value an assertion compares against — e.g. `Constant::Module.new(control_module)` extracted out of the `test` block — is a **control** (a known, deterministic reference), so it takes the `control_` prefix, never an `other_` prefix. `other_constant`/`other_namespace` were mis-named; they are `control_constant` / `control_namespace_constant`. The `control_` prefix names the variable's *nature* (a control); `other_` named only its incidental *position* (the other operand). The thing **under test** (the actuation result) stays unprefixed (`constant`, `namespace`, `name`, `mod`), so the assertion reads as output-vs-control.
@@ -26,3 +36,4 @@ So the three forms of one namespace are `control_namespace` (the module), `contr
 ---
 
 Authored by Scott Bellware on Sun Jun 28 2026 at 10:11:02 AM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 2:28:46 PM PT
