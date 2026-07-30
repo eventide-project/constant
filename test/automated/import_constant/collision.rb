@@ -27,9 +27,11 @@ context "Import Constant" do
     comment "\tDestination Inner Constant Names: #{destination_constant.constants(false).sort.inspect}"
     comment "Control Message: #{control_message.inspect}"
 
-    test do
-      assert_raises(Constant::Error, control_message) do
-        Constant::Import.(origin_constant, destination_constant)
+    context "When the destination already defines the constant" do
+      test "Fails" do
+        assert_raises(Constant::Error, control_message) do
+          Constant::Import.(origin_constant, destination_constant)
+        end
       end
     end
   end
