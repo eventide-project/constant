@@ -37,6 +37,12 @@ module Constant
 
       import_constant_names = origin_constant.constants(inherit)
 
+      import_constant_names.each do |import_constant_name|
+        if target.const_defined?(import_constant_name, false)
+          raise Constant::Error, "#{import_constant_name} is already defined on #{target} (imported from #{origin_constant})"
+        end
+      end
+
       imported_constants = import_constant_names.map do |import_constant_name|
         import_constant = origin_constant.const_get(import_constant_name, inherit)
         target.const_set(import_constant_name, import_constant)

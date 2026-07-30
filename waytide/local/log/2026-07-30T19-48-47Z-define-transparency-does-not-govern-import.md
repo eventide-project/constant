@@ -1,0 +1,1 @@
+# The Define transparency decision does not govern Import — Define adds nothing to Ruby's assignment while Import already refuses, normalizes, and fixes inherit, so Import refuses a colliding constant
