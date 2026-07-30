@@ -16,7 +16,7 @@ module Constant
       alias import __import_constant
     end
 
-    def self.call(origin_constant, destination_constant, **kwargs)
+    def self.call(origin_constant, destination_constant, except: nil, **kwargs)
       if not destination_constant.is_a?(::Module)
         destination_constant = destination_constant.class
       end
@@ -36,6 +36,11 @@ module Constant
       inherit = false
 
       import_constant_names = origin_constant.constants(inherit)
+
+      except_constant_names = Array(except)
+      except_constant_names = except_constant_names.map { |except_constant_name| except_constant_name.to_sym }
+
+      import_constant_names = import_constant_names - except_constant_names
 
       import_constant_names.each do |import_constant_name|
         if target.const_defined?(import_constant_name, false)

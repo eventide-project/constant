@@ -1,0 +1,1 @@
+# A precondition — a bare assertion in a context with no test block — is recorded as an observation rather than a rule, having been applied once, and belongs to the Waytide testing package if it holds up
