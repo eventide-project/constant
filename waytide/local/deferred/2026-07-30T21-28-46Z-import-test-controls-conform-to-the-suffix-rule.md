@@ -28,7 +28,7 @@ test/automated/define_constant/literal.rb
 test/automated/define_constant/module.rb
 test/automated/define_constant/symbol_name.rb
 test/automated/import_constant/alias.rb
-test/automated/import_constant/collision/collision.rb
+test/automated/import_constant/collision.rb
 test/automated/import_constant/except.rb
 test/automated/import_constant/import_constant.rb
 test/automated/import_constant/instance.rb
@@ -73,3 +73,4 @@ record `2026-07-30T19-48-47Z-import-collision-refusal.md`.
 ---
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 2:28:46 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 2:41:07 PM PT
