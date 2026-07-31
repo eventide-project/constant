@@ -75,16 +75,20 @@ The design states this deliberately rather than inheriting it silently.
 - **The refusal is built and covered.** `test/automated/import_constant/collision.rb`,
   outcome named `Fails` under a `When the destination already defines the constant`
   context.
-- **`except:` is built and covered.** `test/automated/import_constant/except.rb`, two
+- **`except:` is built and covered.** `test/automated/import_constant/except/except.rb`, two
   outcomes: `Excluded constant is not imported` and `Constants that are not excluded are
   imported`.
-- **`only:` is not started.**
-- **One behavior is deliberately uncovered for now.** A collision among the names `except:`
-  did *not* exclude still raises — verified by hand, and the property the filter-first
-  implementation was chosen for. Nothing in the suite protects it: an implementation that
-  applied the exclusion after the check, or that let `except:` disable the check outright,
-  would pass. It is covered **after `only:`**, together with the identical case for that
-  keyword, both keywords filtering the same set so the two tests are the same shape.
+- **`only:` is built and covered.** `test/automated/import_constant/only/only.rb`, two
+  outcomes: `Constants that are not included in the only: list are not imported` and
+  `Constants in the only: list are imported`. It is a **declaration** rather than a filter —
+  a name it gives that the origin does not own raises, covered by
+  `only/undefined.rb`. That refusal was written at the implementation hinge ahead of a test
+  and was covered as coverage rather than designed, green on arrival.
+- **The remaining-collision property is covered.** A collision among the names a keyword did
+  *not* remove still raises — `except/collision.rb` and `only/collision.rb`. This is the
+  property the filter-first implementation was chosen for, and until these existed an
+  implementation that applied the filtering after the check, or that let either keyword
+  disable the check outright, would have passed the suite.
 
 ## Confirmations
 
@@ -113,3 +117,4 @@ made.
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 12:48:47 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 3:22:00 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 4:02:18 PM PT
