@@ -28,7 +28,7 @@ logged when this feature concludes.
 
 ## Setup
 
-- **State:** In flight
+- **State:** Completed
 - **Upstream branch:** `master`
 - **Feature branch:** `feature/import-collision-refusal`
 - **Base:** `3ae681a8581f140dc621a80f24d9d5cd994f7750` on `master`
@@ -99,12 +99,46 @@ The design states this deliberately rather than inheriting it silently.
   only**.
 - **Thu Jul 30 2026 at 3:22:00 PM PT** — the remaining-collision coverage is sequenced
   after `only:` rather than designed now or deferred past the feature.
+- **Thu Jul 30 2026 at 6:11:37 PM PT** — the feature is concluded as **Completed** and
+  integrated into `master`.
+
+## Conclusion
+
+**Completed** — integrated into `master` on Thu Jul 30 2026 at 6:11:37 PM PT, the 13
+commits fast-forwarding since `master` was an ancestor of the branch. Verified before
+integrating: every commit on the branch ran the suite, and the suite passed at **114 tests**
+immediately before the merge, from 104 when the feature began.
+
+`Constant::Import` refuses four conditions, each covered — a name the destination already
+defines; a name in `only:` the origin does not own; a name in both `only:` and `except:`;
+and a name still colliding after either keyword narrowed the set.
+
+**The originating deferred item is deleted**, its resolution recorded at
+`waytide/local/log/2026-07-31T01-08-49Z-import-collision-refusal-is-carried-out.md`. Both
+keyword names it proposed were adopted; the two further refusals were not anticipated by it.
+
+**Three deferred items were registered during the feature and were gated on it.** They
+become actionable now: conforming the `Import` and `Define` test controls to the
+module-variable suffix rule; whether a name the destination **inherits** should collide,
+which is silent today and untested; and renaming the nine `"Is an error"` tests to
+`"Fails"`. The last two overlap on `already_included.rb` and `alias.rb`.
+
+**One convention was stated and deliberately not recorded here** — that a feature's normal
+path and its exception paths belong in separate test files. It was applied throughout and
+printed in Waytide rule format for placement in the testing package rather than in this
+project's local rules.
+
+**What is not settled by this feature:** `env-var` pull request #3 merges either after
+adopting the keyword or before it with the two warning lines accepted for the interim. That
+call is the engineer's.
 
 ## Design record
 
 The feature's design — each pass's hinge, the options put to the developer, and the
-decision — is recorded in its loop record under `waytide/local/loops/`, added when the
-first hinge is worked.
+decision — is recorded in its loop record,
+`waytide/local/loops/2026-07-30T20-27-23Z-import-collision-refusal.md`, in nineteen passes.
+Passes 0 through 5 were written live; 6 through 18 were written at the close and are marked
+as such.
 
 ## What is waiting on it
 
@@ -118,3 +152,4 @@ made.
 Authored by Scott Bellware on Thu Jul 30 2026 at 12:48:47 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 3:22:00 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 4:02:18 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 6:11:37 PM PT
