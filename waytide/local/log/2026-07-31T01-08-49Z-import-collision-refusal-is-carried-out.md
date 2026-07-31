@@ -1,0 +1,1 @@
+# Constant::Import refuses a colliding constant and takes except: and only: to resolve one deliberately — the deferred item is carried out, both proposed keyword names adopted, with a name in both lists and a name only: cannot deliver refused as well
