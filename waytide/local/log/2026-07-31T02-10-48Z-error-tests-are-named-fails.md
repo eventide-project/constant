@@ -1,0 +1,1 @@
+# The nine "Is an error" tests are named "Fails" — the deferred item is carried out, already_included.rb gaining a condition context and alias.rb exchanging its incidental NameError probe for a direct const_defined? reading

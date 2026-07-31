@@ -22,7 +22,7 @@ this feature concludes.
 
 ## Setup
 
-- **State:** In flight
+- **State:** Completed
 - **Upstream branch:** `master`
 - **Feature branch:** `feature/error-tests-named-fails`
 - **Base:** `b02a333c3a8dcb30c13571ccb560f6893bf331e0` on `master`
@@ -62,19 +62,42 @@ context should become is a decision, not a rename.
 
 - **Thu Jul 30 2026 at 6:36:48 PM PT** — working location chosen at initiation: **branch
   only**.
+- **Thu Jul 30 2026 at 7:10:48 PM PT** — the unmet ordering commitment is removed from this
+  record rather than reported or decided after the fact.
+- **Thu Jul 30 2026 at 7:10:48 PM PT** — the feature is concluded as **Completed** and
+  integrated into `master`.
+
+## Conclusion
+
+**Completed** — integrated into `master` on Thu Jul 30 2026 at 7:10:48 PM PT. Verified
+before integrating: the suite passed at **114 tests**, the same count as before the feature,
+which is what a name-only change requires.
+
+Seven were renamed outright. `already_included.rb` gained a
+`When the destination already includes the origin` context, so the two refusals in
+`Import.call` read alike. `alias.rb` was not a rename: its `assert_raises(NameError)` was a
+probe for absence rather than a library error — the `NameError` is Ruby's, raised
+incidentally by a lookup of a constant that is not there — so it reads the absence directly
+with `const_defined?`. That also dropped a message assertion a single raise site made
+unnecessary.
+
+`"Is an error"` no longer appears in the suite; there are thirteen `"Fails"` tests.
+
+**The originating deferred item is deleted**, its resolution recorded at
+`waytide/local/log/2026-07-31T02-10-48Z-error-tests-are-named-fails.md`.
+
+**A commitment this record carried was not honored.** It said that whether this pass and the
+test-controls conformance pass were combined or sequenced would be decided before either
+started, so `already_included.rb` and `alias.rb` would not be edited twice. No decision was
+made and this pass edited both, so the other pass will edit them again. The line was removed
+rather than left claiming a decision that never happened.
 
 ## Design record
 
-Recorded in this feature's loop record under `waytide/local/loops/`, added when the first
-hinge is worked.
-
-## Ordering against the other deferred items
-
-`already_included.rb` and `alias.rb` also appear in the file list of
-`2026-07-30T21-28-46Z-import-test-controls-conform-to-the-suffix-rule`. Whether the two
-passes are combined or sequenced is decided before either starts, so those files are not
-touched twice.
+Recorded in `waytide/local/loops/2026-07-31T02-10-48Z-error-tests-named-fails.md`, in four
+passes, written live.
 
 ---
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 6:36:48 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 7:10:48 PM PT
