@@ -110,14 +110,12 @@ context "Import Constant" do
     context "Imported constants are not defined in the destination's root namespace" do
       control_inner_constant_names.each do |inner_constant_name|
         context inner_constant_name.inspect do
-          control_inner_constant_name = "#{destination_constant}::#{inner_constant_name}"
+          defined = destination_constant.const_defined?(inner_constant_name, false)
 
-          comment "Control Inner Constant Name: #{control_inner_constant_name.inspect}"
+          detail "Defined: #{defined.inspect}"
 
-          test "Is an error" do
-            assert_raises(NameError, "uninitialized constant #{control_inner_constant_name}") do
-              destination_constant.const_get(inner_constant_name, inherit=false)
-            end
+          test do
+            refute(defined)
           end
         end
       end

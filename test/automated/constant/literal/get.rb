@@ -14,7 +14,7 @@ context "Constant" do
       comment "Control Name: #{control_name.inspect}"
 
       context "When the name is not defined" do
-        test "Is an error" do
+        test "Fails" do
           assert_raises(Constant::Error) do
             constant.get(control_name)
           end

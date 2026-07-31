@@ -19,7 +19,7 @@ context "Constant" do
         control_literal = constant.get(control_literal_name)
         control_error_message = "Literal constants are primitive values. They don't support inner constants. #{control_beyond_name} is not defined in #{control_literal.full_name}."
 
-        test "Is an error" do
+        test "Fails" do
           assert_raises(Constant::Error, control_error_message) do
             constant.get(control_path)
           end

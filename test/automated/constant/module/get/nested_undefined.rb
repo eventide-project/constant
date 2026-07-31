@@ -17,7 +17,7 @@ context "Constant" do
         control_inner_module = control_namespace.const_get(control_inner_name)
         control_error_message = "#{control_missing_name} is not defined in #{control_inner_module}"
 
-        test "Is an error" do
+        test "Fails" do
           assert_raises(Constant::Error, control_error_message) do
             constant.get(control_path)
           end

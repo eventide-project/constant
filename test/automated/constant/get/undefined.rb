@@ -9,7 +9,7 @@ context "Constant" do
     comment "Control Namespace: #{control_namespace.inspect}"
 
     context "When the name is not defined in the namespace" do
-      test "Is an error" do
+      test "Fails" do
         assert_raises(Constant::Error) do
           Constant.get(control_constant_name, control_namespace)
         end

@@ -23,7 +23,7 @@ context "Constant" do
     end
 
     context "When inherit is false" do
-      test "Is an error" do
+      test "Fails" do
         assert_raises(Constant::Error) do
           Constant.get(control_inherited_name, control_subject, inherit: false)
         end
