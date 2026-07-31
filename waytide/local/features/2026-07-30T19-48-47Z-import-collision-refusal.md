@@ -101,6 +101,9 @@ The design states this deliberately rather than inheriting it silently.
   after `only:` rather than designed now or deferred past the feature.
 - **Thu Jul 30 2026 at 6:11:37 PM PT** — the feature is concluded as **Completed** and
   integrated into `master`.
+- **Thu Jul 30 2026 at 6:14:17 PM PT** — the branch `feature/import-collision-refusal` is
+  deleted, having been fully merged. There was no worktree to remove and no remote copy,
+  the branch never having been pushed.
 
 ## Conclusion
 
@@ -153,3 +156,4 @@ Authored by Scott Bellware on Thu Jul 30 2026 at 12:48:47 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 3:22:00 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 4:02:18 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 6:11:37 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 6:14:17 PM PT
