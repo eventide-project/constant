@@ -40,19 +40,26 @@ module Constant
       only_constant_names = Array(only)
       only_constant_names = only_constant_names.map { |only_constant_name| only_constant_name.to_sym }
 
-      if not only_constant_names.empty?
+      except_constant_names = Array(except)
+      except_constant_names = except_constant_names.map { |except_constant_name| except_constant_name.to_sym }
+
+      conflicting_constant_names = only_constant_names & except_constant_names
+
+      if conflicting_constant_names.any?
+        conflicting_constant_name = conflicting_constant_names.first
+        raise Constant::Error, "#{conflicting_constant_name} is named in both only: and except:"
+      end
+
+      if only_constant_names.any?
         undefined_constant_names = only_constant_names - import_constant_names
 
-        if not undefined_constant_names.empty?
+        if undefined_constant_names.any?
           undefined_constant_name = undefined_constant_names.first
           raise Constant::Error, "#{undefined_constant_name} is not defined on #{origin_constant}"
         end
 
         import_constant_names = import_constant_names & only_constant_names
       end
-
-      except_constant_names = Array(except)
-      except_constant_names = except_constant_names.map { |except_constant_name| except_constant_name.to_sym }
 
       import_constant_names = import_constant_names - except_constant_names
 
