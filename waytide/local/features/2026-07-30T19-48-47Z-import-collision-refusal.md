@@ -70,6 +70,22 @@ itself will still silently replace an existing constant at `alias_name` — a ge
 `Define` call with the caller naming the constant, so the 3 July decision does cover it.
 The design states this deliberately rather than inheriting it silently.
 
+## Progress
+
+- **The refusal is built and covered.** `test/automated/import_constant/collision.rb`,
+  outcome named `Fails` under a `When the destination already defines the constant`
+  context.
+- **`except:` is built and covered.** `test/automated/import_constant/except.rb`, two
+  outcomes: `Excluded constant is not imported` and `Constants that are not excluded are
+  imported`.
+- **`only:` is not started.**
+- **One behavior is deliberately uncovered for now.** A collision among the names `except:`
+  did *not* exclude still raises — verified by hand, and the property the filter-first
+  implementation was chosen for. Nothing in the suite protects it: an implementation that
+  applied the exclusion after the check, or that let `except:` disable the check outright,
+  would pass. It is covered **after `only:`**, together with the identical case for that
+  keyword, both keywords filtering the same set so the two tests are the same shape.
+
 ## Confirmations
 
 - **Thu Jul 30 2026 at 12:48:47 PM PT** — the `Define` reconciliation settled: the prior
@@ -77,6 +93,8 @@ The design states this deliberately rather than inheriting it silently.
   there. The feature proceeds.
 - **Thu Jul 30 2026 at 12:48:47 PM PT** — working location chosen at initiation: **branch
   only**.
+- **Thu Jul 30 2026 at 3:22:00 PM PT** — the remaining-collision coverage is sequenced
+  after `only:` rather than designed now or deferred past the feature.
 
 ## Design record
 
@@ -94,3 +112,4 @@ made.
 ---
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 12:48:47 PM PT
+Changed by Scott Bellware on Thu Jul 30 2026 at 3:22:00 PM PT

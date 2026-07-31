@@ -16,7 +16,7 @@ module Constant
       alias import __import_constant
     end
 
-    def self.call(origin_constant, destination_constant, except: nil, **kwargs)
+    def self.call(origin_constant, destination_constant, only: nil, except: nil, **kwargs)
       if not destination_constant.is_a?(::Module)
         destination_constant = destination_constant.class
       end
@@ -36,6 +36,20 @@ module Constant
       inherit = false
 
       import_constant_names = origin_constant.constants(inherit)
+
+      only_constant_names = Array(only)
+      only_constant_names = only_constant_names.map { |only_constant_name| only_constant_name.to_sym }
+
+      if not only_constant_names.empty?
+        undefined_constant_names = only_constant_names - import_constant_names
+
+        if not undefined_constant_names.empty?
+          undefined_constant_name = undefined_constant_names.first
+          raise Constant::Error, "#{undefined_constant_name} is not defined on #{origin_constant}"
+        end
+
+        import_constant_names = import_constant_names & only_constant_names
+      end
 
       except_constant_names = Array(except)
       except_constant_names = except_constant_names.map { |except_constant_name| except_constant_name.to_sym }
