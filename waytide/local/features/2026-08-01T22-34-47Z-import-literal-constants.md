@@ -15,7 +15,7 @@ logged when this feature concludes.
 
 ## Setup
 
-- **State:** In flight
+- **State:** Completed
 - **Upstream branch:** `master`
 - **Feature branch:** `feature/import-literal-constants`
 - **Base:** `5c6d8fc3b43142c594e4e4a07fc1efd51a7b9ef2` on `master`
@@ -71,12 +71,41 @@ test's design, with the implementation hinge degenerate.
   `import_constant.rb`.
 - **Sat Aug 1 2026 at 3:34:47 PM PT** — working location chosen at initiation: **branch
   only**.
+- **Sat Aug 1 2026 at 3:52:18 PM PT** — the feature is widened to cover the refusal side, an
+  exceptional-path file colliding a literal against a literal.
+- **Sat Aug 1 2026 at 3:52:18 PM PT** — the feature is concluded as **Completed** and
+  integrated into `master`.
+
+## Conclusion
+
+**Completed** — integrated into `master` on Sat Aug 1 2026 at 3:52:18 PM PT. The suite moves
+from **114 to 117 tests**, all passing. The library is unchanged; this is coverage.
+
+`test/automated/import_constant/literal/literal.rb` establishes that `Import`'s scope takes
+both kinds of constant. `test/automated/import_constant/literal/collision.rb` establishes
+that a colliding literal is refused — a gap none of the three existing collision tests
+reached, all of them building their destination with the control's Array form, which binds a
+module to every name.
+
+**The scope was genuinely unprotected.** Adding a `select { … .is_a?(Module) }` to the name
+set passed the whole suite before this feature. That was confirmed by adding one, watching
+the literal outcome fail while the module outcome passed, and backing it out.
+
+**The originating deferred item is deleted**, its resolution recorded at
+`waytide/local/log/2026-08-01T22-52-18Z-import-scope-takes-literal-constants.md`.
+
+**What the feature declined to test.** That a literal survives `const_set` — the platform's
+behavior, already covered by `define_constant/literal.rb` and
+`constant/module/get/literal.rb`. The distinction between that and `Import`'s scope is what
+made the feature worth doing at all, and it came from the developer's challenge to the
+premise rather than from the item as written.
 
 ## Design record
 
-Recorded in this feature's loop record under `waytide/local/loops/`, added when the first
-hinge is worked.
+Recorded in `waytide/local/loops/2026-08-01T22-52-18Z-import-literal-constants.md`, in six
+passes, written live.
 
 ---
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 3:34:47 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 3:52:18 PM PT

@@ -1,0 +1,1 @@
+# Constant::Import's scope is every constant the source owns, whatever kind — copying literal constants is intended and is covered, along with a colliding literal being refused, while the value round-trip stays the platform's and untested here
