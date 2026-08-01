@@ -1,0 +1,1 @@
+# The Import and Define test controls say control_source and control_destination — the two renaming deferred items are carried out as one pass, Controls::Script's keyword becoming source_name while the library proper keeps origin_constant

@@ -54,11 +54,9 @@ Whether the two sides should even be symmetric. The origin's `inherit: false` an
 "which constants belong to this module"; the destination's answers "which names are already
 taken here". Those are different questions and the same answer may not serve both.
 
-**Start with `2026-08-01T05-44-31Z-the-import-test-vocabulary-is-settled-first`**, which
-orders this item against the others touching the same test directory.
-
-**Gated on:** the `import-collision-refusal` feature. The change would land in the same
-method the feature is still adding `only:` to.
+**Gated on:** nothing. Both earlier gates have cleared — the `import-collision-refusal`
+feature was completed on 2026-07-30, and the test vocabulary was conformed on 2026-07-31, so
+a test added now is written as `control_source` and `control_destination` from the start.
 
 **Why:** the refusal exists so that an import cannot quietly take a name that belongs to
 something else. There is a whole class of that failure the refusal does not reach, it is
@@ -79,3 +77,4 @@ Related: `lib/constant/import.rb`, the feature record
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 3:11:13 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 10:44:31 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:13:42 PM PT

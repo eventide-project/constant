@@ -21,7 +21,7 @@ The change is behavior-neutral. The suite must hold at **114 tests**.
 
 ## Setup
 
-- **State:** In flight
+- **State:** Completed
 - **Upstream branch:** `master`
 - **Feature branch:** `feature/import-test-vocabulary`
 - **Base:** `4a508286a2fabcffc71f4c612ce6066584d575a9` on `master`
@@ -69,12 +69,45 @@ and it keeps it while gaining the `control_` prefix as an expected operand;
 
 - **Fri Jul 31 2026 at 11:09:15 PM PT** — working location chosen at initiation: **branch
   only**.
+- **Fri Jul 31 2026 at 11:14:20 PM PT** — controls are in scope wherever they live, so
+  `Controls::Script`'s keyword is renamed though it sits under `lib/`.
+- **Fri Jul 31 2026 at 11:14:20 PM PT** — the feature is concluded as **Completed** and
+  integrated into `master`.
+
+## Conclusion
+
+**Completed** — integrated into `master` on Fri Jul 31 2026 at 11:12:11 PM PT. 21 files,
+**182 insertions against 182 deletions**, line for line. The suite holds at **114 tests**,
+which is what a behavior-neutral rename requires.
+
+**Three deferred items are deleted**, their resolution recorded at
+`waytide/local/log/2026-08-01T06-12-11Z-import-test-vocabulary-is-conformed.md`:
+
+- `2026-07-30T21-28-46Z-import-test-controls-conform-to-the-suffix-rule` — carried out
+- `2026-08-01T02-57-18Z-tests-say-source-rather-than-origin` — carried out
+- `2026-08-01T05-44-31Z-the-import-test-vocabulary-is-settled-first` — the sequencing item,
+  both halves discharged: the renaming pass is done, and the two follow-on items now exist
+  as items of their own, so they will be written against the current vocabulary without
+  needing to be told.
+
+**One item is registered** that had only ever been an aside inside items now deleted:
+`2026-08-01T06-12-11Z-import-copies-literal-constants-untested`. `Constant::Import` copies a
+literal constant as readily as a module, no test exercises it, and nothing records whether
+that is intended or incidental. Both items that mentioned it have been deleted, so without
+registering it the observation would have gone with them.
+
+**One gate is cleared.** `2026-07-30T22-11-13Z-whether-an-inherited-name-collides-on-import`
+still named the `import-collision-refusal` feature, which concluded a day earlier. It is now
+ungated, and a test added to it is written in the new vocabulary from the start — which is
+what the sequencing item existed to ensure.
 
 ## Design record
 
-Recorded in this feature's loop record under `waytide/local/loops/`, added when the first
-hinge is worked.
+Recorded in `waytide/local/loops/2026-08-01T06-12-11Z-import-test-vocabulary.md`, in three
+passes, written live. Pass 3 records a mechanical failure worth keeping: BSD `sed` has no
+`\b`, so the first attempt silently renamed nothing while reporting success.
 
 ---
 
 Authored by Scott Bellware on Fri Jul 31 2026 at 11:09:15 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:14:20 PM PT
