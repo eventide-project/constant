@@ -3,28 +3,28 @@ require_relative "../../automated_init"
 context "Import Constant" do
   context "Already Included" do
     context "Alias" do
-      origin_constant = Controls::Constant.example(
-        name: "Origin",
+      control_source = Controls::Constant.example(
+        name: "Source",
         inner_constants: %w(SomeInnerConstant)
       )
 
-      destination_constant = Controls::Constant.example(name: "Destination")
-      destination_constant.include(origin_constant)
+      control_destination = Controls::Constant.example(name: "Destination")
+      control_destination.include(control_source)
 
       alias_constant_name = "SomeAliasConstant"
 
-      Constant::Import.(origin_constant, destination_constant, alias: alias_constant_name)
+      Constant::Import.(control_source, control_destination, alias: alias_constant_name)
 
-      alias_constant = destination_constant.const_get(alias_constant_name, inherit=false)
+      alias_constant = control_destination.const_get(alias_constant_name, inherit=false)
 
-      comment "Origin Constant: #{origin_constant.inspect}"
-      comment "Destination Constant: #{destination_constant.inspect}"
+      comment "Source Constant: #{control_source.inspect}"
+      comment "Destination Constant: #{control_destination.inspect}"
       comment "Alias Constant Name: #{alias_constant_name.inspect}"
       comment "Alias Constant: #{alias_constant.inspect}"
       comment "Alias Constants: #{alias_constant.constants(inherit=false).inspect}"
 
       context "Alias constant is defined" do
-        defined = destination_constant.const_defined?(alias_constant_name, inherit=false)
+        defined = control_destination.const_defined?(alias_constant_name, inherit=false)
 
         detail "Defined: #{defined}"
 

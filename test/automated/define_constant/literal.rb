@@ -2,12 +2,12 @@ require_relative "../automated_init"
 
 context "Define Constant" do
   context "Literal" do
-    destination_constant = Controls::Constant.example
+    control_destination = Controls::Constant.example
 
     constant_name = "SomeConstant"
     constant_value = "some string"
 
-    defined_constant = Constant::Define.(constant_name, destination_constant, constant_value)
+    defined_constant = Constant::Define.(constant_name, control_destination, constant_value)
 
     comment "Constant Name: #{constant_name.inspect}"
     comment "Constant Value: #{constant_value.inspect}"

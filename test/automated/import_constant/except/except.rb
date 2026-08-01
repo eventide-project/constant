@@ -10,41 +10,41 @@ context "Import Constant" do
       control_imported_constant_name
     ]
 
-    origin_constant = Controls::Constant.example(
-      name: "Origin",
+    control_source = Controls::Constant.example(
+      name: "Source",
       inner_constants: control_inner_constant_names
     )
 
-    destination_constant = Controls::Constant.example(
+    control_destination = Controls::Constant.example(
       name: "Destination",
       inner_constants: [control_excluded_constant_name]
     )
 
-    control_origin_inner_constant = origin_constant.const_get(control_excluded_constant_name, false)
+    control_source_inner = control_source.const_get(control_excluded_constant_name, false)
 
-    comment "Origin Constant: #{origin_constant.inspect}"
-    comment "\tOrigin Inner Constant Names: #{origin_constant.constants(false).sort.inspect}"
-    comment "Destination Constant: #{destination_constant.inspect}"
-    comment "\tDestination Inner Constant Names: #{destination_constant.constants(false).sort.inspect}"
+    comment "Source Constant: #{control_source.inspect}"
+    comment "\tSource Inner Constant Names: #{control_source.constants(false).sort.inspect}"
+    comment "Destination Constant: #{control_destination.inspect}"
+    comment "\tDestination Inner Constant Names: #{control_destination.constants(false).sort.inspect}"
     comment "Excluded Constant Name: #{control_excluded_constant_name.inspect}"
-    comment "Origin Inner Constant: #{control_origin_inner_constant.inspect}"
+    comment "Source Inner Constant: #{control_source_inner.inspect}"
 
     refute_raises do
-      Constant::Import.(origin_constant, destination_constant, except: control_excluded_constant_name)
+      Constant::Import.(control_source, control_destination, except: control_excluded_constant_name)
     end
 
     context "Excluded constant is not imported" do
-      destination_inner_constant = destination_constant.const_get(control_excluded_constant_name, false)
+      destination_inner_constant = control_destination.const_get(control_excluded_constant_name, false)
 
       detail "Destination Inner Constant: #{destination_inner_constant.inspect}"
 
       test do
-        refute(destination_inner_constant == control_origin_inner_constant)
+        refute(destination_inner_constant == control_source_inner)
       end
     end
 
     context "Constants that are not excluded are imported" do
-      defined = destination_constant.const_defined?(control_imported_constant_name, false)
+      defined = control_destination.const_defined?(control_imported_constant_name, false)
 
       detail "Defined: #{defined.inspect}"
 

@@ -2,36 +2,36 @@ require_relative "../automated_init"
 
 context "Import Constant" do
   context "Alias" do
-    destination_constant = Controls::Constant.example(name: "Destination")
+    control_destination = Controls::Constant.example(name: "Destination")
 
     control_inner_constant_names = %w(
       SomeInnerConstant
       SomeOtherInnerConstant
     )
 
-    origin_constant = Controls::Constant.example(
-      name: "Origin",
+    control_source = Controls::Constant.example(
+      name: "Source",
       inner_constants: control_inner_constant_names
     )
 
     alias_constant_name = "SomeAliasConstant"
 
-    returned_constants = Constant::Import.(origin_constant, destination_constant, alias: alias_constant_name)
+    returned_constants = Constant::Import.(control_source, control_destination, alias: alias_constant_name)
 
-    alias_constant = destination_constant.const_get(alias_constant_name, inherit=true)
+    alias_constant = control_destination.const_get(alias_constant_name, inherit=true)
 
     comment "Control Inner Constant Names: #{control_inner_constant_names.inspect}"
-    comment "Origin Constant: #{origin_constant.inspect}"
-    comment "\tOrigin Inner Constant Names: #{origin_constant.constants(false).sort.inspect}"
-    comment "Destination Constant: #{destination_constant.inspect}"
+    comment "Source Constant: #{control_source.inspect}"
+    comment "\tSource Inner Constant Names: #{control_source.constants(false).sort.inspect}"
+    comment "Destination Constant: #{control_destination.inspect}"
     comment "Alias Constant Name: #{alias_constant_name.inspect}"
     comment "Alias Constant: #{alias_constant.inspect}"
     comment "Returned Constants: #{returned_constants.inspect}"
 
     context "Alias constant is defined" do
-      control_alias_constant_name = "#{destination_constant.name}::#{alias_constant_name}"
+      control_alias_constant_name = "#{control_destination.name}::#{alias_constant_name}"
 
-      defined = destination_constant.const_defined?(alias_constant_name, inherit=false)
+      defined = control_destination.const_defined?(alias_constant_name, inherit=false)
 
       comment "Control Alias Constant Name: #{control_alias_constant_name}"
       detail "Defined: #{defined}"
@@ -46,7 +46,7 @@ context "Import Constant" do
         context inner_constant_name.inspect do
           defined_constant = alias_constant.const_get(inner_constant_name, inherit=false)
 
-          control_inner_constant_name = "#{origin_constant.name}::#{inner_constant_name}"
+          control_inner_constant_name = "#{control_source.name}::#{inner_constant_name}"
 
           comment "Control Inner Constant Name: #{control_inner_constant_name.inspect}"
           comment "Defined Constant: #{defined_constant.inspect}"
@@ -65,7 +65,7 @@ context "Import Constant" do
     context "Imported constants are resolvable via destination" do
       control_inner_constant_names.each do |inner_constant_name|
         context inner_constant_name.inspect do
-          control_inner_constant_name = "#{destination_constant.name}::#{alias_constant.name.split("::").last}::#{inner_constant_name}"
+          control_inner_constant_name = "#{control_destination.name}::#{alias_constant.name.split("::").last}::#{inner_constant_name}"
 
           imported_constant = Object.const_get(control_inner_constant_name)
 
@@ -86,7 +86,7 @@ context "Import Constant" do
         context inner_constant_name.inspect do
           imported_constant = alias_constant.const_get(inner_constant_name, inherit=false)
 
-          control_inner_constant_name = "#{origin_constant.name}::#{inner_constant_name}"
+          control_inner_constant_name = "#{control_source.name}::#{inner_constant_name}"
 
           returned_constant = returned_constants.find do |constant|
             constant.name == control_inner_constant_name
@@ -110,7 +110,7 @@ context "Import Constant" do
     context "Imported constants are not defined in the destination's root namespace" do
       control_inner_constant_names.each do |inner_constant_name|
         context inner_constant_name.inspect do
-          defined = destination_constant.const_defined?(inner_constant_name, false)
+          defined = control_destination.const_defined?(inner_constant_name, false)
 
           detail "Defined: #{defined.inspect}"
 
@@ -121,12 +121,12 @@ context "Import Constant" do
       end
     end
 
-    context "Origin constant is not included into destination constant" do
-      destination_ancestors = destination_constant.ancestors
+    context "Source constant is not included into destination constant" do
+      destination_ancestors = control_destination.ancestors
 
       comment "Destination Ancestors: #{destination_ancestors.inspect}"
 
-      included = destination_ancestors.include?(origin_constant)
+      included = destination_ancestors.include?(control_source)
 
       test do
         refute(included)

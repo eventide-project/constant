@@ -5,8 +5,8 @@ context "Import Constant" do
     context "Instance" do
       control_inner_constant_name = "SomeInnerConstant"
 
-      origin_constant = Controls::Constant.example(
-        name: "Origin",
+      control_source = Controls::Constant.example(
+        name: "Source",
         inner_constants: [control_inner_constant_name]
       )
 
@@ -16,18 +16,18 @@ context "Import Constant" do
 
       using Constant::Import
 
-      control_destination_object.import(origin_constant)
+      control_destination_object.import(control_source)
 
       imported_constant = Constant.get(control_inner_constant_name, control_destination_class)
-      origin_inner_constant = Constant.get(control_inner_constant_name, origin_constant)
+      control_source_inner_constant = Constant.get(control_inner_constant_name, control_source)
 
-      comment "Origin Constant: #{origin_constant.inspect}"
+      comment "Source Constant: #{control_source.inspect}"
       comment "Destination Class: #{control_destination_class.inspect}"
       comment "Imported Constant: #{imported_constant.inspect}"
-      comment "Origin Inner Constant: #{origin_inner_constant.inspect}"
+      comment "Source Inner Constant: #{control_source_inner_constant.inspect}"
 
-      test "Is the origin's inner constant" do
-        assert(imported_constant == origin_inner_constant)
+      test "Is the source's inner constant" do
+        assert(imported_constant == control_source_inner_constant)
       end
     end
   end

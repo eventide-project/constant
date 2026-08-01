@@ -11,25 +11,25 @@ context "Import Constant" do
 
     control_inner_constant_names = control_imported_constant_names + [control_omitted_constant_name]
 
-    origin_constant = Controls::Constant.example(
-      name: "Origin",
+    control_source = Controls::Constant.example(
+      name: "Source",
       inner_constants: control_inner_constant_names
     )
 
-    destination_constant = Controls::Constant.example(name: "Destination")
+    control_destination = Controls::Constant.example(name: "Destination")
 
-    comment "Origin Constant: #{origin_constant.inspect}"
-    comment "\tOrigin Inner Constant Names: #{origin_constant.constants(false).sort.inspect}"
-    comment "Destination Constant: #{destination_constant.inspect}"
+    comment "Source Constant: #{control_source.inspect}"
+    comment "\tSource Inner Constant Names: #{control_source.constants(false).sort.inspect}"
+    comment "Destination Constant: #{control_destination.inspect}"
     comment "Imported Constant Names: #{control_imported_constant_names.inspect}"
     comment "Omitted Constant Name: #{control_omitted_constant_name.inspect}"
 
     refute_raises do
-      Constant::Import.(origin_constant, destination_constant, only: control_imported_constant_names)
+      Constant::Import.(control_source, control_destination, only: control_imported_constant_names)
     end
 
     context "Constants that are not included in the only: list are not imported" do
-      defined = destination_constant.const_defined?(control_omitted_constant_name, false)
+      defined = control_destination.const_defined?(control_omitted_constant_name, false)
 
       detail "Defined: #{defined.inspect}"
 
@@ -41,7 +41,7 @@ context "Import Constant" do
     context "Constants in the only: list are imported" do
       control_imported_constant_names.each do |imported_constant_name|
         context imported_constant_name.inspect do
-          defined = destination_constant.const_defined?(imported_constant_name, false)
+          defined = control_destination.const_defined?(imported_constant_name, false)
 
           detail "Defined: #{defined.inspect}"
 

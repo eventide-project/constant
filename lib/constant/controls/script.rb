@@ -3,8 +3,8 @@ require "open3"
 module Constant
   module Controls
     module Script
-      def self.top_level_import(origin_name: nil, inner_constants: nil)
-        origin_name ||= "SomeOrigin"
+      def self.top_level_import(source_name: nil, inner_constants: nil)
+        source_name ||= "SomeSource"
         inner_constants ||= ["SomeInnerConstant"]
 
         inner_constant_definitions = inner_constants.map do |inner_constant_name|
@@ -21,13 +21,13 @@ module Constant
         source = <<~RUBY
           require "constant"
 
-          module #{origin_name}
+          module #{source_name}
           #{definitions}
           end
 
           include Constant::Import
 
-          import #{origin_name}
+          import #{source_name}
 
           #{resolutions}
         RUBY
@@ -35,8 +35,8 @@ module Constant
         Example.new(source)
       end
 
-      def self.top_level_refinement_import(origin_name: nil, inner_constants: nil)
-        origin_name ||= "SomeOrigin"
+      def self.top_level_refinement_import(source_name: nil, inner_constants: nil)
+        source_name ||= "SomeSource"
         inner_constants ||= ["SomeInnerConstant"]
 
         inner_constant_definitions = inner_constants.map do |inner_constant_name|
@@ -53,13 +53,13 @@ module Constant
         source = <<~RUBY
           require "constant"
 
-          module #{origin_name}
+          module #{source_name}
           #{definitions}
           end
 
           using Constant::Import
 
-          import #{origin_name}
+          import #{source_name}
 
           #{resolutions}
         RUBY
