@@ -17,7 +17,7 @@ logged when this feature concludes.
 
 ## Setup
 
-- **State:** In flight
+- **State:** Completed
 - **Upstream branch:** `master`
 - **Feature branch:** `feature/import-shadow-inherited`
 - **Base:** `03cff1222077b907ec64edf6075349fd6b5aa811` on `master`
@@ -62,12 +62,51 @@ destination that reaches a colliding name through an ancestor.
 
 - **Sat Aug 1 2026 at 4:01:47 PM PT** — working location chosen at initiation: **branch
   only**.
+- **Sat Aug 1 2026 at 4:20:07 PM PT** — *inherited* means whatever Ruby calls an ancestor,
+  so a class destination also refuses names `Object` defines.
+- **Sat Aug 1 2026 at 4:20:07 PM PT** — an inherited collision raises its own message,
+  naming the ancestor.
+- **Sat Aug 1 2026 at 4:20:07 PM PT** — the feature is concluded as **Completed** and
+  integrated into `master`.
+
+## Conclusion
+
+**Completed** — integrated into `master` on Sat Aug 1 2026 at 4:20:07 PM PT. The suite moves
+from **117 to 119 tests**, all passing.
+
+**The settled design held; its stated mechanism did not.** The deferred item said the change
+was that "the second argument to `const_defined?` changes". Checked before building, that
+turns out to be unbuildable: `const_defined?(name, true)` does not only search ancestors but
+falls back to top-level constants, so `Module.new.const_defined?(:String, true)` is true. A
+check written that way would have refused importing any constant whose name matches anything
+at top level — and `Object` defines `Log`, so `import EnvVar` into any module would have been
+refused. **The fix would have broken the case the refusal exists for.**
+
+The check walks `target.ancestors` instead. That list leads with the target itself, so one
+search covers the direct and inherited cases, and `equal?(target)` tells them apart for the
+message. *Inherited* was settled as **whatever Ruby calls an ancestor**, so a class
+destination — reachable through the refinement on an instance — also refuses names `Object`
+defines.
+
+An inherited collision raises its own message, naming the ancestor the constant is actually
+defined on rather than claiming it is on the destination.
+
+**Designed with a contained red**, confirmed rather than assumed: running before implementing
+gave exactly one failure, in the new collision file, every stable test passing. The
+permitting file was green on arrival, because `**kwargs` swallows an unrecognized keyword —
+so it covers the opt-in rather than driving it, which is the standing cost of keeping
+`**kwargs` for `alias`.
+
+**The originating deferred item is deleted**, its resolution recorded at
+`waytide/local/log/2026-08-01T23-20-07Z-inherited-name-collides-on-import.md`. It was the
+last item in the queue, which is now empty.
 
 ## Design record
 
-Recorded in this feature's loop record under `waytide/local/loops/`, added when the first
-hinge is worked.
+Recorded in `waytide/local/loops/2026-08-01T23-20-07Z-import-shadow-inherited.md`, in seven
+passes, written live.
 
 ---
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 4:01:47 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 4:20:07 PM PT

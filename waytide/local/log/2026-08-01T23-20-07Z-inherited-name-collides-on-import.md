@@ -1,0 +1,1 @@
+# A name the destination inherits collides on import unless shadow_inherited is given, defaulting to false — the check walks target.ancestors rather than flipping const_defined?'s inherit argument, which would have reached Object and refused any name defined at top level
