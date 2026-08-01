@@ -10,23 +10,52 @@ target so the two renaming items are carried out as one pass rather than two.
 
 ## The target vocabulary
 
-| Now | Becomes |
-|---|---|
-| `origin_constant` | `control_source` |
-| `destination_constant` | `control_destination` |
-| `origin_inner_constant` | `control_source_inner` |
-| `control_origin_name` | `control_source_name` |
-| `control_origin_inner_constant` | `control_source_inner` |
-| `origin_name` | `control_source_name` |
-| `name: "Origin"` | `name: "Source"` |
-| `"SomeOrigin"` | `"SomeSource"` |
-| the five `context` / `test` titles saying *origin* | *source* |
+Confirmed against the suffix rule on 2026-07-31 by reading what each variable is assigned
+from. The first table this item carried was wrong on two rows and is corrected here.
+
+| Now | Becomes | Holds |
+|---|---|---|
+| `origin_constant` | `control_source` | a raw `Module` |
+| `destination_constant` | `control_destination` | a raw `Module` |
+| `origin_inner_constant` | `control_source_inner_constant` | a **`Constant` instance** |
+| `control_origin_inner_constant` | `control_source_inner` | a raw `Module` |
+| `control_origin_name` | `control_source_name` | a `String` |
+| `name: "Origin"` | `name: "Source"` | the control's example-module name |
+| `"SomeOrigin"` | `"SomeSource"` | a control string value |
+| the five `context` / `test` titles saying *origin* | *source* | |
+
+**The two `_inner` rows are not the same variable and do not collapse to one name.**
+`origin_inner_constant` (`instance.rb:27`, `refinement/instance.rb:22`) is assigned from
+`Constant.get(…)`, so it holds a `Constant` instance and the `_constant` suffix is
+**correct** — it keeps it, and gains the `control_` prefix as an expected operand.
+`control_origin_inner_constant` (`except/except.rb:23`) is assigned from
+`origin_constant.const_get(…)`, so it holds a raw module and the `_constant` suffix is
+**wrong** — it goes bare. Mapping both to one name, as the first table did, would have
+collided them and stripped a correct suffix from two `Constant` instances.
 
 `destination` is unchanged — settled 2026-07-31, recorded in the source item. The
 `control_` prefix and the bare form come from the suffix rule; the word comes from the
-source item. The `_inner` rows follow the suffix rule's treatment of a raw module and should
-be confirmed against it when the pass is written, since neither existing item spells them
-out.
+source item.
+
+## `origin_name` is a control's keyword, not a test variable — and it is in scope
+
+The single `origin_name` in the tests (`refinement/top_level.rb:14`) is a keyword argument
+passed to a control, not a local. The parameter belongs to
+`lib/constant/controls/script.rb`:
+
+```
+top_level_import(origin_name: nil, …)
+top_level_refinement_import(origin_name: nil, …)
+```
+
+Both default it to `"SomeOrigin"` and interpolate it into the Ruby they generate — 8
+occurrences, the whole of `origin` under `lib/` outside the library proper.
+
+**Settled 2026-07-31: controls are in scope wherever they live.** The keyword becomes
+`source_name:` and the default becomes `"SomeSource"`. The source item's "`lib/` keeps
+`origin`" is narrowed accordingly: it means the **library proper** —
+`lib/constant/import.rb` and `lib/constant/import/macro.rb`, 11 occurrences of
+`origin_constant`, including `Import.call`'s own parameter — which is untouched.
 
 ## The order
 
@@ -80,3 +109,4 @@ namespace-variable-suffix rule, and the testing package's `control_` prefix rule
 ---
 
 Authored by Scott Bellware on Fri Jul 31 2026 at 10:44:31 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:06:34 PM PT
