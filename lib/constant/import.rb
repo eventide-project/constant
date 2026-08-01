@@ -16,7 +16,9 @@ module Constant
       alias import __import_constant
     end
 
-    def self.call(origin_constant, destination_constant, only: nil, except: nil, **kwargs)
+    def self.call(origin_constant, destination_constant, only: nil, except: nil, shadow_inherited: nil, **kwargs)
+      shadow_inherited ||= false
+
       if not destination_constant.is_a?(::Module)
         destination_constant = destination_constant.class
       end
@@ -63,10 +65,26 @@ module Constant
 
       import_constant_names = import_constant_names - except_constant_names
 
+      if shadow_inherited
+        collision_constants = [target]
+      else
+        collision_constants = target.ancestors
+      end
+
       import_constant_names.each do |import_constant_name|
-        if target.const_defined?(import_constant_name, false)
+        defining_constant = collision_constants.find do |collision_constant|
+          collision_constant.const_defined?(import_constant_name, false)
+        end
+
+        if defining_constant.nil?
+          next
+        end
+
+        if defining_constant.equal?(target)
           raise Constant::Error, "#{import_constant_name} is already defined on #{target} (imported from #{origin_constant})"
         end
+
+        raise Constant::Error, "#{import_constant_name} is inherited by #{target} from #{defining_constant} (imported from #{origin_constant})"
       end
 
       imported_constants = import_constant_names.map do |import_constant_name|
