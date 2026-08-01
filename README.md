@@ -69,7 +69,7 @@ SomeDestination::SomeClass.new
 #### Macro
 
 ```ruby
-self.import(origin_constant, alias: nil)
+self.import(origin_constant, only: nil, except: nil, shadow_inherited: nil, alias: nil)
 ```
 
 ```ruby
@@ -88,15 +88,34 @@ If an optional alias is used, the imported constants will be accessed via the al
 import SomeOrigin::SomeInnerModule, alias: :SomeModule
 ```
 
+An import names an origin constant rather than a list of names, so the constants it assigns are whatever the origin happens to own. The `except` and `only` keywords narrow that set. `except` omits the names it is given; `only` declares the imported surface outright, so a constant added to the origin later cannot silently appear at the destination.
+
+```ruby
+import SomeOrigin, except: :SomeInnerModule
+
+import SomeOrigin, only: [:SomeInnerModule, :SomeOtherInnerModule]
+```
+
+Either takes a single name or a list, as a String or a Symbol. The two are not interchangeable in what they tolerate: a name given to `except` that the origin does not own is simply not there to omit, while a name given to `only` that the origin does not own raises — a caller who names a constant and does not receive it has been told nothing. A name given to both raises.
+
+A name already defined on the destination raises rather than being replaced, and so does a name the destination reaches through one of its ancestors. `shadow_inherited` permits the inherited case:
+
+```ruby
+import SomeOrigin, shadow_inherited: true
+```
+
 **Returns**
 
-The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace. Raises `Constant::Error` when a name is already defined on the destination constant or reached through one of its ancestors, when a name given to `only` is not defined on the origin constant, or when a name is given to both `only` and `except`.
 
 **Parameters**
 
 | Name | Description | Type |
 | --- | --- | --- |
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
+| only | The names to import, declaring the imported surface rather than inferring it from the origin constant; a name not defined on the origin constant raises | String, Symbol, or Array |
+| except | The names to omit from the import | String, Symbol, or Array |
+| shadow_inherited | Whether the import may shadow a name the destination constant reaches through an ancestor; defaults to `false` | Boolean |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
 ##### Top Level
@@ -140,7 +159,7 @@ The `import` macro is a convenience alias for `__import_constant`. The `__import
 #### API
 
 ```ruby
-self.call(origin_constant, destination_constant, alias: nil)
+self.call(origin_constant, destination_constant, only: nil, except: nil, shadow_inherited: nil, alias: nil)
 ```
 
 ```ruby
@@ -155,9 +174,25 @@ If an optional alias is used, the imported constants will be accessed via the al
 Constant::Import.(SomeOrigin::SomeInnerModule, self, alias: :SomeModule)
 ```
 
+The `except` and `only` keywords narrow the set of constants the import assigns — `except` omitting the names it is given, `only` declaring the imported surface outright:
+
+```ruby
+Constant::Import.(SomeOrigin, self, except: :SomeInnerModule)
+
+Constant::Import.(SomeOrigin, self, only: [:SomeInnerModule, :SomeOtherInnerModule])
+```
+
+Either takes a single name or a list, as a String or a Symbol. A name given to `only` that the origin constant does not own raises; a name given to `except` that it does not own is simply not there to omit. A name given to both raises.
+
+A name already defined on the destination constant raises rather than being replaced. So does a name the destination constant reaches through one of its ancestors — Ruby emits no warning when an assignment shadows an inherited constant, so nothing else would report it. `shadow_inherited` permits that case:
+
+```ruby
+Constant::Import.(SomeOrigin, self, shadow_inherited: true)
+```
+
 **Returns**
 
-The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace. Raises `Constant::Error` when a name is already defined on the destination constant or reached through one of its ancestors, when a name given to `only` is not defined on the origin constant, or when a name is given to both `only` and `except`.
 
 **Parameters**
 
@@ -165,6 +200,9 @@ The list of constants nested in the origin constant that have been made availabl
 | --- | --- | --- |
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
 | destination_constant | The constant whose namespace will be able to access the imported origin constant's namespace without fully qualifying it. An object that is not a module or class imports into its class | Module, Class, or Object |
+| only | The names to import, declaring the imported surface rather than inferring it from the origin constant; a name not defined on the origin constant raises | String, Symbol, or Array |
+| except | The names to omit from the import | String, Symbol, or Array |
+| shadow_inherited | Whether the import may shadow a name the destination constant reaches through an ancestor; defaults to `false` | Boolean |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
 
 ## The Constant Class
