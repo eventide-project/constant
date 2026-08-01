@@ -88,23 +88,39 @@ currently passes a bare literal:
 if target.const_defined?(import_constant_name, false)
 ```
 
-**The default is open, and the earlier argument for it no longer applies.** While the
-parameter was called `inherit`, `false` looked like plain consistency — every other
-`inherit` in the library defaults to `false`. That argument does not survive the rename:
-`shadow_inherited` asks a different question with the opposite polarity.
+**The default is `false` — settled 2026-07-31.** An inherited name collides unless the
+caller says otherwise.
 
+- `shadow_inherited: false`, the default, makes an inherited name **collide**.
 - `shadow_inherited: true` is **today's behavior** — the import shadows an inherited name
   silently.
-- `shadow_inherited: false` makes an inherited name **collide**, which is a change.
 
-So the default decides whether adding the parameter preserves current behavior or changes
-it, and neither value can claim consistency with the rest of the library.
+**So adding the parameter changes behavior.** That is deliberate, and it is the whole point:
+today's silent shadowing is the case with **no diagnostic of any kind** — Ruby does not warn
+when an assignment shadows an inherited constant, so the library's refusal is the only
+signal there can be. Defaulting to `true` would have left that case protected only for a
+caller who already suspected it, which is the caller who least needs protecting.
 
-## What is not settled
+The cost is real and is accepted: shadowing an inherited constant is an ordinary Ruby
+pattern, often intentional, and it now has to be asked for. The parameter is what makes that
+affordable — the behavior is refused, not removed.
 
-Whether the two sides should even be symmetric. The origin's `inherit: false` answers
-"which constants belong to this module"; the destination's answers "which names are already
-taken here". Those are different questions and the same answer may not serve both.
+The earlier argument for `false` does **not** apply and should not be cited. While the
+parameter was called `inherit`, `false` looked like consistency with the library's seven
+other `inherit` keywords. `shadow_inherited` has the opposite polarity, so that reading is
+void; `false` is chosen here on its own merits.
+
+## The symmetry argument, answered
+
+The case for leaving it rested on symmetry — the source's `inherit` is fixed to `false`, so
+fixing the destination's the same way made the two agree. **That is now deliberately given
+up.** The two sides answer different questions: the source's asks "which constants belong to
+this module", the destination's asks "which names are already taken here". Symmetry between
+them was a resemblance, not a reason, and the destination side is where the silent failure
+lives.
+
+The source side is untouched and keeps its hard-coded `inherit = false`. Whether it should
+become a parameter too is a separate question, not raised here.
 
 **Gated on:** nothing. Both earlier gates have cleared — the `import-collision-refusal`
 feature was completed on 2026-07-30, and the test vocabulary was conformed on 2026-07-31, so
@@ -116,16 +132,15 @@ the class with no diagnostic of any kind, and nothing in the suite records which
 was intended. Whichever way it is settled, it should be settled deliberately and covered,
 rather than left as a consequence of an argument nobody weighed.
 
-**How to apply:** decide first whether the answer is **fixed or given to the caller**. If
-fixed, decide which way and change the second argument to `const_defined?` if an inherited
-name is to collide. If given to the caller, add `shadow_inherited:` — the name is settled —
-and settle its **default**, which decides whether the change preserves today's behavior
-(`true`) or alters it (`false`); no consistency argument reaches it either way. Default it
-to `nil` in the signature and coalesce in the body, per the optional-params rule. Either
-way, answer the source-side symmetry argument in the record, and cover the decision with a
-test whose destination reaches the colliding name through an ancestor rather than defining
-it — covering both values where the parameter exists. Then delete this file and record an
-entry in `waytide/local/log/`. Related: `lib/constant/import.rb`, `lib/constant/module.rb`
+**How to apply:** the design is settled — add `shadow_inherited:` to
+`Constant::Import.call`, defaulting to `nil` in the signature and coalescing to `false` in
+the body per the optional-params rule, and make the destination check consult it in place of
+its bare `false` literal. Answer the source-side symmetry argument in the record: the source
+keeps its own `inherit` local, so the two sides no longer agree, and that is now a stated
+choice rather than an accident. Cover both values with a test whose destination reaches the
+colliding name through an ancestor rather than defining it — the refusal under the default,
+and the shadowing when it is asked for. Then delete this file and record an entry in
+`waytide/local/log/`. Related: `lib/constant/import.rb`, `lib/constant/module.rb`
 and `lib/constant/constant.rb` (where `inherit` means the other thing), the
 optional-params-default-in-body rule, the feature record
 `2026-07-30T19-48-47Z-import-collision-refusal.md`, and
@@ -138,3 +153,4 @@ Changed by Scott Bellware on Fri Jul 31 2026 at 10:44:31 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:13:42 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:34:16 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:40:43 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:44:42 PM PT
