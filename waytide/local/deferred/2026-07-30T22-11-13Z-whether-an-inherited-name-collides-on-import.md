@@ -3,7 +3,9 @@
 `Constant::Import`'s collision refusal calls `target.const_defined?(import_constant_name,
 false)`. The `false` restricts the test to names defined **directly** on the destination,
 so a name the destination reaches through an ancestor does not collide, and the import
-shadows it. Whether that is right is undecided, and it is untested either way.
+shadows it. **The design is settled and the work is not done:** an inherited name is to
+collide, controlled by a `shadow_inherited` parameter defaulting to `false`. It remains
+untested and unbuilt.
 
 ## What happens now
 
@@ -57,7 +59,7 @@ naming whether the import may shadow a constant the destination reaches through 
 import EnvVar, shadow_inherited: false
 ```
 
-Proposed 2026-07-31. The name was settled at the same time; the default was not.
+Proposed, named, and defaulted on 2026-07-31.
 
 **It is not called `inherit`, and that was deliberate.** `inherit:` is already a keyword on
 seven methods across the library — `Constant.get`, `Constant.defined?`, `Constant()`, and
@@ -127,10 +129,10 @@ feature was completed on 2026-07-30, and the test vocabulary was conformed on 20
 a test added now is written as `control_source` and `control_destination` from the start.
 
 **Why:** the refusal exists so that an import cannot quietly take a name that belongs to
-something else. There is a whole class of that failure the refusal does not reach, it is
-the class with no diagnostic of any kind, and nothing in the suite records which behavior
-was intended. Whichever way it is settled, it should be settled deliberately and covered,
-rather than left as a consequence of an argument nobody weighed.
+something else. There is a whole class of that failure the refusal does not reach, and it is
+the class with no diagnostic of any kind — not even Ruby's warning. That class is now
+refused by default, deliberately rather than as a consequence of an argument nobody
+weighed.
 
 **How to apply:** the design is settled — add `shadow_inherited:` to
 `Constant::Import.call`, defaulting to `nil` in the signature and coalescing to `false` in
@@ -154,3 +156,4 @@ Changed by Scott Bellware on Fri Jul 31 2026 at 11:13:42 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:34:16 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:40:43 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:44:42 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:45:23 PM PT
