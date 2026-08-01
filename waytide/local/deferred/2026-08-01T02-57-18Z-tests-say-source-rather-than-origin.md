@@ -52,13 +52,25 @@ three test names would keep saying *origin* beside a variable saying *source*.
   through `Controls::Script`. It becomes `"SomeSource"`, keeping the "some" prefix the
   control-string convention requires.
 
-## What this still does not settle
+## `destination` stays — settled 2026-07-31
 
-**Whether `Destination` follows.** `origin` and `destination` are a pair — 14
-`name: "Destination"` occurrences against the 16 for `"Origin"`, and
-`destination_constant` throughout. Renaming one and not the other leaves a pair whose halves
-come from different vocabularies. Nothing here proposes renaming `destination`; the question
-is simply not answered.
+`origin` and `destination` are a pair, so renaming one raised the question of the other. It
+is answered: **`destination` is unchanged**, in identifiers, titles, and strings alike.
+
+`origin` earned the rename for a reason `destination` does not share — `origin` is the
+conventional name of a git remote, so the word carries that association wherever it appears
+in a repository. `destination` carries no competing meaning here. The resulting pair,
+`source`/`destination`, is the more conventional of the two, not the less.
+
+**`target` was considered and is unavailable.** `Constant::Import.call` already uses it for
+a narrower thing — the module the assignments actually land on, which is the alias module
+when `alias:` is given and the destination otherwise (`lib/constant/import.rb`, lines 30–34).
+Renaming `destination` to `target` would collapse a distinction the method depends on.
+`recipient` is literal and free of collisions but buys nothing over `destination`; `host` and
+`sink` are metaphors, which `name-literally-not-by-analogy` argues against.
+
+Nothing in this item touches `destination_constant` (86 occurrences),
+`name: "Destination"` (14), or the `destination`-named locals around them.
 
 ## The overlap with the test-controls conformance item
 
@@ -84,10 +96,10 @@ imported from. The tests are where the word is read most often, being the only p
 pairing with `destination` is set up explicitly.
 
 **How to apply:** settle first whether this and the test-controls item run as one pass with
-`control_source` as the target, or whether one supersedes the other, and decide whether
-`destination` follows — the one question still open. Then rename the identifiers, the five
-`context` and `test` titles, and the `"Origin"` and `"SomeOrigin"` strings together, so the
-suite does not end up half-conformed. Run the suite to confirm the rename is
+`control_source` as the target, or whether one supersedes the other — the one thing left to
+decide. Then rename the identifiers, the five `context` and `test` titles, and the
+`"Origin"` and `"SomeOrigin"` strings together, so the suite does not end up half-conformed.
+Leave every `destination` alone. Run the suite to confirm the rename is
 behavior-neutral; the count must not move. Then delete this file and record an entry in
 `waytide/local/log/`. Related: the deferred item
 `2026-07-30T21-28-46Z-import-test-controls-conform-to-the-suffix-rule`, the local
@@ -96,4 +108,5 @@ namespace-variable-suffix rule, and the testing package's `control_` prefix rule
 ---
 
 Authored by Scott Bellware on Fri Jul 31 2026 at 7:57:18 PM PT
-Changed by Scott Bellware on Fri Jul 31 2026 at 8:11:04 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:05:52 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:10:57 PM PT

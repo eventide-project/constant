@@ -68,8 +68,9 @@ Whichever is taken up first carries out both, and both files are then deleted to
 
 That item reaches further than the identifiers this one covers: the five `context` and
 `test` titles carrying the word, and the `"Origin"` and `"SomeOrigin"` strings given to the
-control. One question is open there — whether `destination` follows. All of it is settled
-there, not here.
+control. It also settles that **`destination` does not change** — so this item's
+`control_destination` stands as written, and only its `control_origin` becomes
+`control_source`.
 
 ## A second item, unresolved, found alongside it
 
@@ -103,4 +104,5 @@ and the feature record `2026-07-30T19-48-47Z-import-collision-refusal.md`.
 Authored by Scott Bellware on Thu Jul 30 2026 at 2:28:46 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 2:41:07 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:02:19 PM PT
-Changed by Scott Bellware on Fri Jul 31 2026 at 8:11:04 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:05:52 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:10:57 PM PT
