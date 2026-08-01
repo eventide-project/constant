@@ -127,7 +127,7 @@ which is silent today and untested; and renaming the nine `"Is an error"` tests 
 `"Fails"`. The last two overlap on `already_included.rb` and `alias.rb`.
 
 **One convention was stated and deliberately not recorded here** — that a feature's normal
-path and its exception paths belong in separate test files. It was applied throughout and
+path and its exceptional paths belong in separate test files. It was applied throughout and
 printed in Waytide rule format for placement in the testing package rather than in this
 project's local rules.
 
@@ -157,3 +157,4 @@ Changed by Scott Bellware on Thu Jul 30 2026 at 3:22:00 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 4:02:18 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 6:11:37 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 6:14:17 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 10:54:04 PM PT

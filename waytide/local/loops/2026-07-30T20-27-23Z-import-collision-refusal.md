@@ -258,11 +258,11 @@ was surfaced rather than left, and the developer chose to **cover it as coverage
 than back it out and design it — green on arrival, which is correct when protecting
 behavior rather than designing it (see the `tdd-designs-coverage-protects` rule). Its
 placement was gated — `only/undefined.rb` beside `only/only.rb`, the normal path and the
-exception path in separate files — and its controls were gated to the minimal form,
+exceptional path in separate files — and its controls were gated to the minimal form,
 `only:` listing the undefined name alone.
 
 **A convention was stated during this pass and not recorded.** The developer stated that a
-feature's normal path and its exception paths belong in separate test files. It was applied
+feature's normal path and its exceptional paths belong in separate test files. It was applied
 here and printed in Waytide rule format for the developer to place in the testing package
 themselves, rather than written into this project.
 
@@ -276,7 +276,7 @@ let either keyword disable the check outright, would have passed the whole suite
 `only:` so both keywords' identical cases are done together.
 
 **Decision / chat** — **sequenced after `only:`**, then built as `except/collision.rb` and
-`only/collision.rb`. `except.rb` moved into a folder to take its exception-path file.
+`only/collision.rb`. `except.rb` moved into a folder to take its exceptional-path file.
 
 ## Pass 17 — naming
 
@@ -328,3 +328,4 @@ the feature began.
 
 Authored by Scott Bellware on Thu Jul 30 2026 at 1:27:23 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 6:08:49 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 10:54:04 PM PT
