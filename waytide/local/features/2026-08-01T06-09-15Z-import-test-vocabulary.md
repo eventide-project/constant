@@ -73,6 +73,8 @@ and it keeps it while gaining the `control_` prefix as an expected operand;
   `Controls::Script`'s keyword is renamed though it sits under `lib/`.
 - **Fri Jul 31 2026 at 11:14:20 PM PT** — the feature is concluded as **Completed** and
   integrated into `master`.
+- **Fri Jul 31 2026 at 11:15:12 PM PT** — the branch `feature/import-test-vocabulary` is deleted,
+  having been fully merged. No worktree to remove and no remote copy.
 
 ## Conclusion
 
@@ -111,3 +113,4 @@ passes, written live. Pass 3 records a mechanical failure worth keeping: BSD `se
 
 Authored by Scott Bellware on Fri Jul 31 2026 at 11:09:15 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 11:14:20 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 11:15:12 PM PT
