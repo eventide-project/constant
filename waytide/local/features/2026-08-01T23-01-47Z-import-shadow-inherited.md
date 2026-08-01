@@ -68,6 +68,8 @@ destination that reaches a colliding name through an ancestor.
   naming the ancestor.
 - **Sat Aug 1 2026 at 4:20:07 PM PT** — the feature is concluded as **Completed** and
   integrated into `master`.
+- **Sat Aug 1 2026 at 4:22:11 PM PT** — the branch `feature/import-shadow-inherited` is deleted,
+  having been fully merged. No worktree to remove and no remote copy.
 
 ## Conclusion
 
@@ -110,3 +112,4 @@ passes, written live.
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 4:01:47 PM PT
 Changed by Scott Bellware on Sat Aug 1 2026 at 4:20:07 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 4:22:11 PM PT
