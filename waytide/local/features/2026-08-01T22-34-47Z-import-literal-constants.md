@@ -75,6 +75,8 @@ test's design, with the implementation hinge degenerate.
   exceptional-path file colliding a literal against a literal.
 - **Sat Aug 1 2026 at 3:52:18 PM PT** — the feature is concluded as **Completed** and
   integrated into `master`.
+- **Sat Aug 1 2026 at 3:54:23 PM PT** — the branch `feature/import-literal-constants` is deleted,
+  having been fully merged. No worktree to remove and no remote copy.
 
 ## Conclusion
 
@@ -109,3 +111,4 @@ passes, written live.
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 3:34:47 PM PT
 Changed by Scott Bellware on Sat Aug 1 2026 at 3:52:18 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 3:54:23 PM PT
