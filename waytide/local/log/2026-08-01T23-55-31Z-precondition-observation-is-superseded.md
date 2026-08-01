@@ -1,0 +1,1 @@
+# The local precondition observation is deleted, superseded by the testing package's precondition rule, which frames a precondition as documenting a deciding factor the script does not express rather than as a condition the outcomes rest on
