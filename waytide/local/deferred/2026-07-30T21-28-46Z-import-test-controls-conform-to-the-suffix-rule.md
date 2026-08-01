@@ -79,6 +79,9 @@ owning `SomeLiteral = "some value"` has that string assigned onto the destinatio
 **no test exercises it**. Whether that warrants coverage is a separate decision from this
 renaming, and is not settled here.
 
+**Start with `2026-08-01T05-44-31Z-the-import-test-vocabulary-is-settled-first`**, which
+orders this item against the others touching the same test directory.
+
 **Gated on:** nothing outstanding. The original gate — the `import-collision-refusal`
 feature, which was adding tests to the same directory — cleared when that feature was
 completed and integrated on 2026-07-30. What remains is not a gate but a dependency: the
@@ -106,3 +109,4 @@ Changed by Scott Bellware on Thu Jul 30 2026 at 2:41:07 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:02:19 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:05:52 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:10:57 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 10:44:31 PM PT

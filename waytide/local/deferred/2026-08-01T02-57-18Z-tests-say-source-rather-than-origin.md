@@ -87,6 +87,9 @@ The immediately preceding feature carried a note asking for exactly this kind of
 coordination and it went unmade, so the two items were applied to overlapping files without
 a decision. That is the failure to avoid here.
 
+**Start with `2026-08-01T05-44-31Z-the-import-test-vocabulary-is-settled-first`**, which
+orders this item against the others touching the same test directory.
+
 **Gated on:** nothing. Actionable whenever the coordination with the test-controls item is
 settled.
 
@@ -110,3 +113,4 @@ namespace-variable-suffix rule, and the testing package's `control_` prefix rule
 Authored by Scott Bellware on Fri Jul 31 2026 at 7:57:18 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:05:52 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:10:57 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 10:44:31 PM PT
