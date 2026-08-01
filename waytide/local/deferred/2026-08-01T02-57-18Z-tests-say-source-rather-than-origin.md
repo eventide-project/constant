@@ -24,10 +24,10 @@ test will build `control_source` and pass it to a parameter called `origin_const
 that is unwanted, the library rename is a separate decision and a separate item; this one
 does not make it.
 
-## Three things this does not settle
+## Also in scope, settled 2026-07-31
 
-**The five prose occurrences.** `origin` appears in five `context` and `test` names, as
-English rather than as an identifier:
+**The names in `context` and `test` titles.** `origin` appears five times as English rather
+than as an identifier, and each becomes `source`:
 
 ```
 refinement/top_level.rb:28        test "Are the origin's inner constants"
@@ -37,17 +37,28 @@ already_included.rb:19            context "When the destination already includes
 only/undefined.rb:5               context "When a named constant is not defined on the origin"
 ```
 
-Renaming an identifier does not decide these. Left as they are, a test name says *origin*
-while the variable beside it says *source*.
+The instruction named **contexts**, and two of the five are contexts while three are `test`
+names. They are treated together here, the word being the same and the reason for changing
+it the same. If the intent was the narrower one, this is the place to correct it — otherwise
+three test names would keep saying *origin* beside a variable saying *source*.
 
-**The example module's name.** `Controls::Constant.example(name: "Origin", …)` appears 16
-times, against 14 for `"Destination"`. The string is what the module is actually called at
-run time and shows in every comment line of the output, so leaving it as `"Origin"` while
-the variable holding it is `control_source` is legible but inconsistent.
+**The example module's name.** The string given to `Controls::Constant.example` becomes
+`"Source"`:
 
-**Whether `Destination` follows.** `origin` and `destination` are a pair. Renaming one and
-not the other leaves a pair whose halves come from different vocabularies. Nothing here
-proposes renaming `destination`; the question is simply not answered by this item.
+- `name: "Origin"` — 16 occurrences, one per file. This is what the module is actually
+  called at run time, so it shows in every `comment` line of the output; leaving it while
+  the variable holding it says `control_source` would be the inconsistency most often read.
+- `"SomeOrigin"` — one occurrence, `refinement/top_level.rb`, a control string value passed
+  through `Controls::Script`. It becomes `"SomeSource"`, keeping the "some" prefix the
+  control-string convention requires.
+
+## What this still does not settle
+
+**Whether `Destination` follows.** `origin` and `destination` are a pair — 14
+`name: "Destination"` occurrences against the 16 for `"Origin"`, and
+`destination_constant` throughout. Renaming one and not the other leaves a pair whose halves
+come from different vocabularies. Nothing here proposes renaming `destination`; the question
+is simply not answered.
 
 ## The overlap with the test-controls conformance item
 
@@ -73,14 +84,16 @@ imported from. The tests are where the word is read most often, being the only p
 pairing with `destination` is set up explicitly.
 
 **How to apply:** settle first whether this and the test-controls item run as one pass with
-`control_source` as the target, or whether one supersedes the other. Then decide the three
-open questions above — the five prose occurrences, the `"Origin"` example name, and whether
-`destination` follows — before editing, so the suite does not end up half-conformed. Run the
-suite to confirm the rename is behavior-neutral; the count must not move. Then delete this
-file and record an entry in `waytide/local/log/`. Related: the deferred item
+`control_source` as the target, or whether one supersedes the other, and decide whether
+`destination` follows — the one question still open. Then rename the identifiers, the five
+`context` and `test` titles, and the `"Origin"` and `"SomeOrigin"` strings together, so the
+suite does not end up half-conformed. Run the suite to confirm the rename is
+behavior-neutral; the count must not move. Then delete this file and record an entry in
+`waytide/local/log/`. Related: the deferred item
 `2026-07-30T21-28-46Z-import-test-controls-conform-to-the-suffix-rule`, the local
 namespace-variable-suffix rule, and the testing package's `control_` prefix rule.
 
 ---
 
 Authored by Scott Bellware on Fri Jul 31 2026 at 7:57:18 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:11:04 PM PT

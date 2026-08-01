@@ -66,9 +66,10 @@ every affected file twice for one net change.
 bare form from the suffix rule, the word from that item. Read it before starting this one.
 Whichever is taken up first carries out both, and both files are then deleted together.
 
-That item also raises three questions this one does not — five prose occurrences of "origin"
-in context and test names, the `name: "Origin"` example string, and whether `destination`
-follows. They are settled there, not here.
+That item reaches further than the identifiers this one covers: the five `context` and
+`test` titles carrying the word, and the `"Origin"` and `"SomeOrigin"` strings given to the
+control. One question is open there — whether `destination` follows. All of it is settled
+there, not here.
 
 ## A second item, unresolved, found alongside it
 
@@ -102,3 +103,4 @@ and the feature record `2026-07-30T19-48-47Z-import-collision-refusal.md`.
 Authored by Scott Bellware on Thu Jul 30 2026 at 2:28:46 PM PT
 Changed by Scott Bellware on Thu Jul 30 2026 at 2:41:07 PM PT
 Changed by Scott Bellware on Fri Jul 31 2026 at 8:02:19 PM PT
+Changed by Scott Bellware on Fri Jul 31 2026 at 8:11:04 PM PT
