@@ -218,7 +218,10 @@ Every documented claim was run against the library rather than transcribed.
 - **exceptional path** — the course through a raising case, as against the **normal path**.
   Never "exception path", now settled in the `language` vocabulary.
 - **shadow_inherited** — `Import`'s keyword governing whether the import may shadow a name
-  the destination reaches through an ancestor. Defaults to `false`.
+  the destination reaches through an ancestor. Defaults to `false`. **Renamed
+  `override_ancestor` later the same day**, after this record was written; the semantics and
+  the default are unchanged. This record keeps the name the session decided and built, so the
+  narrative and the durable records it points to agree with each other.
 - **scope**, of an import — which constants `Import` selects from the source: every one it
   owns, whatever kind. Distinct from what `const_set` does with them, which is the platform's.
 - **Failures** — the README section, after a parameters table, stating the conditions that
@@ -259,3 +262,4 @@ controls*. The gates worked, but not by being answered.
 ---
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 5:38:21 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 5:54:42 PM PT
