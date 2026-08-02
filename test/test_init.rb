@@ -11,4 +11,5 @@ require 'constant/controls'
 
 require 'test_bench'; TestBench.activate
 
-Controls = Constant::Controls
+using Constant::Import
+import Constant, only: :Controls
