@@ -154,7 +154,7 @@ using Constant::Import
 import SomeOrigin
 ```
 
-Including `Constant::Import` at the top level includes it into `Object`, which would install `import` on every class in the process. That is refused, with an error directing the refinement.
+Including `Constant::Import` at the top level includes it into `Object`, which would install `import` on every class in the process. That is refused, with an error directing the use of the refinement.
 
 The destination is `Object`, the main object's class, which is where Ruby puts constants defined at the top level. The imported constants are resolvable without qualification from anywhere in the process, including from inside unrelated classes. That reach is the ordinary consequence of defining a constant at the top level, and it is broader than any other destination's.
 
