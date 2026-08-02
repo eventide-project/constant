@@ -106,17 +106,32 @@ import SomeOrigin, shadow_inherited: true
 
 **Returns**
 
-The list of constants nested in the origin constant that have been made available to the destination constant's namespace. Raises `Constant::Error` when a name is already defined on the destination constant or reached through one of its ancestors, when a name given to `only` is not defined on the origin constant, or when a name is given to both `only` and `except`.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
 
 **Parameters**
 
 | Name | Description | Type |
 | --- | --- | --- |
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
-| only | The names to import, declaring the imported surface rather than inferring it from the origin constant; a name not defined on the origin constant raises | String, Symbol, or Array |
+| only | The names to import, declaring the imported surface rather than inferring it from the origin constant | String, Symbol, or Array |
 | except | The names to omit from the import | String, Symbol, or Array |
 | shadow_inherited | Whether the import may shadow a name the destination constant reaches through an ancestor; defaults to `false` | Boolean |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
+
+**Failures**
+
+An import assigns names the caller did not enumerate, onto a destination they did not inspect, so it refuses rather than replacing anything. Every failure raises `Constant::Error`.
+
+| Condition | Message |
+| --- | --- |
+| A name is already defined on the destination constant | `SomeInnerModule is already defined on SomeDestination (imported from SomeOrigin)` |
+| A name is reached through one of the destination constant's ancestors, and `shadow_inherited` is not given | `SomeInnerModule is inherited by SomeDestination from SomeAncestor (imported from SomeOrigin)` |
+| A name given to `only` is not defined on the origin constant | `SomeInnerModule is not defined on SomeOrigin` |
+| A name is given to both `only` and `except` | `SomeInnerModule is named in both only: and except:` |
+
+The first two are the point of the refusal. Ruby replaces a constant and warns; it does not warn at all when an assignment shadows an inherited one, so for the second condition the refusal is the only signal there can be.
+
+`only` and `except` differ in what they tolerate: a name given to `except` that the origin constant does not own is simply not there to omit, while the same name given to `only` raises — a caller who names a constant and does not receive it has been told nothing.
 
 ##### Top Level
 
@@ -192,7 +207,7 @@ Constant::Import.(SomeOrigin, self, shadow_inherited: true)
 
 **Returns**
 
-The list of constants nested in the origin constant that have been made available to the destination constant's namespace. Raises `Constant::Error` when a name is already defined on the destination constant or reached through one of its ancestors, when a name given to `only` is not defined on the origin constant, or when a name is given to both `only` and `except`.
+The list of constants nested in the origin constant that have been made available to the destination constant's namespace.
 
 **Parameters**
 
@@ -200,10 +215,25 @@ The list of constants nested in the origin constant that have been made availabl
 | --- | --- | --- |
 | origin_constant | The constant whose inner constants will be made accessible without having to specify the origin constant's name | Module or Class |
 | destination_constant | The constant whose namespace will be able to access the imported origin constant's namespace without fully qualifying it. An object that is not a module or class imports into its class | Module, Class, or Object |
-| only | The names to import, declaring the imported surface rather than inferring it from the origin constant; a name not defined on the origin constant raises | String, Symbol, or Array |
+| only | The names to import, declaring the imported surface rather than inferring it from the origin constant | String, Symbol, or Array |
 | except | The names to omit from the import | String, Symbol, or Array |
 | shadow_inherited | Whether the import may shadow a name the destination constant reaches through an ancestor; defaults to `false` | Boolean |
 | alias | Optional constant name to use in the destination constant's namespace to access the origin constant's inner constants | Symbol |
+
+**Failures**
+
+An import assigns names the caller did not enumerate, onto a destination they did not inspect, so it refuses rather than replacing anything. Every failure raises `Constant::Error`.
+
+| Condition | Message |
+| --- | --- |
+| A name is already defined on the destination constant | `SomeInnerModule is already defined on SomeDestination (imported from SomeOrigin)` |
+| A name is reached through one of the destination constant's ancestors, and `shadow_inherited` is not given | `SomeInnerModule is inherited by SomeDestination from SomeAncestor (imported from SomeOrigin)` |
+| A name given to `only` is not defined on the origin constant | `SomeInnerModule is not defined on SomeOrigin` |
+| A name is given to both `only` and `except` | `SomeInnerModule is named in both only: and except:` |
+
+The refusal reaches the destination the import actually writes to. With `alias`, that is the alias constant rather than the destination itself, so a name already on the destination does not collide with one imported under an alias.
+
+Including `Constant::Import` at the top level raises as well, before any import is attempted — see Top Level, above.
 
 ## The Constant Class
 
@@ -240,7 +270,7 @@ Constant.get("SomeNamespace::SomeModule")
 # => #<Constant::Module value=SomeNamespace::SomeModule>
 ```
 
-It is the class-level form of the instance `#get` primitive — the namespace, implicit as `self` on an instance, is passed as an argument. The namespace defaults to the top level and may itself be given as a name; an `inherit:` keyword (default `false`) governs whether resolution follows the ancestor chain. A name that is not defined raises `Constant::Error`.
+It is the class-level form of the instance `#get` primitive — the namespace, implicit as `self` on an instance, is passed as an argument. The namespace defaults to the top level and may itself be given as a name; an `inherit:` keyword (default `false`) governs whether resolution follows the ancestor chain.
 
 A name may be a `::`-qualified **path**, resolved segment by segment:
 
@@ -253,7 +283,7 @@ The instance `#get` does the path resolution by recursing on itself, so each seg
 
 **Returns**
 
-The `Constant` that mediates the value — a `Constant::Module` for a module or class, or the subtype the resolved name calls for (`Constant::Module` or `Constant::Literal`). Raises `Constant::Error` when a name is not defined.
+The `Constant` that mediates the value — a `Constant::Module` for a module or class, or the subtype the resolved name calls for (`Constant::Module` or `Constant::Literal`).
 
 **Parameters**
 
@@ -262,6 +292,10 @@ The `Constant` that mediates the value — a `Constant::Module` for a module or 
 | value | A module or class to mediate, or a constant name (optionally a `::`-qualified path) to resolve | Module, Class, String, or Symbol |
 | namespace | The namespace a name is resolved in; defaults to the top level (`Object`) | Module, Class, String, Symbol, or Constant |
 | inherit | Whether resolution follows the ancestor chain; defaults to `false` | Boolean |
+
+**Failures**
+
+Raises `Constant::Error` when the name is not defined in the namespace, and when a `::`-path traverses *into* a literal — a non-final segment that resolves to a literal constant, which has no inner constants to continue through.
 
 Direct construction from a value you already hold goes to the subtype constructors — `Constant::Module.build` / `Constant::Literal.build` — which normalize their inputs and delegate to `new`, the strict initializer.
 
@@ -286,7 +320,7 @@ It delegates the real work to `Constant.get` (taking the same namespace/`inherit
 
 **Returns**
 
-The `Constant` for the value — an already-`Constant` value unchanged, otherwise whatever `Constant.get` returns (`Constant::Module` or `Constant::Literal`). Raises `TypeError` for a value that is neither a module, a name, nor a `Constant`; raises `Constant::Error` for an unresolvable name.
+The `Constant` for the value — an already-`Constant` value unchanged, otherwise whatever `Constant.get` returns (`Constant::Module` or `Constant::Literal`).
 
 **Parameters**
 
@@ -295,6 +329,12 @@ The `Constant` for the value — an already-`Constant` value unchanged, otherwis
 | value | A `Constant` (returned unchanged), a module or class, or a constant name to resolve | Constant, Module, Class, String, or Symbol |
 | namespace | The namespace a name is resolved in, passed through to `Constant.get`; defaults to the top level (`Object`) | Module, Class, String, Symbol, or Constant |
 | inherit | Whether resolution follows the ancestor chain, passed through to `Constant.get`; defaults to `false` | Boolean |
+
+**Failures**
+
+Raises `TypeError` for a value that is neither a module, a name, nor a `Constant` — the coercion's own failure, mirroring `Integer(nil)`.
+
+Raises `Constant::Error` for a name that cannot be resolved, which is `Constant.get`'s failure passed through unchanged.
 
 ### Queries
 
@@ -362,7 +402,7 @@ constant.get(:SomeInnerLiteral)
 
 **Returns**
 
-The `Constant` mediating the resolved inner constant (`Constant::Module` or `Constant::Literal`). Raises `Constant::Error` if the name is not defined, or if a `::`-path runs through a literal.
+The `Constant` mediating the resolved inner constant (`Constant::Module` or `Constant::Literal`).
 
 **Parameters**
 
@@ -370,6 +410,10 @@ The `Constant` mediating the resolved inner constant (`Constant::Module` or `Con
 | --- | --- | --- |
 | name | The inner constant name to resolve, optionally a `::`-qualified path | String or Symbol |
 | inherit | Whether resolution follows the ancestor chain; defaults to `false` | Boolean |
+
+**Failures**
+
+Raises `Constant::Error` when the name is not defined in the mediated module, and when a `::`-path traverses *into* a literal — a non-final segment that resolves to a literal constant, which has no inner constants to continue through.
 
 #### `#constants` and `#constant_names`
 
