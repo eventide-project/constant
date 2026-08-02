@@ -1,0 +1,1 @@
+# The origin/logging branch is deleted — its one unmerged commit (84c87a8, 2026-05-22) added eight lines of trace and debug logging to Constant::Import.call through a memoized Log.build(self), and Constant::Log has since been removed from master, so the branch could no longer merge
