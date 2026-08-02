@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = "evt-constant"
   s.summary = ""
-  s.version = "2.2.0.0"
+  s.version = "2.2.1.0"
   s.description = "Utilities for importing constants and inspecting constants"
 
   s.authors = ["The Eventide Project"]
