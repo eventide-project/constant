@@ -17,7 +17,7 @@ set +e
 # It is checked at the end rather than here, because it no longer governs everything
 # this hook emits. WAYTIDE_QUIET silences what the developer sees; the read instruction
 # is addressed to the agent and is not a surface they read, so quieting the notice must
-# not disable it. Otherwise a display preference would silently switch off the mechanism
+# not disable it. Otherwise a display preference would silently deactivate the mechanism
 # that carries the rules — the kind of silent failure this hook exists to answer.
 
 # Locate the system: waytide/system/ in a consuming project, system/
@@ -64,8 +64,8 @@ notice=$(printf 'Waytide installed at %s/ — %s %s: %s' \
   "$system" "$count" "$noun" "$list")
 
 # Report work that has not reached a concluded state — experiments and features
-# alike. Neither is ever left silently open (the experiment-runs-on-its-own-branch
-# and feature-runs-on-its-own-branch rules), but nothing otherwise brings an open
+# alike. Neither is ever left silently open (the experiment-lifecycle
+# and feature-lifecycle rules), but nothing otherwise brings an open
 # one to attention: the working directories under waytide/ are not read at session
 # start, and work done in a worktree leaves no trace in the main working tree at
 # all — it stays on the upstream branch, so even the branch name gives nothing away.
