@@ -1,7 +1,7 @@
 require_relative "../../automated_init"
 
 context "Import Constant" do
-  context "Shadow Inherited" do
+  context "Override Ancestor" do
     control_collision_constant_name = "SomeInnerConstant"
     control_ancestor_name = "Ancestor"
 
@@ -24,7 +24,7 @@ context "Import Constant" do
     comment "\tDestination Inner Constant Names: #{control_destination.constants(false).sort.inspect}"
 
     refute_raises do
-      Constant::Import.(control_source, control_destination, shadow_inherited: true)
+      Constant::Import.(control_source, control_destination, override_ancestor: true)
     end
 
     context "Is the source's constant, rather than the ancestor's" do

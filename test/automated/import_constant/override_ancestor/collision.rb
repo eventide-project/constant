@@ -1,7 +1,7 @@
 require_relative "../../automated_init"
 
 context "Import Constant" do
-  context "Shadow Inherited" do
+  context "Override Ancestor" do
     context "When the destination inherits the constant" do
       control_collision_constant_name = "SomeInnerConstant"
       control_ancestor_name = "Ancestor"

@@ -15,6 +15,11 @@ The feature originates in the deferred item
 `2026-07-30T22-11-13Z-whether-an-inherited-name-collides-on-import.md`, which is deleted and
 logged when this feature concludes.
 
+**The parameter was renamed to `override_ancestor` on Sat Aug 1 2026.** This record keeps
+`shadow_inherited` throughout, because that is the name that was decided and built here; a
+record rewritten to the later name would say a decision was made that was not. See
+`waytide/local/log/`'s rename entry of that date.
+
 ## Setup
 
 - **State:** Completed
@@ -113,3 +118,4 @@ passes, written live.
 Authored by Scott Bellware on Sat Aug 1 2026 at 4:01:47 PM PT
 Changed by Scott Bellware on Sat Aug 1 2026 at 4:20:07 PM PT
 Changed by Scott Bellware on Sat Aug 1 2026 at 4:22:11 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 5:51:26 PM PT

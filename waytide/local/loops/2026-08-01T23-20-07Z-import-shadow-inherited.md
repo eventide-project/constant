@@ -8,6 +8,11 @@ not work. The feature's lifecycle is
 
 Written live.
 
+**The parameter was renamed to `override_ancestor` on Sat Aug 1 2026.** This record keeps
+`shadow_inherited` throughout, because that is the name that was decided and built here; a
+record rewritten to the later name would say a decision was made that was not. See
+`waytide/local/log/`'s rename entry of that date.
+
 ## Pass 0 — the settled mechanism does not work
 
 **Hinge** — the deferred item's *How to apply* said the change was that "the second argument
@@ -128,3 +133,4 @@ tests**, all passing.
 ---
 
 Authored by Scott Bellware on Sat Aug 1 2026 at 4:20:07 PM PT
+Changed by Scott Bellware on Sat Aug 1 2026 at 5:51:26 PM PT

@@ -16,8 +16,8 @@ module Constant
       alias import __import_constant
     end
 
-    def self.call(origin_constant, destination_constant, only: nil, except: nil, shadow_inherited: nil, **kwargs)
-      shadow_inherited ||= false
+    def self.call(origin_constant, destination_constant, only: nil, except: nil, override_ancestor: nil, **kwargs)
+      override_ancestor ||= false
 
       if not destination_constant.is_a?(::Module)
         destination_constant = destination_constant.class
@@ -65,7 +65,7 @@ module Constant
 
       import_constant_names = import_constant_names - except_constant_names
 
-      if shadow_inherited
+      if override_ancestor
         collision_constants = [target]
       else
         collision_constants = target.ancestors
