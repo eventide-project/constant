@@ -96,7 +96,18 @@ import SomeOrigin, except: :SomeInnerModule
 import SomeOrigin, only: [:SomeInnerModule, :SomeOtherInnerModule]
 ```
 
-Either takes a single name or a list, as a String or a Symbol. The two are not interchangeable in what they tolerate: a name given to `except` that the origin does not own is simply not there to omit, while a name given to `only` that the origin does not own raises — a caller who names a constant and does not receive it has been told nothing. A name given to both raises.
+Either takes a single name or a list, as a String or a Symbol. The two are not interchangeable in what they tolerate: a name given to `except` that the origin does not own is simply not there to omit, while a name given to `only` that the origin does not own raises — a caller who names a constant and does not receive it has been told nothing.
+
+**Passing both is accepted, and `except` does nothing when `only` is given.** For `except` to remove a name, that name has to be one `only` kept — which puts it in both lists, and a name in both raises. With an origin owning `A`, `B`, and `C`:
+
+| Call | Result |
+| --- | --- |
+| `only: [:A, :B], except: [:C]` | imports `A` and `B` — identical to `only: [:A, :B]` alone |
+| `only: [:A], except: [:B]` | imports `A` — identical to `only: [:A]` alone |
+| `only: [:A, :B], except: [:B]` | raises |
+| `only: [:A], except: [:A]` | raises |
+
+So a call passing both either changes nothing or fails. Use one or the other.
 
 A name already defined on the destination raises rather than being replaced, and so does a name the destination reaches through one of its ancestors. `shadow_inherited` permits the inherited case:
 
@@ -197,7 +208,18 @@ Constant::Import.(SomeOrigin, self, except: :SomeInnerModule)
 Constant::Import.(SomeOrigin, self, only: [:SomeInnerModule, :SomeOtherInnerModule])
 ```
 
-Either takes a single name or a list, as a String or a Symbol. A name given to `only` that the origin constant does not own raises; a name given to `except` that it does not own is simply not there to omit. A name given to both raises.
+Either takes a single name or a list, as a String or a Symbol. A name given to `only` that the origin constant does not own raises; a name given to `except` that it does not own is simply not there to omit.
+
+**Passing both is accepted, and `except` does nothing when `only` is given.** For `except` to remove a name, that name has to be one `only` kept — which puts it in both lists, and a name in both raises. With an origin owning `A`, `B`, and `C`:
+
+| Call | Result |
+| --- | --- |
+| `only: [:A, :B], except: [:C]` | imports `A` and `B` — identical to `only: [:A, :B]` alone |
+| `only: [:A], except: [:B]` | imports `A` — identical to `only: [:A]` alone |
+| `only: [:A, :B], except: [:B]` | raises |
+| `only: [:A], except: [:A]` | raises |
+
+So a call passing both either changes nothing or fails. Use one or the other.
 
 A name already defined on the destination constant raises rather than being replaced. So does a name the destination constant reaches through one of its ancestors — Ruby emits no warning when an assignment shadows an inherited constant, so nothing else would report it. `shadow_inherited` permits that case:
 
