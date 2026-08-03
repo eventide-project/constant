@@ -1,0 +1,1 @@
+# The Constant library and its record will be used to attempt a reconstruction from the start, with two aims — Constant or a brief facsimile recreated under the control of its own record so as to conform to Constant, and an entirely new library created in Constant's image — and the artifact goes on the website; it gets its own design rather than joining either existing one

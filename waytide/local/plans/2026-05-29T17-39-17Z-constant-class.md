@@ -1,14 +1,12 @@
 # Constant Class Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Each task is tracked with a single checkbox (`- [ ]`).
-
 **Goal:** Add a stateful `Constant` class to the `constant` library that mediates a resolved module and answers queries about its name, namespace, presence, and inner constants.
 
 **Architecture:** Two phases. Phase 1 (Task 1) converts the top-level `Constant` from a module to a class — a behavior-neutral structural change. Phase 2 (Tasks 2–12) builds the query API incrementally, one capability per task, test-first.
 
 **Tech Stack:** Ruby, TestBench (test framework), bundler standalone.
 
-**Source design:** `agent/design/2026-05-22T18-59-14Z-constant-class-design.md`
+**Source design:** `waytide/local/design/2026-05-22T18-59-14Z-constant-class-design.md`
 
 **Process notes:**
 - Code is not specified in this plan. Each task states the intended behavior; the code is generated interactively, on command, in the increments chosen at the time.
@@ -18,7 +16,7 @@
 **Commit policy:**
 - One commit per task. The commit subject is short, imperative — matching the existing repo style.
 - **No `Co-Authored-By: Claude …` trailer in any commit** (per `~/.claude/CLAUDE.md`).
-- Each commit also adds a one-line decision-log entry to `agent/log/` only if the task involved a real decision; otherwise skip.
+- Each commit also adds a one-line decision-log entry to `waytide/local/log/` only if the task involved a real decision; otherwise skip.
 
 ---
 
@@ -84,7 +82,7 @@ One driven outcome (red→green): a constant name defined in the namespace → `
 
 - [x] An instance predicate, `Constant#defined?`, receives a name or a Ruby module as a positional argument and reports whether it is defined **within the module the instance mediates** — the instance is the namespace being searched. For a name: whether that name is bound. For a module: whether that exact module is nested within (identity/containment, not name-existence). Supports an `inherit` keyword (default `false`). Two scenarios → outcomes: `name` (defined by name), `module` (nested module affirmed, same-named non-nested module refuted), each its own test file. The refuting module outcome is the discriminator that witnesses identity over name-existence. `inherit` is threaded but not separately driven (green-on-arrival).
 
-  Reworked from the design doc's `#defined?(in: namespace)` collision-check framing (instance as the thing looked for) — dictated across the actuation hinges; see `agent/log/2026-06-29T15-44-03Z-…`, `…T15-59-32Z-defined-module-arg-identity`, `…-inherit`. Test layout is nested-by-receiver: `constant/defined_predicate/class.rb` (Task 7) plus `constant/defined_predicate/instance/{name,module}.rb`.
+  Reworked from the design doc's `#defined?(in: namespace)` collision-check framing (instance as the thing looked for) — dictated across the actuation hinges; see `waytide/local/log/2026-06-29T15-44-03Z-…`, `…T15-59-32Z-defined-module-arg-identity`, `…-inherit`. Test layout is nested-by-receiver: `constant/defined_predicate/class.rb` (Task 7) plus `constant/defined_predicate/instance/{name,module}.rb`.
 
 ---
 
@@ -94,7 +92,7 @@ One driven outcome (red→green): a constant name defined in the namespace → `
 
 This supports the next two tasks, which must distinguish inner constants that are themselves modules from inner constants bound to other kinds of values. This task ships the controls change only; the tests that exercise it ship with Tasks 10 and 11.
 
-**Done — green-on-arrival; no new code.** The capability already exists in `Controls::Constant.add_inner_constants`: the Hash form (`inner_constants: { name => value }`) seeds arbitrary, including non-module, values via `const_set`, coexisting with the Array form's module-valued seeding. It's exercised today by `build/non_module.rb` and the `defined?` name tests. A mixed module (module-valued + non-module inners) — what Tasks 10–11 need — is expressible by passing a Hash with explicit `Module.new`/`Controls::Constant.example` values alongside literals. The only thing *not* present is an ergonomic auto-generated-module-in-a-mix helper; deferred to if/when Tasks 10–11 actually want it. See `agent/log/2026-06-29T18-51-27Z-task-9-green-on-arrival.md`.
+**Done — green-on-arrival; no new code.** The capability already exists in `Controls::Constant.add_inner_constants`: the Hash form (`inner_constants: { name => value }`) seeds arbitrary, including non-module, values via `const_set`, coexisting with the Array form's module-valued seeding. It's exercised today by `build/non_module.rb` and the `defined?` name tests. A mixed module (module-valued + non-module inners) — what Tasks 10–11 need — is expressible by passing a Hash with explicit `Module.new`/`Controls::Constant.example` values alongside literals. The only thing *not* present is an ergonomic auto-generated-module-in-a-mix helper; deferred to if/when Tasks 10–11 actually want it. See `waytide/local/log/2026-06-29T18-51-27Z-task-9-green-on-arrival.md`.
 
 ---
 
@@ -102,7 +100,7 @@ This supports the next two tasks, which must distinguish inner constants that ar
 
 - [x] A `Constant` reports its own inner constants that are themselves modules, each mediated by a `Constant`. Inner constants bound to other kinds of values are excluded, and inherited names are excluded by default.
 
-  **Superseded** by the `Constant::Literal` restructure, Task 6 (`agent/plans/2026-06-29T19-49-18Z-constant-literal-restructure.md`): `Constant::Module#constants` returns the module inners as `Constant::Module`, and — via `include_literal_constants: true` — the literal inners as `Constant::Literal`. Implemented and shipped.
+  **Superseded** by the `Constant::Literal` restructure, Task 6 (`waytide/local/plans/2026-06-29T19-49-18Z-constant-literal-restructure.md`): `Constant::Module#constants` returns the module inners as `Constant::Module`, and — via `include_literal_constants: true` — the literal inners as `Constant::Literal`. Implemented and shipped.
 
 ---
 
