@@ -1,4 +1,4 @@
-# Constant::Literal Restructure — Implementation Plan
+# Constant::Literal Restructure — Intention
 
 **Goal:** Morph the `Constant` domain object from a single module-mediating class
 into a **mixin module** (`Constant`) included by two concrete subtypes —

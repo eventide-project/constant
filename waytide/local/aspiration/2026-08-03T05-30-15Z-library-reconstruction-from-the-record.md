@@ -1,4 +1,4 @@
-# Library Reconstruction From The Record — Design
+# Library Reconstruction From The Record — Aspiration
 
 **Premise:** the Constant library, together with the logs and records accumulated while it
 was built, will be used in an attempt to **reconstruct a library from the start**. The
@@ -113,3 +113,4 @@ Not settled here, and each of them changes the shape of the attempt:
 
 Authored by Scott Bellware on Sun Aug 2 2026 at 10:30:15 PM PDT
 Changed by Scott Bellware on Sun Aug 2 2026 at 10:41:46 PM PDT
+Changed by Scott Bellware on Wed Aug 5 2026 at 12:32:03 AM PT

@@ -1,4 +1,4 @@
-# Constant Class — Design
+# Constant Class — Aspiration
 
 Date: 2026-05-22
 

@@ -1,4 +1,4 @@
-# Constant Class Implementation Plan
+# Constant Class — Intention
 
 **Goal:** Add a stateful `Constant` class to the `constant` library that mediates a resolved module and answers queries about its name, namespace, presence, and inner constants.
 
