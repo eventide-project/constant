@@ -1,6 +1,9 @@
 # Observation: can the AI know its own conditioning level, and can it learn what the human is about to think?
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. Answers two questions raised in the TDD-AI dialogue and adds a deeper reason the human's role is irreducible. Companion to `2026-06-26T16-54-59Z-the-humans-role.md` (above-the-mean element, the migration), `2026-06-26T17-17-05Z-gate-forecasting.md` (conditioning-confidence measure, the two limits), and `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials).
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Working hypothesis, under active discovery. Not a binding rule. Answers two questions raised in the TDD-AI dialogue and adds a deeper reason the human's role is irreducible. Companion to `2026-06-26T16-54-59Z-the-humans-role.md` (above-the-mean element, the migration), `2026-06-26T17-17-05Z-gate-forecasting.md` (conditioning-confidence measure, the two limits), and `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials).
 
 ## Q1 — Can the AI know whether it is under high vs low conditioning?
 
@@ -31,3 +34,4 @@ If the AI believes it can predict the human and acts on it (propose-for-ratifica
 ## Consequence — the migration reframed
 
 The migration is **not** "the human's role shrinks to zero as the AI learns." It is "the human's role *migrates* — from resolving recurring hinges (transferable) to originating on the frontier (never transferable, because prediction relocates the frontier)." The residue is not a fixed leftover awaiting conditioning-away; it is a **moving frontier the human's function defines.** This is the same irreducible thing reached before (originator; catch-the-seam vigilance), now irreducible for a deeper reason than "the AI is too weak": it is irreducible because the AI getting stronger *moves the line*.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

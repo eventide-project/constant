@@ -1,5 +1,8 @@
 # Constant::Literal Restructure — Intention
 
+- **State:** Realized
+- **Tags:** [intention]
+
 **Goal:** Morph the `Constant` domain object from a single module-mediating class
 into a **mixin module** (`Constant`) included by two concrete subtypes —
 `Constant::Module` (module constant) and `Constant::Literal` (literal constant) —
@@ -150,3 +153,4 @@ conforms.
   superseded by Section 5 (kept as the design record, not rewritten), and the
   Vocabulary's `"value"` retirement is corrected (reintroduced as `#value`). The
   predecessor plan's Tasks 10–12 are marked superseded/done.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

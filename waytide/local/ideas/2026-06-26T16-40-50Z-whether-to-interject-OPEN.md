@@ -1,6 +1,9 @@
 # Observation: "whether to interject" is the prior question — and it is a second dial, not the hinge marks
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. Opens a question upstream of the hinge/gate framework: the framework answers *where* the human interjects (hinges) and *how* (deliberation at gates), but presupposes *that* the human interjects. Promote/fold into the human-in-the-loop rule once the gate-policy axis is settled. Companion to `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks) and `2026-06-20T18-55-29Z-settling-the-hinge-marks.md` (soft-spot B / affordability).
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Working hypothesis, under active discovery. Not a binding rule. Opens a question upstream of the hinge/gate framework: the framework answers *where* the human interjects (hinges) and *how* (deliberation at gates), but presupposes *that* the human interjects. Promote/fold into the human-in-the-loop rule once the gate-policy axis is settled. Companion to `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks) and `2026-06-20T18-55-29Z-settling-the-hinge-marks.md` (soft-spot B / affordability).
 
 ## The point
 
@@ -34,3 +37,4 @@ The whether-question is dial 2. The earlier work pushed capability *out* of dial
 - Ratify dial 2 as the home of affordability (closes soft-spot B by reframing it: affordability is not a downstream filter on hinge-ness — it is the gate-policy axis itself).
 - Decide how gate-policy is set: per-hinge, per-session, per-conditioning-confidence? Is there a measurable "conditioning confidence" that licenses lowering a gate?
 - The floor interjection: is it a one-time policy ratification, or re-taken whenever conditioning or stakes change?
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

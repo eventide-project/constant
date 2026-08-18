@@ -1,6 +1,9 @@
 # Observation: hinges in human-in-the-loop TDD — the marks of a hinge, and how to discover the missing ones
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. Promote to a rule once the set of hinges stabilizes. The candidate hinges below are proposals to be judged, not settled conventions.
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Working hypothesis, under active discovery. Not a binding rule. Promote to a rule once the set of hinges stabilizes. The candidate hinges below are proposals to be judged, not settled conventions.
 
 **Lexicon (2026-06-20):** a **hinge** is a decision the design turns on; the loop **gates** (stops) at hinges so the human can **deliberate** them; everything else is **mechanical** (the mechanics) — the AI generates it straight through. A decision is a hinge when it is **subtle** and **load-bearing** (the two marks below). "Discriminator" — the earlier name for the test of hinge-ness — is retired; the test is just "is this a hinge?" See the dialogue digest for how this vocabulary was settled.
 
@@ -83,3 +86,4 @@ Expectation: the marks should *reject* at least one of these, and at least one l
 
 1. Finish settling the marks — they are what identifies every hinge, including the two already in use.
 2. Then run the empirical pass on one real feature (`import_constant` is richer — it has the alias and already-included branches): drive it turn by turn while the human marks every intervention point. The interventions are the missing hinges, surfaced from behavior rather than speculation.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

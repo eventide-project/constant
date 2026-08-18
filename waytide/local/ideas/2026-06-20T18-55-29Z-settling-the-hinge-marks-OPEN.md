@@ -1,6 +1,9 @@
 # Observation: how to settle the marks of a hinge
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. Companion to `agent/observations/2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` — that one defines the marks of a hinge; this one is the method for settling them. Promote to a rule once the marks are settled (and fold the settled marks into `agent/rules/`).
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Working hypothesis, under active discovery. Not a binding rule. Companion to `agent/observations/2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` — that one defines the marks of a hinge; this one is the method for settling them. Promote to a rule once the marks are settled (and fold the settled marks into `agent/rules/`).
 
 **Lexicon (2026-06-20):** a **hinge** is a decision the design turns on; the loop **gates** at hinges for the human to **deliberate**; everything else is **mechanical** (the mechanics) — the AI generates it. A decision is a hinge when it is **subtle** and **load-bearing**. "Discriminator" (the earlier name for the test of hinge-ness) is retired. See the dialogue digest.
 
@@ -52,3 +55,4 @@ A real-but-unaffordable hinge is still a hinge; it just needs a cheaper proxy. (
 ## Where to start
 
 The cheapest decisive move is **pass 2 on a single mechanical decision**: if the marks cannot cleanly reject "the name of an explaining variable," nothing else matters. Then passes 1 and 3. The remaining open ratification (soft-spot B) is a hinge only the human can take.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

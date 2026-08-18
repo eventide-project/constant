@@ -1,5 +1,8 @@
 # Constant Class — Intention
 
+- **State:** Superseded
+- **Tags:** [intention]
+
 **Goal:** Add a stateful `Constant` class to the `constant` library that mediates a resolved module and answers queries about its name, namespace, presence, and inner constants.
 
 **Architecture:** Two phases. Phase 1 (Task 1) converts the top-level `Constant` from a module to a class — a behavior-neutral structural change. Phase 2 (Tasks 2–12) builds the query API incrementally, one capability per task, test-first.
@@ -117,3 +120,4 @@ This supports the next two tasks, which must distinguish inner constants that ar
 - [x] Document the `Constant` class in the `README`.
 
   Fulfilled by the restructure's Task 8: the `README` gains a "The Constant Class" section covering the `Constant` mixin and the `Constant::Module` / `Constant::Literal` subtypes (`build`/`new`, `#value`/`#name`/`#full_name`/`#namespace`, `#get`, `#constants`/`#constant_names`, `#defined?`, equality).
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

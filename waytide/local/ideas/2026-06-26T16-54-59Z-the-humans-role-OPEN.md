@@ -1,6 +1,9 @@
 # Observation: the human's role in AI TDD — source and guarantor of the standard of "good"
 
-**Status:** Working hypothesis, under active discovery. Not a binding rule. This reframes the central inquiry: the hinge/gate/deliberation machinery is *instrumentation* (where and when the human acts); it does not name *what the human is for*. This observation proposes the role the machinery serves. Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks), and the human-in-the-loop rule.
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Working hypothesis, under active discovery. Not a binding rule. This reframes the central inquiry: the hinge/gate/deliberation machinery is *instrumentation* (where and when the human acts); it does not name *what the human is for*. This observation proposes the role the machinery serves. Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks), and the human-in-the-loop rule.
 
 ## The reframe
 
@@ -60,3 +63,4 @@ This also explains the "moving part": as conditioning succeeds, weight shifts ou
 ## The open question, sharpened
 
 If the role is "source and guarantor of the standard," the research question is no longer "where are the hinges" but: **how does the standard transfer from the human into the AI's conditioning, and what is the residue that never transfers?** The residue *is* the permanent human role. Candidates for the residue: the two essential modes (**originator**, **boundary-setter**). Everything else is conditioning-in-progress.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

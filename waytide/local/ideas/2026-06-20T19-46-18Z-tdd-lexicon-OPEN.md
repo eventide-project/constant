@@ -1,0 +1,9 @@
+# Observation: the TDD lexicon (canonical glossary) — PROMOTED
+
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Promoted to a binding rule on 2026-06-20 once the vocabulary froze (including "mechanical"). The canonical glossary now lives at `agent/rules/terminology/2026-06-20T21-12-34Z-tdd-lexicon.md`. This file is kept as the promotion record; do not edit the glossary here — edit the rule.
+
+See the dialogue digest (`agent/observations/2026-06-20T19-03-59Z-tdd-dialogue-digest.md`) for how the vocabulary was settled.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

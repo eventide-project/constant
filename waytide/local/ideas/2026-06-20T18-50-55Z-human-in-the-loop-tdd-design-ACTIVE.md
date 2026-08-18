@@ -1,5 +1,8 @@
 # Human-in-the-Loop TDD with AI — Aspiration
 
+- **State:** Active
+- **Tags:** [aspiration]
+
 ## Premise
 
 Two ideas from the project's TDD rules drive this whole design:
@@ -85,3 +88,4 @@ The human spends attention almost entirely on the **hinges** — the call and so
 - In TDD, use the term "efferent", never "caller".
 - Human-in-the-loop TDD: deliberate the hinges, never the pass/fail bar.
 - The marks of a hinge, and how to discover the missing ones (observation).
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

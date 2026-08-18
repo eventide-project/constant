@@ -1,6 +1,9 @@
 # Observation: rule categories name the surface a rule acts on, not the purpose it serves — and "mindset" cuts across them
 
-**Status:** PROMOTED to a binding rule on 2026-07-13 → `agent/rules/methodology/2026-07-13T21-22-51Z-rules-install-a-mindset-purpose-over-category.md`. This file is kept as the discovery record (extracted from dialogue while placing the subject-first commit-message rule). Edit the rule, not this file, for the binding statement.
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** PROMOTED to a binding rule on 2026-07-13 → `agent/rules/methodology/2026-07-13T21-22-51Z-rules-install-a-mindset-purpose-over-category.md`. This file is kept as the discovery record (extracted from dialogue while placing the subject-first commit-message rule). Edit the rule, not this file, for the binding statement.
 
 ## The framing
 
@@ -26,3 +29,4 @@ This reframes how rules relate to one another: two rules in different folders ca
 ## Open question
 
 Settled at promotion: the framing is adopted as doctrine (a rule's purpose may cut across its category; judge stance-installing rules by the mindset they install), and the "how to apply" lives in the rule. What remains deliberately unresolved is any *structural* response — a cross-cutting marker or a "mindset" note on affected rules. The rule directs cross-referencing sibling rules by shared stance rather than reorganizing the folders, so no reorganization is implied. Related: the terminology rules as a set, `name-literally-not-by-analogy` (rule and observation), `no-slang-mediates`, and the subject-first commit-message rule.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

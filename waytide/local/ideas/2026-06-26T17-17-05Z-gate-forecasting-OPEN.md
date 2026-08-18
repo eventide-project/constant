@@ -1,6 +1,9 @@
 # Observation: gate forecasting — the AI predicts and announces the gates ahead of acting
 
-**Status:** Speculation, early. The user's words: "Predicting the gates and then communicating them to the human could be a key to the TDD AI process maybe. Just a speculation at this point." Recorded as a low-maturity working hypothesis, not adopted. Would promote toward a rule only after being tested on real runs (the forecast's misses and false alarms in hinge-prediction; whether it helps or exerts mean-bias). Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-26T16-54-59Z-the-humans-role.md` (the modes), and `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (discovery method).
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Speculation, early. The user's words: "Predicting the gates and then communicating them to the human could be a key to the TDD AI process maybe. Just a speculation at this point." Recorded as a low-maturity working hypothesis, not adopted. Would promote toward a rule only after being tested on real runs (the forecast's misses and false alarms in hinge-prediction; whether it helps or exerts mean-bias). Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-26T16-54-59Z-the-humans-role.md` (the modes), and `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (discovery method).
 
 **Terminology (2026-06-26):** plain terms replace two imported jargon words. **mean-bias** (not "anchoring") — the forecast biasing the human toward the AI's mean-drawn answer, dragging the above-the-mean element down toward the mean; names the direction (the harm) and composes with the existing "mean" vocabulary, and isolates the *harmful* kind of bias from benign bias toward an above-the-mean answer. **miss / false alarm** (not "recall / precision") — a **miss** is failing to flag a real hinge (expensive, invisible); a **false alarm** is flagging a mechanical decision (cheap, even useful). "Lean toward flagging" replaces "recall-biased."
 
@@ -122,3 +125,4 @@ Properties the measure needs:
 ## How to test it
 
 A crude version already ran: the Name-feature proposal forecast GATE 1/GATE 2 and the candidate seams up front. Test on that run: did announcing the gates help the human spend attention where it mattered, or did it exert mean-bias toward ratifying? Track, per gate, whether forecasting changed the **ratify-vs-correct** outcome. Over several features, measure the forecast's **misses** and **false alarms** against where interjections actually fired — and, for the confidence measure, run occasional **blind audits** (AI commits privately, human originates free-form, score the match) to get an uncontaminated per-class confidence estimate.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

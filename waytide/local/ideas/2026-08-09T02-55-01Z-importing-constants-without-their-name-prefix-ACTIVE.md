@@ -1,5 +1,8 @@
 # Importing Constants Without Their Name Prefix — Aspiration
 
+- **State:** Active
+- **Tags:** [aspiration]
+
 ## Summary
 
 A module whose inner constants carry a common **name prefix** — `Evt_Schema`, `Evt_Store` —
@@ -120,3 +123,4 @@ what was stated, and nothing yet chooses between them:
 ---
 
 Authored by Scott Bellware on Sat Aug 8 2026 at 7:55:01 PM PT
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

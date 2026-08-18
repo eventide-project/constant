@@ -1,6 +1,9 @@
 # Observation: TDD dialogue digest (running record)
 
-**Status:** Running record, appended to as the TDD design dialogue proceeds (per the auto-record-tdd-dialogue rule). Captures the *flow and reasoning* of the conversation; discrete conclusions live in the linked rules and observations. Not binding.
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** Running record, appended to as the TDD design dialogue proceeds (per the auto-record-tdd-dialogue rule). Captures the *flow and reasoning* of the conversation; discrete conclusions live in the linked rules and observations. Not binding.
 
 This digest preserves why each fork was taken, not just what was decided. Newest entries at the bottom. Detail lives in the discrete files it points to.
 
@@ -222,3 +225,4 @@ Mid-cycle on the namespace-name feature, the human set three rules for what to *
 
 ### Namespace-name feature built via the four-hinge cycle; naming gate; reconciliation
 Ran the full four-hinge cycle on the namespace-name outcome (`build`'s namespace param accepting a name as well as a raw constant). Hinges 1–3 (actuation `build(control_constant_name, control_namespace_name)`, assertion = namespace-equality, controls = top-level namespace with an inner constant) were chosen via the gates; hinge 4 (implementation) had genuine options — the human picked **reuse `build` recursively**: `namespace = build(namespace_name_or_raw_constant).raw_constant`, which handles the name-or-raw-constant polymorphism *and* the error cases for free (terminates because the recursive call's namespace defaults to `Object`, the base case). Param renamed `namespace` → `namespace_name_or_raw_constant`. Consequence: the namespace-name **error cases are green-on-arrival** (the recursion already raises `Constant::Error`), so dropped — the normal path is the only driven outcome. **Naming gate** (closing step): named the five build outcome contexts one at a time via options — value "Is a Constant for the value", name "Is the Constant the name resolves to", undefined "Raises when the name is not defined in the namespace", non_module "Raises when the name resolves to a non-module value", namespace_name "Resolves the namespace given as a name". **Reconciliation** (whole-suite cleanup): fixed the four inline-`Constant.new`-in-assert violations (build/value, build/name, namespace/nested, namespace/top_level) by extracting the expected operand to an explaining variable; standardized the resolved-name var to `control_constant_name`; and adopted the **namespace-variable suffix convention** — raw constant bare (`control_namespace`), name `_name`, `Constant` `_constant` — plus the insight that an extracted expected operand is a **control** (`control_`, not `other_`). Applied across build/ + namespace/ (41 green); the broader Constant-class tests (name/, full_name, equality/) await the same sweep, import_constant left as a separate domain. → rule `…17-11-02Z-namespace-variable-suffix.md`; deferred item deleted.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

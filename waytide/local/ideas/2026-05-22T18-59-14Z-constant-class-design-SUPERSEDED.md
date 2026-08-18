@@ -1,5 +1,8 @@
 # Constant Class — Aspiration
 
+- **State:** Superseded
+- **Tags:** [aspiration]
+
 Date: 2026-05-22
 
 > **Status (2026-07-01): implemented, and evolved past this document.** The
@@ -509,3 +512,4 @@ The following appear in `notes.md` but are deliberately excluded from this incre
   `Constant` instances — it takes and returns **raw Ruby constants**, the way a
   native Ruby `import` would if the language had one. `Import` stays in Ruby's
   own currency (modules/classes), independent of the `Constant` domain object.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT

@@ -1,6 +1,9 @@
 # Observation: name concepts literally — no analogies, no codes, no academic jargon
 
-**Status:** PROMOTED to a binding rule on 2026-06-26 → `agent/rules/terminology/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`. This file is kept as the discovery record (extracted from repeated user correction during the TDD-AI dialogue). Edit the rule, not this file, for the binding statement. Sharpens the lexicon rule's existing solubility criterion.
+- **State:** Open
+- **Tags:** [observation]
+
+**Why this state:** PROMOTED to a binding rule on 2026-06-26 → `agent/rules/terminology/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`. This file is kept as the discovery record (extracted from repeated user correction during the TDD-AI dialogue). Edit the rule, not this file, for the binding statement. Sharpens the lexicon rule's existing solubility criterion.
 
 ## The principle
 
@@ -29,3 +32,4 @@ The terminology is the conveyable output of this work — how it is taught to ot
 ## Caveat
 
 A few established framework terms are coined and slightly non-literal (e.g. **hinge**, **gate**, **cradle**, **mean-bias**). They are kept because they are short handles for ideas defined precisely elsewhere and are in active use — but each should still be the most literal short handle available, and new terms should default to plain description over fresh metaphor.
+Changed by Scott Bellware on Mon Aug 17 2026 at 11:52:07 PM PT
