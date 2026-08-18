@@ -1,5 +1,7 @@
 # Experiment — Import destination defaults to the caller
 
+**Tags:** [experiment]
+
 **State:** Affirmed
 **Upstream branch:** `master`.
 **Experiment branch:** `experiment/import-destination-defaults-to-caller`.

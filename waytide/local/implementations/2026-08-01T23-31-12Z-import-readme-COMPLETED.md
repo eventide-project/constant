@@ -1,5 +1,7 @@
 # Feature — Import README
 
+**Tags:** [feature]
+
 ## Intent
 
 `README.md` documents `Constant::Import` as it stood before three features added to it. It

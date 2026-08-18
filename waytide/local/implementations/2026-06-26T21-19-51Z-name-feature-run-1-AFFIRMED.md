@@ -1,5 +1,7 @@
 # Experiment — Name feature, Run 1 (gate forecasting, "AI-proposes" baseline)
 
+**Tags:** [experiment]
+
 **State:** Affirmed
 **Upstream branch:** `master`.
 **Branch:** `name-experiment-1` (from tag `pre-name-experiment`).

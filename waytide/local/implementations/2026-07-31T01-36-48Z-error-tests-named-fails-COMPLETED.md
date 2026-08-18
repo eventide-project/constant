@@ -1,5 +1,7 @@
 # Feature — Error tests named Fails
 
+**Tags:** [feature]
+
 ## Intent
 
 Every `assert_raises` test in the suite is named `"Is an error"` — all nine. Two binding

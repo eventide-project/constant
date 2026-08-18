@@ -1,5 +1,7 @@
 # Feature — Import literal constants
 
+**Tags:** [feature]
+
 ## Intent
 
 `Constant::Import` copies a **literal constant** — a constant bound to a non-module value,

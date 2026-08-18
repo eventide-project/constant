@@ -1,5 +1,7 @@
 # Feature — Import test vocabulary
 
+**Tags:** [feature]
+
 ## Intent
 
 Conform the `Import` and `Define` test vocabulary in one pass, carrying out two deferred

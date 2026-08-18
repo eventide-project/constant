@@ -1,5 +1,7 @@
 # Feature — Import collision refusal
 
+**Tags:** [feature]
+
 ## Intent
 
 `Constant::Import.()` reads every constant an origin module owns and assigns each one

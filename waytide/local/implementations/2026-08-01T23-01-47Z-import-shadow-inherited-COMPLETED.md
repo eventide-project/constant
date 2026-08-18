@@ -1,5 +1,7 @@
 # Feature — Import shadow_inherited
 
+**Tags:** [feature]
+
 ## Intent
 
 `Constant::Import`'s collision refusal calls `target.const_defined?(import_constant_name,
