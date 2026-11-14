@@ -1,7 +1,7 @@
 # Observation: "whether to interject" is the prior question — and it is a second dial, not the hinge marks
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Working hypothesis, under active discovery. Not a binding rule. Opens a question upstream of the hinge/gate framework: the framework answers *where* the human interjects (hinges) and *how* (deliberation at gates), but presupposes *that* the human interjects. Promote/fold into the human-in-the-loop rule once the gate-policy axis is settled. Companion to `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks) and `2026-06-20T18-55-29Z-settling-the-hinge-marks.md` (soft-spot B / affordability).
 

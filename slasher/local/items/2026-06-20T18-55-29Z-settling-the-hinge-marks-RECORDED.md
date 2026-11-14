@@ -1,7 +1,7 @@
 # Observation: how to settle the marks of a hinge
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Working hypothesis, under active discovery. Not a binding rule. Companion to `agent/observations/2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` — that one defines the marks of a hinge; this one is the method for settling them. Promote to a rule once the marks are settled (and fold the settled marks into `agent/rules/`).
 

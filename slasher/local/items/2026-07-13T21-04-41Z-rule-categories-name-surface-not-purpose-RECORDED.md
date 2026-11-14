@@ -1,7 +1,7 @@
 # Observation: rule categories name the surface a rule acts on, not the purpose it serves — and "mindset" cuts across them
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** PROMOTED to a binding rule on 2026-07-13 → `agent/rules/methodology/2026-07-13T21-22-51Z-rules-install-a-mindset-purpose-over-category.md`. This file is kept as the discovery record (extracted from dialogue while placing the subject-first commit-message rule). Edit the rule, not this file, for the binding statement.
 

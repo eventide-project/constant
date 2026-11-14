@@ -1,7 +1,7 @@
 # Observation: the human's role in AI TDD — source and guarantor of the standard of "good"
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Working hypothesis, under active discovery. Not a binding rule. This reframes the central inquiry: the hinge/gate/deliberation machinery is *instrumentation* (where and when the human acts); it does not name *what the human is for*. This observation proposes the role the machinery serves. Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (the marks), and the human-in-the-loop rule.
 

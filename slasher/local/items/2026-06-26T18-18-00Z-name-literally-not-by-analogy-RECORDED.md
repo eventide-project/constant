@@ -1,7 +1,7 @@
 # Observation: name concepts literally — no analogies, no codes, no academic jargon
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** PROMOTED to a binding rule on 2026-06-26 → `agent/rules/terminology/2026-06-26T19-55-19Z-name-literally-not-by-analogy.md`. This file is kept as the discovery record (extracted from repeated user correction during the TDD-AI dialogue). Edit the rule, not this file, for the binding statement. Sharpens the lexicon rule's existing solubility criterion.
 

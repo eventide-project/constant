@@ -1,7 +1,7 @@
 # Observation: hinges in human-in-the-loop TDD — the marks of a hinge, and how to discover the missing ones
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Working hypothesis, under active discovery. Not a binding rule. Promote to a rule once the set of hinges stabilizes. The candidate hinges below are proposals to be judged, not settled conventions.
 

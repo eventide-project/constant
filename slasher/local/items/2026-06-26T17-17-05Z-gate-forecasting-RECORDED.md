@@ -1,7 +1,7 @@
 # Observation: gate forecasting — the AI predicts and announces the gates ahead of acting
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Speculation, early. The user's words: "Predicting the gates and then communicating them to the human could be a key to the TDD AI process maybe. Just a speculation at this point." Recorded as a low-maturity working hypothesis, not adopted. Would promote toward a rule only after being tested on real runs (the forecast's misses and false alarms in hinge-prediction; whether it helps or exerts mean-bias). Companion to `2026-06-26T16-40-50Z-whether-to-interject.md` (the two dials), `2026-06-26T16-54-59Z-the-humans-role.md` (the modes), and `2026-06-20T18-48-32Z-tdd-hinge-marks-and-discovery.md` (discovery method).
 

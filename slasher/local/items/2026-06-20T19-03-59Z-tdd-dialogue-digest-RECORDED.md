@@ -1,7 +1,7 @@
 # Observation: TDD dialogue digest (running record)
 
-- **State:** Open
-- **Tags:** [observation]
+- **State:** Recorded
+- **Tags:** [note]
 
 **Why this state:** Running record, appended to as the TDD design dialogue proceeds (per the auto-record-tdd-dialogue rule). Captures the *flow and reasoning* of the conversation; discrete conclusions live in the linked rules and observations. Not binding.
 
